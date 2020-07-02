@@ -5,7 +5,9 @@ permalink: /contact/
 author_profile: true
 ---
 
-**Address:**
+
+
+<b>Address</b>:
 
 <address>
   Friedenstraße 1<br/>
@@ -15,4 +17,6 @@ author_profile: true
 
 
 
+
 **Email**: [ernst.yu@hotmail.com](mailto:ernst.yu@hotmail.com)
+
