@@ -3,7 +3,8 @@ title: "Methodology and Decentralised Control of Modularised Changeable Conveyor
 collection: publications
 permalink: /publications/2019IJCIM
 date: 2019-07-02
-venue: 'International Journal of Computer Integrated Manufacturing'
+venue: "International Journal of Computer Integrated Manufacturing"
+citation: "**Boqian Yu**, Nan Xie, Beirong Zheng, Deji Chen."
 ---
 
 [Paper url](https://doi.org/10.1080/0951192X.2019.1636406)

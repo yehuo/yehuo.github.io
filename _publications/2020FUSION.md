@@ -3,7 +3,8 @@ title: "Track-Before-Detect Labeled Multi-Bernoulli Smoothing for Multiple Exten
 collection: publications
 permalink: /publications/2020FUSION
 date: 2020-07-09
-venue: 'IEEE 23rd International Conference on Information Fusion'
+venue: "IEEE 23rd International Conference on Information Fusion"
+citation: "**Boqian Yu**, Egon Ye."
 ---
 
 ## Abstract

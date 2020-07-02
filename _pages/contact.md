@@ -5,10 +5,14 @@ permalink: /contact/
 author_profile: true
 ---
 
-Friedenstraße 1, <br>
-85748 Garching bei München, <br>
-Bayern, Germany
+**Address:**
+
+<address>
+  Friedenstraße 1<br/>
+  85748 Garching bei München<br/>
+  Bayern, Germany
+</address>
 
 
 
-Email: ernst.yu@hotmail.com
+**Email**: [ernst.yu@hotmail.com](mailto:ernst.yu@hotmail.com)
