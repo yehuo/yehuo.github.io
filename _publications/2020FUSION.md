@@ -1,7 +1,7 @@
 ---
 title: "Track-Before-Detect Labeled Multi-Bernoulli Smoothing for Multiple Extended Objects"
 collection: publications
-permalink: /publication/2020FUSION
+permalink: /publications/2020FUSION
 date: 2020-07-09
 venue: 'IEEE 23rd International Conference on Information Fusion'
 ;paperurl: 'https://doi.org/10.1080/0951192X.2019.1636406'

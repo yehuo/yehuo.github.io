@@ -1,8 +1,7 @@
 ---
 title: "Methodology and Decentralised Control of Modularised Changeable Conveyor Logistics System"
 collection: publications
-permalink: /publication/2019IJCIM
-excerpt: 'This paper is about the number 1. The number 2 is left for future work.'
+permalink: /publications/2019IJCIM
 date: 2019-07-02
 venue: "International Journal of Computer Integrated Manufacturing"
 paperurl: "https://doi.org/10.1080/0951192X.2019.1636406"
