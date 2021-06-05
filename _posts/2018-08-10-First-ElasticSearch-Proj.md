@@ -1,6 +1,13 @@
 ## 手把手教你如何从零开始开发一个全文检索网站
 
-[toc]
+<ul>  
+	{% for post in site.posts %}   
+    <li>      
+    	<a href="{{ post.url }}">{{ post.title }}</a>     
+        <p>{{ post.excerpt }}</p>    
+    </li>  
+    {% endfor %} 
+</ul>
 
 ### 0x00 源起
 
