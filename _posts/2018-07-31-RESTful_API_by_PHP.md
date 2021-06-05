@@ -1,4 +1,16 @@
+---
+title: '在PHP中设计RESTful API'
+date: 2018-07-31
+published: false
+categories: Tech,Web
+tags: PHP
+---
+
+
+
 ```php
+
+
 <?php
     $data=array("name"=>"Hagrid","age"=>"36");
     $data_string=json_decode($data);
