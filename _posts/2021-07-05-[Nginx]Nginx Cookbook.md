@@ -1,3 +1,14 @@
+---
+title: "Nginx Cookbook Chapter 01-03 笔记"
+date: 2021-07-05
+excerpt: "Nginx Cookbook笔记"
+toc: true
+toc_label: "Content"
+toc_icon: "cog"
+categories: Tech,System,Web,Notes
+tags: Nginx
+---
+
 # Nginx Cookbook【CH01-CH03】
 
 ## 1 High-Performance Load Balancing

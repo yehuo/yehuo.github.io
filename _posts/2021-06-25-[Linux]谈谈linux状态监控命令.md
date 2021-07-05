@@ -1,7 +1,8 @@
 ---
 title: 谈谈Linux状态监控命令
 date: 2021-06-25
-categories: Tech,Linux
+excerpt: "从磁盘、内存、CPU角度谈谈Linux常用监控命令"
+categories: Tech,System
 tags: Linux
 ---
 

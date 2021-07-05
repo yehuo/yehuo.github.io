@@ -1,6 +1,7 @@
 ---
 title: Python装饰器
 date: 2021-06-22
+excerpt: ""
 categories: Tech
 tags: Python,decorator
 ---
@@ -68,26 +69,32 @@ def f():
 
 ## 内置装饰器
 
-- @property用于类中的函数，使函数可以被当作类的一个属性来使用，并获取函数返回值。
+### @property
 
-	```python
-	class XiaoMing:
-	    first_name = 'Ming'
-	    last_name = 'Little'
-	
-	    @property
-	    def full_name(self):
-	        return self.last_name + self.first_name
-	
-	xiaoming = XiaoMing()
-	print(xiaoming.full_name)
-	```
+用于类中的函数，使函数可以被当作类的一个属性来使用，并获取函数返回值。
 
-	
+```python
+class XiaoMing:
+    first_name = 'Ming'
+    last_name = 'Little'
 
-- @staticmethod静态方法，不需要传入self和cls参数，可以直接使用。在不需要用到与类相关的属性和方法时，就可以用静态方法。
+    @property
+    def full_name(self):
+        return self.last_name + self.first_name
 
-- @classmethod类方法，不需要传入self参数，但是第一个参数需要为cls。**需要用到与类相关的属性或方法，然后又想表明这个方法是整个类通用的**，而**不是对象特异的**。
+xiaoming = XiaoMing()
+print(xiaoming.full_name)
+```
+
+
+
+### @staticmethod
+
+静态方法，不需要传入self和cls参数，可以直接使用。在不需要用到与类相关的属性和方法时，就可以用静态方法。
+
+### @classmethod
+
+类方法，不需要传入self参数，但是第一个参数需要为cls。**需要用到与类相关的属性或方法，然后又想表明这个方法是整个类通用的**，而**不是对象特异的**。
 
 ## wraps装饰器
 
