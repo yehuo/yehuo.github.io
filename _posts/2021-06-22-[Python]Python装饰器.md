@@ -2,8 +2,8 @@
 title: Python装饰器
 date: 2021-06-22
 excerpt: ""
-categories: Tech
-tags: Python,Decorator
+categories: Blog
+tags: [Python, Decorator]
 ---
 
 # Python装饰器

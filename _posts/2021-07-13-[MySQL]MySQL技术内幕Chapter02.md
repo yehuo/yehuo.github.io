@@ -3,10 +3,8 @@ title: MySQL技术内幕 InnoDB存储引擎【Chapter02】
 date: 2021-07-13
 excerpt: "InnoDB的存储引擎系统，关于线程、内存、Checkpoint、Master Thread的实现细节，以及InnoDB五项特性"
 categories: Notes
-tags: InnoDB,MySQL,Database
+tags: [InnoDB, MySQL, Database]
 ---
-
-# MySQL技术内幕 InnoDB存储引擎【Chapter02】
 
 ### 2.3 InnoDB架构体系
 

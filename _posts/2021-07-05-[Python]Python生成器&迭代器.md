@@ -2,13 +2,9 @@
 title: Python生成器 & 迭代器
 date: 2021-07-05
 excerpt: "Generator & Iterator"
-categories: [Tech]
-tags: [Python,Generator,Iterator]
+categories: Blog
+tags: [Python, Generator, Iterator]
 ---
-
-
-
-# Python生成器&迭代器
 
 ## 生成器 Generator
 

@@ -6,8 +6,6 @@ categories: Notes
 tags: MySQL
 ---
 
-# MySQL基础笔记
-
 - [B站狂神说JAVA系列](https://www.bilibili.com/video/BV1NJ411J79W)，评论区有原始代码可供参考
 - [视频原始官网](www.kuangstudy.com)，有一些用户笔记可供参考
 

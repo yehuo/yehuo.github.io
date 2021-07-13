@@ -1,14 +1,10 @@
 ---
 title: MySQL进阶笔记
 date: 2021-07-12
-excerpt: "关于InnoDB中事务与锁的实现方案的初步内容"
+excerpt: "关于InnoDB中事务与锁的实现方案的初步学习"
 categories: Notes
 tags: MySQL
 ---
-
-
-
-# MySQL进阶笔记
 
 ## 1 事务
 
@@ -37,13 +33,13 @@ tags: MySQL
 
 `undo log`和`redo log`并不是直接写到磁盘上的，而是先写入`log buffer`。再等待合适的时机同步到`OS buffer`，再由操作系统决定何时刷到磁盘，具体过程如下：
 
-![logbuffer](logbuffer.PNG)
+![logbuffer](\images\logbuffer.PNG)
 
 `undo log`和`redo log`都是从`log buffer` 到 `OS buffer`，再到磁盘。所以中途还是有可能因为断电/硬件故障等原因导致日志丢失。为此MySQL提供了三种持久化方式：
 
 这里有一个参数`innodb_flush_log_at_trx_commit`，这个参数主要控制`InnoDB`将`log buffer`中的数据写入`OS buffer`，并刷到磁盘的时间点，取值分别为0，1，2，默认是1。如下图所示：
 
-![innodbflushlog](innodbflushlog.PNG)
+![innodbflushlog](\images\innodbflushlog.PNG)
 
 #### crash recovery
 
@@ -238,7 +234,6 @@ DoubleWrite缓存是位于系统表空间的存储区域，用来缓存InnoDB的
 SQL语句执行顺序：
 
 > FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT 
->
 
 
 

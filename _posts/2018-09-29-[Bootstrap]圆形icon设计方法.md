@@ -1,12 +1,12 @@
 ---
-title: Bootstrap笔记——圆形icon设计方法
+title: 【Bootstrap笔记】圆形icon设计方法
 date: 2018-09-29
 excerpt: ""
 toc: true
 toc_label: "Content"
 toc_icon: "cog"
-categories: Tech,Web
-tags: Frontend,Bootstrap
+categories: Notes
+tags: [Frontend, Bootstrap]
 ---
 
 

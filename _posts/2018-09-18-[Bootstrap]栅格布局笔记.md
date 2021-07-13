@@ -1,15 +1,10 @@
 ---
-title: Bootstrap笔记——栅格布局
+title: 【Bootstrap笔记】栅格布局
 date: 2018-09-18
-excerpt: ""
-toc: true
-toc_label: "Content"
-toc_icon: "cog"
-categories: Tech,Web
-tags: Frontend,Bootstrap
+excerpt: "Bootstrap v4.0 栅格布局相关的学习"
+categories: Notes
+tags: Frontend, Bootstrap
 ---
-
-# Bootstrap笔记（栅格布局）
 
 内容来自Bootstrap v4中文[官方手册](https://v4.bootcss.com/docs/getting-started/introduction/)，适配于v4.6版本的Bootstrap库。
 

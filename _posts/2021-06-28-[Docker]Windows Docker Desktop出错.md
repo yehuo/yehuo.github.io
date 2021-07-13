@@ -1,12 +1,10 @@
 ---
-title: Windows Docker Desktop出错
+title: Windows Docker Desktop启动出错问题
 date: 2021-06-28
 excerpt: "关于Windows下Docker Desktop后台运行出错的一点经验积累"
-categories: Tech,System
-tags: Docker,Windows
+categories: Blog
+tags: [Docker, Windows]
 ---
-
-# Windows Docker Desktop出错
 
 出错现象：打开软件时报错弹窗
 

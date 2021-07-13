@@ -1,15 +1,13 @@
 ---
-title: "Nginx Cookbook Chapter 01-03 笔记"
+title: "Nginx Cookbook【Chapter 01-03】"
 date: 2021-07-05
-excerpt: "Nginx Cookbook笔记"
+excerpt: "关于HTTP\TCP两类负载均衡，会话保持，健康状态检测的Nginx Cookbook笔记"
 toc: true
 toc_label: "Content"
 toc_icon: "cog"
-categories: Tech,System,Web,Notes
+categories: Notes
 tags: Nginx
 ---
-
-# Nginx Cookbook【CH01-CH03】
 
 ## 1 High-Performance Load Balancing
 

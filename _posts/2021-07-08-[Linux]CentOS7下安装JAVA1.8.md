@@ -2,8 +2,8 @@
 title: CentOS7下安装Java1.8
 date: 2021-07-08
 excerpt: ""
-categories: [Tech,Linux]
-tags: [Java,CentOS]
+categories: Blog
+tags: [Java, CentOS, Linux]
 ---
 
 # CentOS7下安装Java1.8
