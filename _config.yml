@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Shujia Xu"
 title_separator          : "-"
 name                     : &name "Shujia Xu"
-description              : &description "Graduated from Beijing Institute of Technology"
+description              : &description "Backend Engineer at National Computer Science Center"
 url                      : https://yehuo.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "yehuo/yehuo.github.io"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Shujia Xu's Blog"
   avatar           : "profile.png"
-  bio              : "Graduated from Beijing Institute of Technology,master at Software Engineering"
+  bio              : "Graduated from Beijing Institute of Technology, master at Software Engineering"
   location         : "Beijing, China"
   employer         :
   googlescholar    :
