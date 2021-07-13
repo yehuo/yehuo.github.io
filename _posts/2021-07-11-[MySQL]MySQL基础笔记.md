@@ -160,7 +160,7 @@ SELECT @@auto_increament_increment	-- 查询自增步长：变量
 
 - [七种join理论](https://blog.csdn.net/Assassinhanc/article/details/92678759)
 
-![7join](7join.png)
+![7join](/images/7join.png)
 
 - 自联结查询
 
@@ -277,9 +277,12 @@ SET AUTOCOMMIT=1;
 
 ### 7.2 数据结构及算法原理
 
-#### MySQL运行过程监控
+#### MySQL分析诊断工具学习
 
-##### 利用Explain分析查询过程
+- 利用Explain语句分析查询过程
+- 利用`PERFORMANCE_SCHEMA`表和`profiles`监控数据库运行状态
+
+#### 利用Explain分析查询过程
 
 - 参考资料(https://blog.csdn.net/jiadajing267/article/details/81269067)
 
@@ -315,15 +318,40 @@ SET AUTOCOMMIT=1;
 	- `key`：显示MySQL实际决定使用的键(索引)。如果没有选择索引,键是NULL。查询中如果使用覆盖索引，则该索引和查询的select字段重叠。
 	- `rows`：根据表统计信息以及索引选用情况，大致估算出找到所需的记录所需要读取的行数
 
-##### 利用`PERFORMANCE_SCHEMA`和`profiles`监控数据库运行状态
+#### 利用`PERFORMANCE_SCHEMA`和`profile`监控数据库运行状态
 
-#### [数据结构分析](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)
+- `PERFORMANCE_SCHEMA`表的查看方式
+	- [MySQL 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/innodb-information-schema.html)
+	- [使用方法](https://www.cnblogs.com/duanxz/p/3757511.html)
+
+- 使用`SHOW PROFILE`查看单条SQL语句的开销，参考[《使用show profiles分析SQL性能》](https://www.cnblogs.com/duanxz/archive/2013/01/23/2872537.html)
+
+	这种方式将从MySQL 5.6.7开始被移除，了解即可。通过这种方式，可以查看单条SQL语句执行的块IO相关开销、CPU相关开销、内存相关开销等几类开销。
+
+	```sql
+	--  查看profile功能是否开启
+	SHOW VARIABLES LIKE "%pro%";
+	-- 开启profile功能
+	SET profiling=1;
+	-- 查看profile参考
+	HELP PROFILE;  
+	-- 查看近期执行的语句
+	SHOW PROFILES;
+	-- 查看其中某一条的执行开销
+	SHOW PROFILE FOR QUERY query_id;
+	-- 查看Query 2的CPU开销
+	SHOW PROFILE cpu FOR QUERY 2
+	```
+
+#### 索引数据结构分析
+
+主要内容来源是一篇很精细的Blog[《MySQL索引背后的数据结构及算法原理》](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)，建议一次读完
 
 索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数。
 
 ##### B-Tree
 
-![B-Tree](B-Tree.png)
+![B-Tree](/images/B-Tree.png)
 
 - B-树特性（d为度，h为高度）
 	- 每个非叶子节点由n-1个key和n个指针组成，其中d<=n<=2d
@@ -334,7 +362,7 @@ SET AUTOCOMMIT=1;
 
 ##### B+Tree
 
-![B+Tree](B+Tree.png)
+![B+Tree](/images/B+Tree.png)
 
 - B+树特性
 	- 每个节点的指针上限为2d而不是2d+1。
@@ -345,7 +373,7 @@ B+Tree中叶节点和内节点一般大小不同。这点与B-Tree不同，虽�
 
 B+Tree基础上，为相邻叶子节点添加指针，即可增加区间查询效率。
 
-![B+Plu](B+Plu.png)
+![B+Plu](/images/B+Plu.png)
 
 ##### B-Tree数据结构优势（相对于HashTable、BST、AVL、红黑树）
 
@@ -401,7 +429,7 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 
 	第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引
 
-	![InnoDB_B+Tree](InnoDB_B+Tree.png)
+	![InnoDB_B+Tree](/images/InnoDB_B+Tree.png)
 
 	因而，InnoDB中辅助索引搜索需要检索两遍索引（此时即为InnoDB的非聚簇索引）：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录，这种两次查找的现象，也称作 **回表**。
 
