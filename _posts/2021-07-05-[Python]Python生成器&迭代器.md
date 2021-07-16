@@ -39,11 +39,14 @@ def fib(max):
 
 - next方法
 
-	当使用`()`语法编写的生成器生成最后一个元素后，再次调用next方法会产生`StopIteration`错误。使用`yield`编写的生成器，当执行到`return`语句时，一样会产生`StopIteration`错误，并退出。
+  当使用`()`语法编写的生成器生成最后一个元素后，再次调用next方法会产生`StopIteration`错误。使用`yield`编写的生成器，当执行到`return`语句时，一样会产生`StopIteration`错误，并退出。
 
-	```Python
-	next(g)
-	```
+  ```Python
+  f= fib(5)
+  for i in range(6):
+      x=next(f)
+      print(x)
+  ```
 
 - for循环调用
 
@@ -73,5 +76,5 @@ isinstance([], Iterable)
 
 生成器都是`Iterator`对象，但`list`、`dict`、`str`虽然是`Iterable`，却不是`Iterator`。把`list`、`dict`、`str`等`Iterable`变成`Iterator`可以使用`iter()`函数。
 
-Python的`Iterator`对象表示的是一个数据流，Iterator对象可以被`next()`函数调用并不断返回下一个数据，直到没有数据时抛出`StopIteration`错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过`next()`函数实现按需计算下一个数据，所以`Iterator`的计算是惰性的，只有在需要返回下一个数据时它才会计算。`Iterator`甚至可以表示一个无限大的数据流，例如全体自然数。而使用list是永远不可能存储全体自然数的。
+Python的`Iterator`对象表示的是一个数据流，`Iterator`对象可以被`next()`函数调用并不断返回下一个数据，直到没有数据时抛出`StopIteration`错误。可以把这个数据流看做是一个有序序列，但我们却不能提前知道序列的长度，只能不断通过`next()`函数实现按需计算下一个数据，所以`Iterator`的计算是惰性的，只有在需要返回下一个数据时它才会计算。`Iterator`甚至可以表示一个无限大的数据流，例如全体自然数。而使用list是永远不可能存储全体自然数的。
 
