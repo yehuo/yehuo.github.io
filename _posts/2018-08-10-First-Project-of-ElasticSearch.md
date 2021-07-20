@@ -1,14 +1,12 @@
 ---
 title: "从零开始设计一个全文检索系统"
 date: 2018-08-10
-excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
 toc: true
 toc_label: "Content"
 toc_icon: "cog"
 categories: Experience
-tags: Elasticsearch, PHP
----
-
+tags: [Elasticsearch, PHP]
+excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
 
 ### 0x00 源起
 

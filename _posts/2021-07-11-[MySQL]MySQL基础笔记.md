@@ -379,7 +379,7 @@ B+Tree基础上，为相邻叶子节点添加指针，即可增加区间查询�
 
 	- HashTable：hash碰撞问题，和数据无序问题导致不支持范围查找。memory引擎支持了hash索引，InnoDB支持`Adaptive Hash Index`，参见[InnoDB四大特性](https://www.cnblogs.com/zhs0/p/10528520.html)
 
-	- BT | BST | AVL | 红黑树：都是二叉树，所以树高较高，查询复杂度较高；范围查询时，会出现自旋问题；BT | BST 二者不平衡，性能不均衡；BT 无序，同HashTable。
+	- BT \| BST \| AVL \| 红黑树：都是二叉树，所以树高较高，查询复杂度较高；范围查询时，会出现自旋问题；BT \| BST 二者不平衡，性能不均衡；BT 无序，同HashTable。
 
 		| Name                    | CN Name    |
 		| ----------------------- | ---------- |
