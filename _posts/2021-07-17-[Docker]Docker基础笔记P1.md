@@ -84,17 +84,16 @@ tags: Docker
 		http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 	# 更新软件包索引
 	yum makecache fast
-	
 	```
-
+	
 	> To install a *specific version* of Docker Engine, list the available versions in the repo, then select and install
-
+	
 	```shell
 	yum list docker-ce --showduplicates | sort -r
 	yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io
 	systemctl start docker
 	```
-
+	
 4. 安装docker
 
 	```shell
@@ -155,6 +154,8 @@ Docker是CS结构的系统，Docker服务以守护进程形式一直运行在主
 
 ## Docker常用命令
 
+关于Commandline的官方文档可以查看[Docker Reference](https://docs.docker.com/engine/reference/commandline/)
+
 ### 帮助命令
 
 ```shell
@@ -162,8 +163,6 @@ docker version
 docker info
 docker [command] -help
 ```
-
-Docker Reference（https://docs.docker.com/engine/reference/commandline/）
 
 ### 镜像命令
 
@@ -203,11 +202,10 @@ docker pull ubuntu\
 
 #### PULL命令结果内容分析
 
-![](docker1-5.PNG)
+![](\images\docker1-5.PNG)
 
 - 默认使用latest版本
 - 后面的一系列Pull complete使用了分层下载概念，多个镜像之间的层可以共用
-- Digest:
 
 #### 删除镜像命令
 
@@ -222,7 +220,7 @@ docker rmi -f $(docker images -aq)	# 删除所有镜像
 
 ### 容器命令
 
-容器运行命令`docker run `，对应[文档](https://docs.docker.com/engine/reference/commandline/run/)
+容器运行命令`docker run `，对应[Docker Run Reference](https://docs.docker.com/engine/reference/commandline/run/)
 
 ```shell
 # 以centos为例
@@ -314,214 +312,14 @@ docker inspect --format=\	# 查看容器IP
 
 > By default, `docker inspect` will render results in a JSON array. For example uses of this command, refer to the [examples section](https://docs.docker.com/engine/reference/commandline/inspect/#examples) below.
 
-```json
-[
-    {
-        "Id": "a2f539b42c884157976dab81a21862b715a30a24d1e84b5cefc3a52d17aef031",
-        "Created": "2021-07-17T16:41:12.338220626Z",
-        "Path": "/bin/bash",
-        "Args": [],
-        "State": {
-            "Status": "exited",
-            "Running": false,
-            "Paused": false,
-            "Restarting": false,
-            "OOMKilled": false,
-            "Dead": false,
-            "Pid": 0,
-            "ExitCode": 0,
-            "Error": "",
-            "StartedAt": "2021-07-17T16:41:12.601691832Z",
-            "FinishedAt": "2021-07-17T16:41:12.601217796Z"
-        },
-        "Image": "sha256:300e315adb2f96afe5f0b2780b87f28ae95231fe3bdd1e16b9ba606307728f55",
-        "ResolvConfPath": "/var/lib/docker/containers/a2f539b42c884157976dab81a21862b715a30a24d1e84b5cefc3a52d17aef031/resolv.conf",
-        "HostnamePath": "/var/lib/docker/containers/a2f539b42c884157976dab81a21862b715a30a24d1e84b5cefc3a52d17aef031/hostname",
-        "HostsPath": "/var/lib/docker/containers/a2f539b42c884157976dab81a21862b715a30a24d1e84b5cefc3a52d17aef031/hosts",
-        "LogPath": "/var/lib/docker/containers/a2f539b42c884157976dab81a21862b715a30a24d1e84b5cefc3a52d17aef031/a2f539b42c884157976dab81a21862b715a30a24d1e84b5cefc3a52d17aef031-json.log",
-        "Name": "/loving_panini",
-        "RestartCount": 0,
-        "Driver": "overlay2",
-        "Platform": "linux",
-        "MountLabel": "",
-        "ProcessLabel": "",
-        "AppArmorProfile": "",
-        "ExecIDs": null,
-        "HostConfig": {
-            "Binds": null,
-            "ContainerIDFile": "",
-            "LogConfig": {
-                "Type": "json-file",
-                "Config": {}
-            },
-            "NetworkMode": "default",
-            "PortBindings": {},
-            "RestartPolicy": {
-                "Name": "no",
-                "MaximumRetryCount": 0
-            },
-            "AutoRemove": false,
-            "VolumeDriver": "",
-            "VolumesFrom": null,
-            "CapAdd": null,
-            "CapDrop": null,
-            "CgroupnsMode": "host",
-            "Dns": [],
-            "DnsOptions": [],
-            "DnsSearch": [],
-            "ExtraHosts": null,
-            "GroupAdd": null,
-            "IpcMode": "private",
-            "Cgroup": "",
-            "Links": null,
-            "OomScoreAdj": 0,
-            "PidMode": "",
-            "Privileged": false,
-            "PublishAllPorts": false,
-            "ReadonlyRootfs": false,
-            "SecurityOpt": null,
-            "UTSMode": "",
-            "UsernsMode": "",
-            "ShmSize": 67108864,
-            "Runtime": "runc",
-            "ConsoleSize": [
-                0,
-                0
-            ],
-            "Isolation": "",
-            "CpuShares": 0,
-            "Memory": 0,
-            "NanoCpus": 0,
-            "CgroupParent": "",
-            "BlkioWeight": 0,
-            "BlkioWeightDevice": [],
-            "BlkioDeviceReadBps": null,
-            "BlkioDeviceWriteBps": null,
-            "BlkioDeviceReadIOps": null,
-            "BlkioDeviceWriteIOps": null,
-            "CpuPeriod": 0,
-            "CpuQuota": 0,
-            "CpuRealtimePeriod": 0,
-            "CpuRealtimeRuntime": 0,
-            "CpusetCpus": "",
-            "CpusetMems": "",
-            "Devices": [],
-            "DeviceCgroupRules": null,
-            "DeviceRequests": null,
-            "KernelMemory": 0,
-            "KernelMemoryTCP": 0,
-            "MemoryReservation": 0,
-            "MemorySwap": 0,
-            "MemorySwappiness": null,
-            "OomKillDisable": false,
-            "PidsLimit": null,
-            "Ulimits": null,
-            "CpuCount": 0,
-            "CpuPercent": 0,
-            "IOMaximumIOps": 0,
-            "IOMaximumBandwidth": 0,
-            "MaskedPaths": [
-                "/proc/asound",
-                "/proc/acpi",
-                "/proc/kcore",
-                "/proc/keys",
-                "/proc/latency_stats",
-                "/proc/timer_list",
-                "/proc/timer_stats",
-                "/proc/sched_debug",
-                "/proc/scsi",
-                "/sys/firmware"
-            ],
-            "ReadonlyPaths": [
-                "/proc/bus",
-                "/proc/fs",
-                "/proc/irq",
-                "/proc/sys",
-                "/proc/sysrq-trigger"
-            ]
-        },
-        "GraphDriver": {
-            "Data": {
-                "LowerDir": "/var/lib/docker/overlay2/d57b5708104963477c9f9e44e9257760f876e3ee6f049dc078a4c0ce7a2649a7-init/diff:/var/lib/docker/overlay2/48378d4f50d7ab1909902d63809f026de48abe6182d2381c110fbba9e8f601d0/diff",
-                "MergedDir": "/var/lib/docker/overlay2/d57b5708104963477c9f9e44e9257760f876e3ee6f049dc078a4c0ce7a2649a7/merged",
-                "UpperDir": "/var/lib/docker/overlay2/d57b5708104963477c9f9e44e9257760f876e3ee6f049dc078a4c0ce7a2649a7/diff",
-                "WorkDir": "/var/lib/docker/overlay2/d57b5708104963477c9f9e44e9257760f876e3ee6f049dc078a4c0ce7a2649a7/work"
-            },
-            "Name": "overlay2"
-        },
-        "Mounts": [],
-        "Config": {
-            "Hostname": "a2f539b42c88",
-            "Domainname": "",
-            "User": "",
-            "AttachStdin": false,
-            "AttachStdout": false,
-            "AttachStderr": false,
-            "Tty": false,
-            "OpenStdin": false,
-            "StdinOnce": false,
-            "Env": [
-                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-            ],
-            "Cmd": [
-                "/bin/bash"
-            ],
-            "Image": "centos",
-            "Volumes": null,
-            "WorkingDir": "",
-            "Entrypoint": null,
-            "OnBuild": null,
-            "Labels": {
-                "org.label-schema.build-date": "20201204",
-                "org.label-schema.license": "GPLv2",
-                "org.label-schema.name": "CentOS Base Image",
-                "org.label-schema.schema-version": "1.0",
-                "org.label-schema.vendor": "CentOS"
-            }
-        },
-        "NetworkSettings": {
-            "Bridge": "",
-            "SandboxID": "d7bdcea0fe86365377d0353f7179b85006e5e98202a2f04ab38d20de663fe9f6",
-            "HairpinMode": false,
-            "LinkLocalIPv6Address": "",
-            "LinkLocalIPv6PrefixLen": 0,
-            "Ports": {},
-            "SandboxKey": "/var/run/docker/netns/d7bdcea0fe86",
-            "SecondaryIPAddresses": null,
-            "SecondaryIPv6Addresses": null,
-            "EndpointID": "",
-            "Gateway": "",
-            "GlobalIPv6Address": "",
-            "GlobalIPv6PrefixLen": 0,
-            "IPAddress": "",
-            "IPPrefixLen": 0,
-            "IPv6Gateway": "",
-            "MacAddress": "",
-            "Networks": {
-                "bridge": {
-                    "IPAMConfig": null,
-                    "Links": null,
-                    "Aliases": null,
-                    "NetworkID": "f176cf84d3f3b2ffc0b16a2177c53d75794923433d9a1e0d92408347aedfb2e5",
-                    "EndpointID": "",
-                    "Gateway": "",
-                    "IPAddress": "",
-                    "IPPrefixLen": 0,
-                    "IPv6Gateway": "",
-                    "GlobalIPv6Address": "",
-                    "GlobalIPv6PrefixLen": 0,
-                    "MacAddress": "",
-                    "DriverOpts": null
-                }
-            }
-        }
-    }
-]
-```
-
 #### 进入容器命令
 
-进入容器的[四种命令](https://www.cnblogs.com/xhyan/p/6593075.html)
+进入容器的常用方式，可以参考[Docker容器进入的4种方式](https://www.cnblogs.com/xhyan/p/6593075.html)
+
+- 使用docker attach
+- 使用SSH
+- 使用nsenter
+- 使用exec
 
 ```shell
 # 进入容器后开启新的终端，可以直接操作
