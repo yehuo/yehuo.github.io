@@ -526,39 +526,89 @@ docker exec -it tomcat01 ping tomcat-net-01
 
 ### 部署redis集群
 
-1. 集群架构
+1. 集群架构并构建Redis网络
 
-	三台主服务器：redis-master-(01-03)
+  三台主服务器：redis-master-(01-03)
 
-	三台备用服务器：redis-slave-(01-03)
+  三台备用服务器：redis-slave-(01-03)
+
+  ```shell
+  docker network create redis --subnet 172.38.0.0/24
+  ```
 
 2. 自动生成
 
-```shell
-for port in $(seq 1 6); \
-do \
-mkdir -p /mydata/redis/node-${port}/conf
-touch /mydata/redis/node-${port}/conf/redis.conf
-cat  EOF /mydata/redis/node-${port}/conf/redis.conf
-port 6379 
-bind 0.0.0.0
-cluster-enabled yes 
-cluster-config-file nodes.conf
-cluster-node-timeout 5000
-cluster-announce-ip 172.38.0.1${port}
-cluster-announce-port 6379
-cluster-announce-bus-port 16379
-appendonly yes
-EOF
-done
-```
+	```shell
+	for port in $(seq 1 6); \
+	do \
+	mkdir -p /mydata/redis/node-${port}/conf
+	touch /mydata/redis/node-${port}/conf/redis.conf
+	cat << EOF >/mydata/redis/node-${port}/conf/redis.conf
+	port 6379 
+	bind 0.0.0.0
+	cluster-enabled yes 
+	cluster-config-file nodes.conf
+	cluster-node-timeout 5000
+	cluster-announce-ip 172.38.0.1${port}
+	cluster-announce-port 6379
+	cluster-announce-bus-port 16379
+	appendonly yes
+	EOF
+	done
+	```
 
 3. 启动服务
 
-```shell
-docker run -p 6371:6379 -p 16371:16379 --name redis-1 \
-    -v /mydata/redis/node-1/data:/data \
-    -v /mydata/redis/node-1/conf/redis.conf:/etc/redis/redis.conf \
-    -d --net redis --ip 172.38.0.11 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
-```
+	```shell
+	for port in $(seq 1 6); \
+	do \
+	docker run -p 637${port}:6379 -p 1637${port}:16379 --name redis-${port} \
+	    -v /mydata/redis/node-${port}/data:/data \
+	    -v /mydata/redis/node-${port}/conf/redis.conf:/etc/redis/redis.conf \
+	    -d --net redis --ip 172.38.0.1${port} redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+	done
+	```
+
+4. 进入节点
+
+	```shell
+	docker exec -it redis-1 /bin/sh
+	```
+
+5. 创建集群
+
+	```shell
+	redis-cli --cluster create \
+		172.38.0.11:6379 \
+		172.38.0.12:6379 \
+		172.38.0.13:6379 \
+		172.38.0.14:6379 \
+		172.38.0.15:6379 \
+		172.38.0.16:6379 \
+		--cluster-replicas 1
+	```
+
+	如有失败，可使用如下命令关闭，并删除所有redis容器
+
+	```shell
+	docker stop `docker ps -a | grep redis | awk '{print $NF}'`
+	docker rm `docker ps -a | grep redis | awk '{print $NF}'`
+	```
+
+6. 查看同步效果
+
+	- 查看Cluster配置
+
+		![docker2-8](\images\docker2-8.png)
+
+		![docker2-9](\images\docker2-9.png)
+
+	- 存入数据并查看存放位置，之后下线存放节点，验证高可用（红色指针位置，在另一个终端下线了Redis-3节点）
+
+		![docker2-10](\images\docker2-10.png)
+
+> 参考资料
+
+- 一份不错的[Docker入门指南](http://www.uml.org.cn/yunjisuan/201509023.asp?artid=16908)
+- Docker配置网络出错：[IPv4 Forwarding is Disabled](https://stackoverflow.com/questions/41453263/docker-networking-disabled-warning-ipv4-forwarding-is-disabled-networking-wil)
 

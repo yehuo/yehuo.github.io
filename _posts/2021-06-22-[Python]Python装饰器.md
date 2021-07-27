@@ -19,11 +19,11 @@ tags: [Python, Decorator]
 ```python
 import time
 def time_calc(func):
-	def wrapper(*args,**kargs):
+    def wrapper(*args,**kargs):
         start_time=time.time()
         f=func(*args,**kargs)
         exec_time=time.time()-start_time
-       	return f
+        return f
     return wrapper
 
 @time_calc
