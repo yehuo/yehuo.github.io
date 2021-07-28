@@ -1,9 +1,7 @@
 ---
 title: "从零开始设计一个全文检索系统"
 date: 2018-08-10
-toc: true
-toc_label: "Content"
-toc_icon: "cog"
+excerpt: "关于一个从0开始设计全文检索网站的故事..."
 categories: Experience
 tags: [Elasticsearch, PHP]
 excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
