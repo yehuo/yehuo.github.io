@@ -86,8 +86,6 @@ xiaoming = XiaoMing()
 print(xiaoming.full_name)
 ```
 
-
-
 ### @staticmethod
 
 静态方法，不需要传入self和cls参数，可以直接使用。在不需要用到与类相关的属性和方法时，就可以用静态方法。

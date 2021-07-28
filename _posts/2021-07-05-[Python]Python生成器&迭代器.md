@@ -41,7 +41,7 @@ def fib(max):
 
   当使用`()`语法编写的生成器生成最后一个元素后，再次调用next方法会产生`StopIteration`错误。使用`yield`编写的生成器，当执行到`return`语句时，一样会产生`StopIteration`错误，并退出。
 
-  ```Python
+  ```python
   f= fib(5)
   for i in range(6):
       x=next(f)
