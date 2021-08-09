@@ -2,16 +2,15 @@
 title: "Nginx Cookbook【Chapter 01-03】"
 date: 2021-07-05
 excerpt: "关于HTTP\TCP两类负载均衡，会话保持，健康状态检测的Nginx Cookbook笔记"
-toc: true
-toc_label: "Content"
-toc_icon: "cog"
 categories: Notes
 tags: Nginx
 ---
 
-## 1 High-Performance Load Balancing
 
-### 1.1. HTTP负载均衡
+
+# 1.高性能负载均衡High-Performance Load Balancing
+
+## 1.1. HTTP负载均衡
 
 ```
 upstream backend { 
@@ -29,7 +28,7 @@ HTTP 模块的 upstream 用于设置被代理的 HTTP 服务器实现负载均�
 
 可选参数能够精细化控制请求分发。它们包括用于负 载均衡算法的 `weight` 参数；判断目标服务器是否可用，及如何判断服务器可用 性的 `max_fails` 指令和 `fail_timeout` 指令。NGINX Plus 版本提供了许多其他 方便的参数，比如**服务器的连接限制、高级DNS解析控制，以及在服务器启动后 缓慢地连接到服务器的能力**。
 
-### 1.2 TCP 负载均衡
+## 1.2.TCP 负载均衡
 
 ```nginx
 stream { 
@@ -49,13 +48,13 @@ stream {
 
 TCP 负载均衡在 stream 模块中配置实现。stream 模块类似于 http 模块。 配置时需要在 server 块中使用 listen 指令配置待监听端口或 IP 加端口。 接着，需要明确配置目标服务，目标服务可以使代理服务或 upstream 指令 所配置的连接池。 TCP 负载均衡实现中的 upstream 指令配置和 HTTP 负载 均衡实现中的 upstream 指令配置相似。TCP 服务器在 server 指令中配置， 格式同样为 **UNIX 套接字、IP地址或 FQDN(Fully Qualified Domain Name: 全限定域名)**；用于精细化控制的 weight 权重参数、最大连接数、DNS 解析器、判断服务是否可用和启用为备选服务的 backup 参数一样能在 TCP 负载均衡中使用。
 
-### 1.3 负载均衡
+## 1.3.负载均衡
 
-#### 轮询负载算法Round robin
+### 轮询负载算法Round Robin
 
 权重算法的核心技术是，依据**访问权重求均值**进行概率统计。轮询作为默认的负载均衡算法，将在没有指定明确的负载均衡指令 的情况下启用。
 
-#### 最少连接数Least connections
+### 最少连接数Least Connections
 
 ```nginx
 upstream backend { 
@@ -65,29 +64,29 @@ upstream backend {
 }
 ```
 
-#### 最短响应时间 Least time
+### 最短响应时间 Least Time
 
-是对最少连接数负载均衡算法的优化实现，因为最少的访问连接并非意味着 更快的响应。该指令的配置名称是 least_time。
+是对最少连接数负载均衡算法的优化实现，因为最少的访问连接并非意味着 更快的响应。该指令的配置名称是 `least_time`。
 
-#### 通用散列算法 Generic hash
+### 通用散列算法 Generic Hash
 
 服务器管理员依据请求或运行时提供的**文本、变量或文本和变量的组合**来生成散列值。通过生成的散列值决定使用哪一台被代理的应用服务器，并 将请求分发给它。
 
-在需要对访问请求进行**负载可控**，或将访问请求负载到 已经有数据缓存的应用服务器的业务场景下，该算法会非常有用。需要注意 的是，**在 upstream 中有应用服务器被加入或删除时，会重新计算散列进行 分发，**因而，该指令提供了一个可选的参数选项来保持散列一致性，减少 因应用服务器变更带来的负载压力。该指令的配置名称是 hash。
+在需要对访问请求进行**负载可控**，或将访问请求负载到 已经有数据缓存的应用服务器的业务场景下，该算法会非常有用。需要注意 的是，**在 upstream 中有应用服务器被加入或删除时，会重新计算散列进行 分发，**因而，该指令提供了一个可选的参数选项来保持散列一致性，减少 因应用服务器变更带来的负载压力。该指令的配置名称是 `hash`。
 
-#### IP散列算法 IP hash
+### IP散列算法 IP Hash
 
-这对需要存储使用会话， 而又没有使用共享内存存储会话的应用服务来说，能够保证同一个客户端 请求，在应用服务可用的情况下，永远被负载到同一台应用服务器上。 该指令同样提供了权重参数选项。该指令的配置名称是 ip_hash。
+这对需要存储使用会话， 而又没有使用共享内存存储会话的应用服务来说，能够保证同一个客户端 请求，在应用服务可用的情况下，永远被负载到同一台应用服务器上。 该指令同样提供了权重参数选项。该指令的配置名称是 `ip_hash`。
 
-## 2 Intelligent Session Persistence
+# 2.会话保持方案Intelligent Session Persistence
 
 This state may be stored locally for a number of reasons; for example, in applications where the data being worked is so large that network overhead is too expensive in performance.
 
 NGINX tracks session persistence in three ways: by creating and tracking its own cookie, detecting when applications prescribe cookies, or routing based on runtime variables.
 
-### 2.1 Sticky Cookie
+## 2.1.Sticky Cookie
 
-##### 工作原理
+### 工作原理
 
 Sticky是Nginx的一个模块，它是基于cookie的一种Nginx的负载均衡解决方案，通过分发和识别cookie，来使同一个客户端的请求落在同一台服务器上，默认标识名为route
 1.客户端首次发起访问请求，Nginx接收后，发现请求头没有cookie，则以轮询方式将请求分发给后端服务器。
@@ -96,7 +95,9 @@ Sticky是Nginx的一个模块，它是基于cookie的一种Nginx的负载均衡�
 4.客户端接收请求，并保存带route的cookie。
 5.当客户端下一次发送请求时，会带上route，Nginx根据接收到的cookie中的route值，转发给对应的后端服务器。
 
-##### 模块内容：[nginx会话保持之sticky模块](https://www.cnblogs.com/tssc/p/7481885.html)
+### 模块内容
+
+参考解释资料：[nginx会话保持之sticky模块](https://www.cnblogs.com/tssc/p/7481885.html)
 
 | 属性                    | 功能                                                         |
 | ----------------------- | ------------------------------------------------------------ |
@@ -109,7 +110,7 @@ Sticky是Nginx的一个模块，它是基于cookie的一种Nginx的负载均衡�
 | [secure]                | 设置启用安全的cookie，需要HTTPS支持                          |
 | [httponly]              | 允许cookie不通过JS泄漏，没用过                               |
 
-##### 模块样本
+### 模块样本
 
 ```nginx
 upstream backend {
@@ -127,7 +128,7 @@ upstream backend {
 
 The cookie in this example is named affinity , is set for example.com, persists an hour, cannot be consumed client-side, can only be sent over HTTPS, and is valid for all paths.
 
-### 2.2 Sticky Learn
+## 2.2.Sticky Learn
 
 如何将downstream的客户端和upstream的服务器通过一个cookie连接，Nginx可以通过sticky learn来自动发现、追踪被upstream创建的cookie名字
 
@@ -144,7 +145,7 @@ upstream backend {
 
 The example instructs NGINX to look for and track sessions by looking for a cookie named COOKIENAME in response headers, and looking up existing sessions by looking for the same cookie on request headers. This session affinity is stored in a shared memory zone of 2 megabytes that can track approximately 16,000 sessions.
 
-### 2.3 Sticky Routing
+## 2.3.Sticky Routing
 
 如果需要颗粒化控制把持久session匹配到upstream的服务器，使用可以将sticky和route同时使用
 
@@ -168,7 +169,7 @@ able with the first map block, and second by looking into the request URI for a 
 
 The sticky directive with the route parameter is passed any number of variables. The first non zero or nonempty value is used for the route. If a jsessionid cookie is used, the request is routed to `backend1` ; if a URI parameter is used, the request is routed to `backend2`.
 
-### 2.4 Connection Draining
+## 2.4.Connection Draining
 
 如果需要在移出某个节点前关闭连接，可以通过如下命令进行
 
@@ -180,15 +181,15 @@ curl 'http://localhost/upstream_conf?upstream=backend&id=1&drain=1'
 - Draining can be configured for a particular server by adding the drain parameter to the server directive.
 - When the drain parameter is set, NGINX Plus will stop sending new sessions to this server but will allow current sessions to continue being served for the length of their session.
 
-## 3 Application-Aware Health Checks
+# 3.健康检测方案Application-Aware Health Checks
 
 这篇文章 「TCP Health Checks」是 NGINX 服务器官网的管理员运维教程([NGINX Docs | TCP Health Checks](https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-health-check/)) ，主要讲解开源版本
 
-### 3.1 检测目标
+## 3.1 检测目标
 
 负载均衡器可以通过获取被负载服务器的响应状态码是否为 200 判断应用服务器进程是否正常。
 
-### 3.2 慢连接
+## 3.2 慢连接
 
 刚刚上线的服务器往往可能会被负载瞬间压垮，Nginx提供一种慢连接方式，让服务器weight值可以从0逐渐上升到与预定值。但是当节点池只有一台服务器时，`slow start`参数是无效的。
 
@@ -200,7 +201,7 @@ upstream backend {
 }
 ```
 
-### 3.3 TCP健康检测
+## 3.3 TCP健康检测
 
 ```nginx
 stream { 
@@ -214,7 +215,7 @@ stream {
 
 上面的配置会对代理池中的服务器进行主动监测。如果被代理服务器未能正常 响应 NGINX 服务器的 3 个以上 TCP 连接请求，则被认为是失效的服务，连续通过两次验证后才会重新上线，NGINX 服务器会每隔 10 秒进行一次健康检测。
 
-### 3.4 HTTP健康监测
+## 3.4 HTTP健康监测
 
 ```nginx
 http {

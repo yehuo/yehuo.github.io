@@ -6,9 +6,11 @@ categories: Notes
 tags: [InnoDB, MySQL, Database]
 ---
 
-### 2.3 InnoDB架构体系
 
-#### 2.3.1 后台进程
+
+# 2.3 InnoDB架构体系
+
+## 2.3.1 后台进程
 
 > Master Thread
 
@@ -39,7 +41,7 @@ SHOW VARIABLES LIKE 'innodb_purge_threads'\G
 
 脏页刷新操作专用线程，从InnoDB 1.2.x开始引入
 
-#### 2.3.2内存
+## 2.3.2内存
 
 > 缓冲池
 
@@ -119,7 +121,7 @@ WHERE OLDEST_MODIFICATION > 0;
 SHOW VARIABLES LIKE 'innodb_log_buffer_size'\G;
 ```
 
-### 2.4 Checkpoint技术
+# 2.4 Checkpoint技术
 
 InnoDB通过日志序列号(Log Sequence Number, LSN)来标记redo日志版本，从而循环使用redo日志，当出现宕机时，数据库恢复若不需要这部分日志，则这部分redo日志姐已经可以被覆盖重用。LSN是一个8字节数字，单位是字节。每个页都有LSN，redo log、Checkpoint也有LSN，可以通过 `SHOW ENGINE INNODB STATUS`中LOG项查看各项LSN。
 
@@ -128,8 +130,8 @@ Checkpoint分为两种
 - sharp checkpoint：关闭数据库时，把所有脏页刷回磁盘
 - fuzzy checkpoint：只刷新部分脏页回磁盘
 
-### 2.5 Master Thread
+# 2.5 Master Thread
 
-### 2.6 InnoDB关键特性
+# 2.6 InnoDB关键特性
 
-### 2.7 启动、关闭与恢复
+# 2.7 启动、关闭与恢复

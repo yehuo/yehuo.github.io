@@ -6,30 +6,32 @@ categories: Notes
 tags: MySQL
 ---
 
-## 1 事务
 
-### 1.1 事务特性
+
+# 1 事务
+
+## 1.1 事务特性
 
 - 原子性 Atomicity：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行
 - 一致性 Consistency：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束
 - 隔离性 Isolation：多个事务并发执行时，一个事务的执行不应影响其他事务的执行
 - 持久性 Durability：已被提交的事务对数据库的修改应该永久保存在数据库中
 
-### 1.2 [特性的实现](https://juejin.cn/post/6945713828470620191)
+## 1.2 [特性的实现](https://juejin.cn/post/6945713828470620191)
 
-#### 原子性与undo log
+### 原子性与undo log
 
 通过`undo log`实现，`undo log`是InnoDB存储引擎特有的。具体的实现机制是：将所有对数据的修改（增、删、改）的反操作都写入`undo log`
 
 `undo log`是逻辑日志的一种，可以理解为：记录和事务操作相反的SQL语句，事务执行insert语句，`undo log`就记录delete语句。它以追加写的方式记录日志，不会覆盖之前的日志。除此之外undo log还用来实现数据库多版本并发控制（Multi Version Concurrency Control，简称MVCC）。
  如果一个事务中的一部分操作已经成功，但另一部分操作，由于断电/系统崩溃/其它的软硬件错误而无法成功执行，则通过回溯日志，将已经执行成功的操作撤销，从而达到全部操作失败的目的。
 
-#### 持久性与redo log
+### 持久性与redo log
 
 持久性是通过`redo log`来实现的。`redo log`也是InnoDB存储引擎特有的。具体实现机制是：当发生数据修改（增、删、改）的时候，InnoDB引擎会先将记录写到`redo log`中，并更新内存，此时更新就算完成了。同时InnoDB引擎会在合适的时机将记录刷到磁盘中。
  `redo log`是物理日志，记录的是在某个数据页做了什么修改，而不是SQL语句的形式。它有固定大小，是循环写的方式记录日志，空间用完后会覆盖之前的日志。
 
-#### redo log 与 undo log 存储机制
+### redo log 与 undo log 存储机制
 
 `undo log`和`redo log`并不是直接写到磁盘上的，而是先写入`log buffer`。再等待合适的时机同步到`OS buffer`，再由操作系统决定何时刷到磁盘，具体过程如下：
 
@@ -41,11 +43,11 @@ tags: MySQL
 
 ![innodbflushlog](\images\innodbflushlog.PNG)
 
-#### crash recovery
+### crash recovery
 
 数据库系统崩溃后重启，此时数据库处于不一致的状态，必须先执行一个`crash recovery`的过程：首先读取`redo log`，把成功提交但是还没来得及写入磁盘的数据重新写入磁盘，保证了持久性。再读取`undo log`将还没有成功提交的事务进行回滚，保证了原子性。`crash recovery`结束后，数据库恢复到一致性状态，可以继续被使用。
 
-#### 隔离性与五类读取故障
+### 隔离性与五类读取故障
 
 - 第一类丢失更新：事务A在撤销的时候，覆盖了事务B已提交的更新数据。
 - 脏读：事务A读到了事务B未提交的更新数据。
@@ -53,7 +55,7 @@ tags: MySQL
 - 不可重复读：事务A读到了事务B已提交的更新数据。
 - 第二类丢失更新：事务A在提交的时候，覆盖了事务B已提交的更新数据。
 
-#### 隔离性与四种隔离级别
+### 隔离性与四种隔离级别
 
 - **Serializable（串行化）** ：事务之间以一种串行的方式执行，安全性非常高，效率低
 - **Repeatable Read（可重复读）** ：是MySQL默认的隔离级别，同一个事务中相同的查询会看到同样的数据行，安全性较高，效率较好
@@ -67,7 +69,7 @@ tags: MySQL
 | Read Committed   | 否                     | 否           | 是           | 是                 | 是                     |
 | Read Uncommitted | 否                     | 是           | 是           | 是                 | 是                     |
 
-#### SELECT 与 Snapshot Read
+### SELECT 与 Snapshot Read
 
 `Repeatable Read`是MySQL默认的隔离级别，也是使用最多的隔离级别，理论上`Repeatable Read`无法解决幻读问题。但是MySQL可以解决。
 
@@ -108,7 +110,7 @@ MVCC是多版本并发控制，快照就是其中的一个版本。所以可以�
 
 由于`undo log`中记录了各个版本的数据，并且通过`DB_ROLL_PTR`可以找到各个历史版本，并且由`DB_TRX_ID`决定使用哪个版本（快照）。所以相当于`undo log`实现了MVCC，MVCC实现了快照读。
 
-#### UPDATE | INSERT | DELETE 与 GAP LOCK
+### UPDATE \| INSERT  \| DELETE 与 GAP LOCK
 
 相比于 SELECT 语句的快照读(snapshot read)， UPDATE | INSERT | DELETE  都是使用当前读(current read)的，为了验证，可以做如下实验：
 
@@ -122,7 +124,7 @@ MVCC是多版本并发控制，快照就是其中的一个版本。所以可以�
 
 事务A此时不仅可以成功更新 UPDATE 事务B插入的新行，最后一次 SELECT 还可以看到更新后新行（此时事务A中已出现幻读）。
 
-#### `Repeatable Read`隔离级别解决幻读问题的方案
+### `Repeatable Read`隔离级别解决幻读问题的方案
 
 `Repeatable Read`是通过`Gap Lock`来解决的。InnoDB是支持行锁的，并且行锁是锁住索引。而`Gap Lock`用来锁定索引记录间隙，确保索引记录的间隙不变。间隙锁是针对事务隔离级别为`Repeatable Read`或以上级别而设的，`Gap Lock`和行锁一起组成了`Next-Key Lock`。
 
@@ -130,7 +132,7 @@ MVCC是多版本并发控制，快照就是其中的一个版本。所以可以�
 
 默认情况下，InnoDB工作在`Repeatable Read`的隔离级别下，并且以`Next-Key Lock`的方式对索引行进行加锁。当查询的索引具有唯一性（主键、唯一索引）时，InnoDB存储引擎会对`Next-Key Lock`进行优化，将其降为行锁，仅仅锁住索引本身，而不是范围（除非锁定不存在的值）。若是普通索引，则会使用`Next-Key Lock`将记录和间隙一起锁定。
 
-#### **Locking Reads**
+### **Locking Reads** 通过读锁实现限定不同隔离级别
 
 If you query data and then insert or update related data within the same transaction, the regular SELECT statement does not give enough protection. Other transactions can update or delete the same rows you just queried. InnoDB supports two types of locking reads that offer extra safety:
 
@@ -142,7 +144,7 @@ Sets a shared mode lock on any rows that are read. Other sessions can read the r
 
 For index records the search encounters, locks the rows and any associated index entries, the same as if you issued an UPDATE statement for those rows. Other transactions are blocked from updating those rows, from doing SELECT ... LOCK IN SHARE MODE, or from reading the data in certain transaction isolation levels. Consistent reads ignore any locks set on the records that exist in the read view. (Old versions of a record cannot be locked; they are reconstructed by applying undo logs on an in-memory copy of the record.)
 
-#### 小结
+### 小结
 
 ```sql
 -- 使用snapshot read的语句
@@ -155,9 +157,9 @@ UPDATE table SET ...
 DELETE table WHERE ...
 ```
 
-### 1.3 做实验需要的知识
+## 1.3 做实验需要的知识
 
-#### InnoDB锁状态监控
+### InnoDB锁状态监控
 
 四种锁状态监控方案参见[博客](https://www.cnblogs.com/wangdong/p/9235249.html)。InnoDB主要提供的四类监控，四类监控都可以用基于表和基于系统参数两种方式开启，但是基于表的开启方式将会被废弃，不在此说明。
 
@@ -179,7 +181,7 @@ set GLOBAL innodb_status_output=ON;
 set GLOBAL innodb_status_output_locks=ON;
 ```
 
-#### 查看系统锁的方法
+### 查看系统锁的方法
 
 - 实验细节参见[B站马士兵教程](https://www.bilibili.com/video/BV1E44y1B77X?p=8)
 - 实验流程参见[CSDN博客](https://blog.csdn.net/byamao1/article/details/81612647)
@@ -189,21 +191,21 @@ SET GLOBAL innodb_status_output_locks=1
 SHOW ENGINE INNODB STATUS\G
 ```
 
-## 2 InnoDB特性
+# 2 InnoDB特性
 
 关于InnoDB四种特性的初步了解参见[CSDN博客](https://www.cnblogs.com/zhs0/p/10528520.html)
 
-### 2.1 插入缓冲 insert buffer
+## 2.1 插入缓冲 insert buffer
 
 插入缓冲（Insert Buffer/Change Buffer）：提升插入性能，change buffering是insert buffer的加强，insert buffer只针对insert有效，change buffering对insert、delete、update(delete+insert)、purge都有效
 
 只对于非聚集索引（非唯一）的插入和更新有效，对于每一次的插入不是写到索引页中，而是先判断插入的非聚集索引页是否在缓冲池中，如果在则直接插入；若不在，则先放到Insert Buffer 中，再按照一定的频率进行合并操作，再写回disk。这样通常能将多个插入合并到一个操作中，目的还是为了减少随机IO带来性能损耗
 
-### 2.2 二次写入 double write
+## 2.2 二次写入 double write
 
 DoubleWrite缓存是位于系统表空间的存储区域，用来缓存InnoDB的数据页从InnoDB buffer pool中flush之后并写入到数据文件之前，所以当操作系统或者数据库进程在数据页写磁盘的过程中崩溃，InnoDB可以在DoubleWrite缓存中找到数据页的备份而用来执行crash恢复。数据页写入到DoubleWrite缓存的动作所需要的IO消耗要小于写入到数据文件的消耗，因为此写入操作会以一次大的连续块的方式写入
 
-### 2.3 自适应哈希索引 adaptive hash index
+## 2.3 自适应哈希索引 adaptive hash index
 
 可以通过`innodb_adaptive_hash_index`参数开启，或通过`skip innodb_adaptive_hash_index`命令关闭。当满足以下条件时，InnoDB会将数据项判断为热点数据，并为之建立Hash索引：
 
@@ -217,9 +219,9 @@ DoubleWrite缓存是位于系统表空间的存储区域，用来缓存InnoDB的
 
 	3.访问模式必须是一样的，`where a = xxx`和`where a = xxx and b = xxx`属于不同的访问模式
 
-### 2.4 预读 read ahead
+## 2.4 预读 read ahead
 
-首先了解MySQL中的数据结构 `extent`和`page`，参见[博客](https://blog.csdn.net/fu_zhongyuan/article/details/90244503)
+首先了解MySQL中的数据结构 `extent（区）`和`page（页）`，参见博客[《MySQL InnoDB 逻辑存储结构》](https://www.cnblogs.com/wilburxu/p/9429014.html)
 
 - 线性预读 linear read-ahead
 
@@ -229,7 +231,7 @@ DoubleWrite缓存是位于系统表空间的存储区域，用来缓存InnoDB的
 
 	当同一个extent中的一些page在buffer pool中被发现时，InnoDB将会该extent中剩余的page一起读入。但是出于这种方法不稳定性的考虑，该方法已经在MySQL5.5中被废弃，可以通过 `innodb_random_read_ahead`来打开随机预读。
 
-## 3 杂项
+# 3 杂项
 
 SQL语句执行顺序：
 

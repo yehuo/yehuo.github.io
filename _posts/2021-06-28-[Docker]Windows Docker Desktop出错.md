@@ -6,18 +6,20 @@ categories: Blog
 tags: [Docker, Windows]
 ---
 
-出错现象：打开软件时报错弹窗
 
-运行命令时报错反馈
+
+### 出错现象
+
+打开软件时报错弹窗，运行命令时报错反馈
 
 > error during connect: Get http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.25/version: open //./pipe/docker_engine: The system cannot find the file
 > specified. In the default daemon configuration on Windows, the docker client must be run elevated to connect. This error may also indicate that the docker daemon is not running.
 
-官方文档
+### 官方文档
 
 In the default daemon configuration on Windows, the docker client must be run elevated to connect
 
-解决方案
+### 解决方案
 
 You can do this in order to switch Docker daemon, as elevated user:
 

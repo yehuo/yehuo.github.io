@@ -1,5 +1,4 @@
 ---
-layout: single
 title: Build RESTful API in PHP 
 date: 2018-07-31
 excerpt: "【转载】如何使用PHP调用API接口（如何POST一个JSON格式的数据给Restful服务）"

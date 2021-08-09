@@ -6,10 +6,12 @@ categories: Notes
 tags: MySQL
 ---
 
+
+
 - [B站狂神说JAVA系列](https://www.bilibili.com/video/BV1NJ411J79W)，评论区有原始代码可供参考
 - [视频原始官网](www.kuangstudy.com)，有一些用户笔记可供参考
 
-## 1 SQL语句
+# 1 SQL语句
 
 SQL语句分类
 
@@ -19,9 +21,9 @@ SQL语句分类
 - TCL（事务控制语言）：commit提交事务，rollback回滚事务(TCL中的T是Transaction)
 - DCL（数据控制语言）: grant授权、revoke撤销权限等
 
-## 2 操作数据库
+# 2 操作数据库
 
-### 2.4 根据已有数据库查看新建数据库代码
+## 2.4 根据已有数据库查看新建数据库代码
 
 ```sql
 SHOW CREATE DATABASE school
@@ -29,7 +31,7 @@ SHOW CREATE TABLE student
 DESC student -- 显示表结构
 ```
 
-### 2.5 数据表类型
+## 2.5 数据表类型
 
 | Function   | MyISAM               | InnoDB        |
 | ---------- | -------------------- | ------------- |
@@ -39,13 +41,13 @@ DESC student -- 显示表结构
 | 全文索引   | 支持                 | 不支持        |
 | 表空间大小 | 较小                 | 较大，约为2倍 |
 
-#### 常规使用操作
+### 常规使用操作
 
 - MyISAM(MySQL 5.1以前默认)：节约空间，速度较快
 
 - InnoDB：安全性高，事务处理，支持多表多用户操作
 
-#### 数据表所在位置
+### 数据表所在位置
 
 所有数据库文件都存在data目录下
 
@@ -77,7 +79,7 @@ DESC student -- 显示表结构
 		CREATE DATABASE shop CHARSET SET utf8 COLLATE utf_8_general_ci
 		```
 
-### 2.6 修改删除表
+## 2.6 修改删除表
 
 注意`MODIFY`和`CHANGE`的区别：
 
@@ -103,9 +105,9 @@ ALTER TABLE teacher1 DROP age1
 DROP TABLE teacher1 IF EXISTS
 ```
 
-## 3 MySQL数据管理
+# 3 MySQL数据管理
 
-### 3.1 外键
+## 3.1 外键
 
 学生表的`gradeid`字段要去引用年级的`gradeid`字段时，定义外键key，给这个外键添加约束（执行引用）
 
@@ -121,7 +123,7 @@ ADD CONSTRAINT `FK_gradeid` FOREIGN KEY(`gradeid`) REFERENCES `grade`(`gradeid`)
 
 以上都是物理外键，为避免数据库级别的外键过多造成困扰，一般不作为业务使用。实际过程中使用多张表的外键，都会用程序去实现。
 
-### 3.5 删除
+## 3.5 删除
 
 delete和truncate区别：
 
@@ -130,9 +132,9 @@ delete和truncate区别：
 	- InnoDB 断电后重新从0开始自增
 	- MYISAM 即使断电后也会继续从上一个自增量开始
 
-## 4 DQL查询
+# 4 DQL查询
 
-### 4.2 查询制定字段
+## 4.2 查询制定字段
 
 表达式官方文档(https://dev.mysql.com/doc/refman/5.7/en/built-in-function-reference.html)
 
@@ -142,7 +144,7 @@ SELECT 100*3-1 AS 计算结果	-- 用于计算：表达式
 SELECT @@auto_increament_increment	-- 查询自增步长：变量
 ```
 
-### 4.3 where
+## 4.3 where
 
 通配符：
 
@@ -154,7 +156,7 @@ SELECT @@auto_increament_increment	-- 查询自增步长：变量
 	SELECT `student` FROM student WHERE student LIKE '刘__'
 	```
 
-### 4.4 联表查询
+## 4.4 联表查询
 
 - [七种join理论](https://blog.csdn.net/Assassinhanc/article/details/92678759)
 
@@ -184,15 +186,15 @@ SELECT @@auto_increament_increment	-- 查询自增步长：变量
 	WHERE a.`categoryid`=b.`pid`
 	```
 
-### 4.5 分页与排序
+## 4.5 分页与排序
 
 ```sql
 LIMIT STARTID, ENDID
 ```
 
-## 5 MySQL函数
+# 5 MySQL函数
 
-### 5.2 聚合函数
+## 5.2 聚合函数
 
 ```sql
 SELECT COUNT(*) FROM student
@@ -202,25 +204,25 @@ SELECT COUNT(`BornDate`) FROM student
 -- 会忽视列中的null值
 ```
 
-### 5.3 数据库级别的MD5加密
+## 5.3 数据库级别的MD5加密
 
 ```sql
 -- 修改已有明文数据库
 UPDATE testmd5 SET pwd=MD5(pwd)
 ```
 
-## 6 事务
+# 6 事务
 
 核心：将一组SQL放在同一个批次执行，要么都成功，要么都失败
 
-### 6.1 ACID原则
+## 6.1 ACID原则
 
 - 原子性 Atomicity：一起成功或者一起失败
 - 一致性 Consistency：【最终一致性】某一属性在操作前后不变，例如转账中，现金总和
 - 隔离性 Isolation：多个用户同时操作，排除其他事务对本事务影响
 - 持久性 Durability：事务结束后的数据不随着外界原因导致数据丢失，事务没有提交，则回复原状。事务一旦提交，就不可逆。
 
-### 6.2 出现的问题
+## 6.2 出现的问题
 
 - 脏读：一个事务读取了另外事务未提交的数据
 - 不可重复读：在一个事务内，同一个数据项，两次读取结果不一致
@@ -241,7 +243,7 @@ ROLLBACK SAVEPOINT savepoint_name	-- 回滚到某个保存点
 RELEASE SAVEPOINT savepoint_name	-- 删除某个保存点
 ```
 
-### 6.3 事务实例
+## 6.3 事务实例
 
 ```sql
 SET AUTOCOMMIT=0;
@@ -253,9 +255,9 @@ ROLLBACK;
 SET AUTOCOMMIT=1;
 ```
 
-## 7 索引
+# 7 索引
 
-### 7.1 索引分类
+## 7.1 索引分类
 
 - 主键索引 PRIMARY KEY
 
@@ -273,14 +275,14 @@ SET AUTOCOMMIT=1;
 	ALTER TABLE school.student ADD FULLTEXT INDEX `studentName`(`studentName`)
 	```
 
-### 7.2 数据结构及算法原理
+## 7.2 数据结构及算法原理
 
-#### MySQL分析诊断工具学习
+### MySQL分析诊断工具学习
 
 - 利用Explain语句分析查询过程
 - 利用`PERFORMANCE_SCHEMA`表和`profiles`监控数据库运行状态
 
-#### 利用Explain分析查询过程
+### 利用Explain分析查询过程
 
 - 参考资料(https://blog.csdn.net/jiadajing267/article/details/81269067)
 
@@ -316,12 +318,13 @@ SET AUTOCOMMIT=1;
 	- `key`：显示MySQL实际决定使用的键(索引)。如果没有选择索引,键是NULL。查询中如果使用覆盖索引，则该索引和查询的select字段重叠。
 	- `rows`：根据表统计信息以及索引选用情况，大致估算出找到所需的记录所需要读取的行数
 
-#### 利用`PERFORMANCE_SCHEMA`和`profile`监控数据库运行状态
+### 数据库运行状态监控
 
 - `PERFORMANCE_SCHEMA`表的查看方式
+	
 	- [MySQL 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/innodb-information-schema.html)
 	- [使用方法](https://www.cnblogs.com/duanxz/p/3757511.html)
-
+	
 - 使用`SHOW PROFILE`查看单条SQL语句的开销，参考[《使用show profiles分析SQL性能》](https://www.cnblogs.com/duanxz/archive/2013/01/23/2872537.html)
 
 	这种方式将从MySQL 5.6.7开始被移除，了解即可。通过这种方式，可以查看单条SQL语句执行的块IO相关开销、CPU相关开销、内存相关开销等几类开销。
@@ -341,13 +344,13 @@ SET AUTOCOMMIT=1;
 	SHOW PROFILE cpu FOR QUERY 2
 	```
 
-#### 索引数据结构分析
+### 索引数据结构分析
 
 主要内容来源是一篇很精细的Blog[《MySQL索引背后的数据结构及算法原理》](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)，建议一次读完
 
 索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数。
 
-##### B-Tree
+#### B-Tree
 
 ![B-Tree](/images/B-Tree.png)
 
@@ -358,7 +361,7 @@ SET AUTOCOMMIT=1;
 	- **key和指针互相间隔，节点两端是指针**
 	- **一个节点中的key从左到右非递减排列**
 
-##### B+Tree
+#### B+Tree
 
 ![B+Tree](/images/B+Tree.png)
 
@@ -373,7 +376,7 @@ B+Tree基础上，为相邻叶子节点添加指针，即可增加区间查询�
 
 ![B+Plu](/images/B+Plu.png)
 
-##### B-Tree数据结构优势（相对于HashTable、BST、AVL、红黑树）
+#### B-Tree数据结构优势（相对于HashTable、BST、AVL、红黑树）
 
 - 其他数据劣势
 
@@ -409,7 +412,7 @@ B+Tree基础上，为相邻叶子节点添加指针，即可增加区间查询�
   
   floor表示向下取整。由于B+Tree内节点去掉了data域，因此可以拥有更大的出度，拥有更好的性能。
 
-#### InnoDB中的B+Tree实现
+### InnoDB中的B+Tree实现
 
 InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同。
 
@@ -441,14 +444,14 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 
 		因为InnoDB数据文件本身是一颗B+Tree，非单调的主键会造成在插入新记录时数据文件为了维持B+Tree的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择
 
-#### 四种索引查询现象
+### 四种索引查询现象
 
 - 回表查询：在搜索`Column A`的索引时，根据匹配到叶子节点，查询到叶子节点中数据的id，然后根据id回到id的B+Tree中再去查找数据，两次查找的过程即为 **回表查询** 。
 - [索引覆盖](https://www.cnblogs.com/myseries/p/11265849.html)【Covering index】：在搜索`Column A`的索引时，根据匹配到叶子节点，查询到叶子节点中数据的id与`Column A`的值，二者刚好满足要查询的内容，此时无需再回到id索引进行查询其他列数据，一次查找的过程即为 **索引覆盖** 。
 - 最左匹配
 - [索引下推](https://zhuanlan.zhihu.com/p/121084592)【Index Condition Pushdown】：当查询中，存在对多个Column限定条件时，ICP条件下，当回表搜索id时，引擎会将多个Column限定条件一同进行判断，仅需一次回表即可完成。非ICP条件下，回表过程，对于每个条件，MySQL都会到id表里进行一次条件查询，每次查询，引擎都会把本次查询结果返回MySQL服务器，而非最终结果，最终会产生多次回表。MySQL5.6版本正式引入ICP，并默认开启。
 
-#### 索引使用策略及优化
+### 索引使用策略及优化
 
 - 优化种类
 	- Scheme optimization 结构优化
@@ -493,7 +496,7 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 
 		此时MySQL不得不为了将新记录插到合适位置而移动数据，甚至目标页面可能已经被回写到磁盘上而从缓存中清掉，此时又要从磁盘上读回来，这增加了很多开销，同时频繁的移动、分页操作造成了大量的碎片，得到了不够紧凑的索引结构，后续不得不通过OPTIMIZE TABLE来重建表并优化填充页面。
 
-### 7.3 插入测试数据（100W）
+## 7.3 插入测试数据（100W）
 
 ```sql
 -- 插入100万数据
@@ -515,9 +518,9 @@ END;
 SELECT mock_data(); -- 执行此函数 生成一百万条数据
 ```
 
-## 8 权限管理和备份
+# 8 权限管理和备份
 
-### 8.1 用户管理
+## 8.1 用户管理
 
 ```sql
 -- 创建用户
@@ -539,7 +542,7 @@ REVOKE ALL PRIVILEGES ON *.* FROM username
 DROP USER username
 ```
 
-### 8.2 数据库备份
+## 8.2 数据库备份
 
 - 物理文件拷贝
 
@@ -561,11 +564,11 @@ DROP USER username
 	mysql -u用户名 -p密码 库名 < 备份文件
 	```
 
-## 9 数据库设计
+# 9 数据库设计
 
 设计流程：分析需求->概要设计（含关系图，ER图）
 
-### 9.2 三大范式
+## 9.2 三大范式
 
 通俗理解(https://www.cnblogs.com/wsg25/p/9615100.html)
 

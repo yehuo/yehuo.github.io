@@ -6,6 +6,8 @@ categories: Blog
 tags: [Java, CentOS, Linux]
 ---
 
+
+
 # CentOS7下安装Java1.8
 
 [安装Java参考来源](https://www.cnblogs.com/stulzq/p/9286878.html)
