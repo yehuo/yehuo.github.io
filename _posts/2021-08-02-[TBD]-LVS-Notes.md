@@ -1,8 +1,14 @@
-# 2021-08-02-LVS学习
+---
+title: LVS Notes
+date: 2021-08-02
+excerpt: https://www.bilibili.com/video/BV1at411f7tc
+---
 
-## Cluster基础
 
-### 会话保持问题
+
+## Cluster Basic
+
+### Session Maintaining
 
 1. session sticky 同一用户调度到固定服务器
 
@@ -17,7 +23,7 @@
 
 	Memcached、Redis
 
-### HA集群解决方案
+### HA Cluster Solution
 
 1. keepalived：VRRP协议
 2. AIS 应用接口规范（基本淘汰）
@@ -25,7 +31,7 @@
 	- cman+rgmanager（RHCS，红帽解决方案）
 	- coresync_pacemaker
 
-## LVS介绍
+## LVS Introduction
 
 内核直接支持，官网较少信息，后期由Linux团队负责开发。工作原理是，VS根据请求报文的目标IP和目标协议及端口将其调度转发至RS，根据调度算法选择RS。
 

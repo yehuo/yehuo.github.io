@@ -1,4 +1,10 @@
-# Ansible
+---
+title: Ansible Startup
+date: 2021-09-01
+excerpt: https://www.bilibili.com/video/BV1HZ4y1p7Bf
+---
+
+
 
 ## 1 自动化运维应用场景
 

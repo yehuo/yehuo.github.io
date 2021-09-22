@@ -1,3 +1,11 @@
+---
+title: From Cloud Native to Serverless
+date: 2021-08-05
+excerpt:""
+---
+
+
+
 # **1 从云原生说起**
 
 在了解 Serverless 之前，张金柱老师先带大家回顾了什么是云原生（Cloud Native）。简单来说，Cloud Native 是“一系列架构、研发流程、团队文化的最佳实践组合。” 

@@ -1,7 +1,7 @@
 ---
-title: sed&gawk Command
+title: sed & gawk Command
 date: 2021-08-03
-excerpt: "Linux下文本处理了命令大全"
+excerpt: "Linux下文本处理命令大全"
 categories: "Linux"
 tages: 
 - shell
@@ -46,7 +46,7 @@ sed -f file.txt data.txt
 
 ### 行寻址
 
-`[address]command`或
+`[address]command`或以如下方式使用行选址
 
 ```shell
 address{
@@ -60,58 +60,57 @@ address{
 
 ## gawk
 
-- 功能
-	- 使用变量
-	- 使用算数和字符串操作
-	- 使用结构化编程，if-then和循环，来添加逻辑
-	- 提取数据元素，并重新排列，以形成格式化报告
+### 功能
 
-- 参数
-	- `-F fs`设定分隔符
-	- `-f file`从文件读取程序
-	- `-v var=value`设定变量默认值
-	- `-mf N`【max field】指定每行处理的最大字段数
-	- `-mr N`【max row】指定处理的最大行数
-	- `-W keyword`指定gawk兼容模式、警告等级
+- 使用变量
+- 使用算数和字符串操作
+- 使用结构化编程，if-then和循环，来添加逻辑
+- 提取数据元素，并重新排列，以形成格式化报告
 
-- 变量
+### 参数
 
-	- `$0`整个一行
+- `-F fs`设定分隔符
+- `-f file`从文件读取程序
+- `-v var=value`设定变量默认值
+- `-mf N`【max field】指定每行处理的最大字段数
+- `-mr N`【max row】指定处理的最大行数
+- `-W keyword`指定gawk兼容模式、警告等级
 
-	- `$n`行中第N个数据字段
+### 变量
 
-		```shell
-		gawk -F: '{print $1}' /etc/passwd
-		```
+- `$0`整个一行
 
-	- 
+- `$n`行中第N个数据字段
 
-- 关键字BEGIN&END
+  ```shell
+  gawk -F: '{print $1}' /etc/passwd
+  ```
 
-	```shell
-	# BEGIN: 开始处理数据前要运行的脚本
-	gawk 'BEGIN {print "New Data Contents"} {print $0}' temp.txt 
-	# END: 处理完成后，要运行的脚本
-	gawk 'BEGIN {print "The data File COntents:"} \
-	{print $0} \
-	END {print "End of File"}' temp.txt
-	```
 
-- gawk命令文件
+### Keyword: BEGIN & END
 
-	```shell
-	BEGIN {
-	print "The latest list of users and shells";
-	print " UserID \t Shell";
-	print "-------- \t -------" 
-	FS=":" 
-	}
-	
-	{
-	print $1 "\t" $7
-	}
-	
-	END {
-	print "This concludes the listing" 
-	}
-	```
+```shell
+# BEGIN: 开始处理数据前要运行的脚本
+gawk 'BEGIN {print "New Data Contents"} {print $0}' temp.txt 
+# END: 处理完成后，要运行的脚本
+gawk 'BEGIN {print "The data File COntents:"} \
+{print $0} \
+END {print "End of File"}' temp.txt
+```
+
+### gawk命令文件
+
+```shell
+BEGIN {
+    print "The latest list of users and shells";
+    print " UserID \t Shell";
+    print "-------- \t -------" 
+    FS=":" 
+}
+{
+    print $1 "\t" $7
+}
+END {
+    print "This concludes the listing" 
+}
+```
