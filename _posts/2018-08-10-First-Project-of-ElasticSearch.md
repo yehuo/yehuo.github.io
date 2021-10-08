@@ -5,8 +5,9 @@ excerpt: "关于一个从0开始设计全文检索网站的故事..."
 categories: Experience
 tags: [Elasticsearch, PHP]
 excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
+---
 
-### 0x00 源起
+### 0x00 Background
 
 不知boss吃了谁家安利，有一天忽然心血来潮，要搞一波nosql来推进我司工作，还要求支持全文检索。具体到技术栈，boss也做了很具体的要求：“就是MongoDB+Elasticsearch+PHP搞一个检索终端...”。另外...boss通俗易懂地告诉我：“Nosql就是把数据以JSON格式存入数据库...”。于是...在开工前，boss先给我司运营下达任务，要求花了几天把全部mysql数据手工转换为json文件发给了我...~~（还好数据库不大~~。然后...一把梭的重任就落到了我肩上，看着boss发来的n份~~完全没做过正确性检验的~~json文件，我心里有一句MMP想讲...
 
