@@ -76,6 +76,7 @@ lxc vs kvm
 
 - 服务网格 Service Mash
 - 微服务Micro Service
+- 服务发现: https://www.infoq.cn/article/lknumimtzy08qxqckqma
 
 #### 工具
 
@@ -118,6 +119,8 @@ lxc vs kvm
 
 - minio
 
+#### CMDB(Configuration Managerment Database)
+
 ### 发布管理 Repository Manager
 
 #### 概念
@@ -130,6 +133,11 @@ lxc vs kvm
 - **Nexus**
 - Maven
 - apt-mirror
+
+### 交叉交换设备 Switch
+
+- Cisco IOS
+- Cisco Nexus
 
 ### 基础架构平台
 
