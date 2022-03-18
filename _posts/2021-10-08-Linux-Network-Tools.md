@@ -1,10 +1,19 @@
+---
+title: Linux Network Tools
+date: 2021-10-08
+excerpt: "关于Ubuntu中常用的网络诊断工具"
+categories: Notes
+tags: [Ubuntu, Linux, Network, Devops]
+---
 ## Network Tools
 
 ### ping
 
 ### traceroute
 
-Linux系统中，命令为traceroute。Windows中为tracert，Windows中自带，Linux需要安装。
+Linux系统中，命令为traceroute，通常需要独立安装
+
+Windows中为tracert，Windows中自带
 
 #### 原理
 
@@ -24,7 +33,7 @@ Linux系统中，命令为traceroute。Windows中为tracert，Windows中自带�
 >
 > 如果在局域网中的不同网段之间，我们可以通过traceroute 来排查问题所在，是主机的问题还是网关的问题。如果我们通过远程来访问某台服务器遇到问题时，我们用到traceroute 追踪数据包所经过的网关，提交IDC服务商，也有助于解决问题；但目前看来在国内解决这样的问题是比较困难的，就是我们发现问题所在，IDC服务商也不可能帮助我们解决。
 
-#### Command
+#### 常用命令
 
 ```shell
 # 设定最大跳数
@@ -35,10 +44,9 @@ traceroute -n www.baidu.com
 
 ### dig
 
-## DHCP
-
-## DNS
+### mtr
 
 ## Reference
 
 - [traceroute讲解](https://www.cnblogs.com/peida/archive/2013/03/07/2947326.html)
+- [mtr官方文档](https://linux.die.net/man/8/mtr)
