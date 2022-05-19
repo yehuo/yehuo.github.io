@@ -18,5 +18,5 @@ author_profile: true
 
 
 
-**Email**: [shujia@pony.ai](mailto:shujia@pony.ai)
+**Email**: [yehuobumie@gmail.com](mailto:yehuobumie@gmail.com)
 
