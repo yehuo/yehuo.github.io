@@ -13,6 +13,7 @@ redirect_from:
 </p>
 
 # About Me
-* I am a backend engineer in the Department of Software at National Computer Science Center. 
-* My work object lie in Python. Advanced knowledge in DevOps and Network Engineer aspects.
-* I received my bachelor’s degree in software engineering from [Beijing Institute of Technology](https://https://www.bit.edu.cn/), Beijing.
+* I am IT engineer in the Department of Software at National Computer Science Center from 2018 to 2021.
+* I am Devops engineer in Pony.ai from 2021 to now. 
+* The main language used in my job is Python. Besides, I have advanced knowledge in system security and networking aspects.
+* I received my bachelor’s degree in software engineering from [Beijing Institute of Technology](https://https://www.bit.edu.cn/), Beijing at 2017.
