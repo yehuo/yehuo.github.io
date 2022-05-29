@@ -1,8 +1,18 @@
-# 2021-11-01-Netbox-Learning
+---
+title: NetBox Installation Process
+date: 2021-11-01
+excerpt: "How to setup NetBox service from zero..."
+categories: 
+  - Tech
+  - OS
+tags:
+  - Ubuntu
 
-## Components
+---
 
-### PostgreSQL
+
+
+# PostgreSQL
 
 目前仅支持PostgreSQL，版本要求大于9.6
 
@@ -29,7 +39,7 @@ psql --username netbox --password --host localhost netbox
 \conninfo
 ```
 
-### Redis
+# Redis
 
 NetBox v2.9.0 and later require Redis v4.0 or higher.
 
@@ -38,18 +48,18 @@ sudo apt install -y redis-server
 redis-cli ping
 ```
 
-### NetBox
+# NetBox
 
-*NetBox v3.0 and later require Python 3.7, 3.8, or 3.9.*
+NetBox v3.0 and later require Python 3.7, 3.8, or 3.9.
 
-#### 安装依赖
+## 安装依赖
 
 ```shell
 sudo apt install -y python3 python3-pip python3-venv python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev
 sudo pip3 install --upgrade pip
 ```
 
-#### 下载netbox
+## 下载NetBox
 
 ```shell
 # Option A：for stable release
@@ -63,16 +73,16 @@ sudo adduser --system --group netbox
 sudo chown --recursive netbox /opt/netbox/netbox/media/
 ```
 
-#### 配置config
+## 配置config
 
 ```shell
 cd /opt/netbox/netbox/netbox/
 sudo cp configuration.example.py configuration.py
 ```
 
-#### 设置主要修改项
+## 设置主要修改项
 
-*Note that NetBox requires the specification of two separate Redis databases: `tasks` and `caching`. These may both be provided by the same Redis service, however each should have a unique numeric database ID.*
+Note that NetBox requires the specification of two separate Redis databases: `tasks` and `caching`. These may both be provided by the same Redis service, however each should have a unique numeric database ID.
 
 *This parameter must be assigned a randomly-generated key employed as a salt for hashing and related cryptographic functions. (Note, however, that it is never directly used in the encryption of secret data.)*
 
@@ -106,13 +116,13 @@ REDIS = {
 }
 ```
 
-#### 生成Secret
+## 生成Secret
 
 ```shell
 python3 ../generate_secret_key.py
 ```
 
-#### 设定扩展模块
+## 设定扩展模块
 
 *All Python packages required by NetBox are listed in `requirements.txt` and will be installed automatically. NetBox also supports some optional packages. If desired, these packages must be listed in `local_requirements.txt` within the NetBox root directory.*
 
@@ -123,17 +133,17 @@ python3 ../generate_secret_key.py
 sudo sh -c "echo 'napalm' >> /opt/netbox/local_requirements.txt"sudo sh -c "echo 'django-storages' >> /opt/netbox/local_requirements.txt"
 ```
 
-#### 生效配置
+## 生效配置
 
 - upgrade功能
-  - Create a Python virtual environment
-  - Installs all required Python packages
-  - Run database schema migrations
-  - Builds the documentation locally (for offline use)
-  - Aggregate static resource files on disk
+	- Create a Python virtual environment
+	- Installs all required Python packages
+	- Run database schema migrations
+	- Builds the documentation locally (for offline use)
+	- Aggregate static resource files on disk
 - housekeeping功能
-  - handles some recurring cleanup tasks, such as clearing out old sessions and expired change records
-  - sh shell can be copied to or linked from your system's daily cron task directory
+	- handles some recurring cleanup tasks, such as clearing out old sessions and expired change records
+	- sh shell can be copied to or linked from your system's daily cron task directory
 
 ```shell
 sudo /opt/netbox/upgrade.sh
@@ -152,7 +162,7 @@ ln -s /opt/netbox/contrib/netbox-housekeeping.sh /etc/cron.daily/netbox-housekee
 python3 manage.py runserver 0.0.0.0:8000 --insecure
 ```
 
-### Gunicorn
+# Gunicorn
 
 *NetBox ships with a default configuration file for gunicorn. To use it, copy `/opt/netbox/contrib/gunicorn.py` to `/opt/netbox/gunicorn.py`.*
 
@@ -172,9 +182,9 @@ systemctl status netbox.service
 
 *p.s. If the NetBox service fails to start, issue the command `journalctl -eu netbox` to check for log messages.*
 
-### HTTP Server
+# HTTP Server
 
-#### Obtain  SSL Certificate
+## Obtain  SSL Certificate
 
 To enable HTTPS access to NetBox, you'll need a valid SSL certificate. You can purchase one from a trusted commercial provider, obtain one for free from [Let's Encrypt](https://letsencrypt.org/getting-started/), or generate your own (although self-signed certificates are generally untrusted). Both the public certificate and private key files need to be installed on your NetBox server in a location that is readable by the `netbox` user.
 
@@ -184,7 +194,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -out /etc/ssl/certs/netbox.crt
 ```
 
-#### Option A Nginx
+## Option A Nginx
 
 ```shell
 sudo apt install -y nginx
@@ -197,7 +207,7 @@ sudo systemctl restart nginx
 
 需要修改config文件中`netbox.example.com`为自己的域名，需要和netbox配置文件中ALLOWED_HOSTS相匹配
 
-#### Option B Apache
+## Option B Apache
 
 ```shell
 sudo apt install -y apache2
@@ -209,7 +219,7 @@ sudo systemctl restart apache2
 
 同样需要修改配置文件中的ServerName
 
-### LDAP(options)
+# LDAP(options)
 
 ```shell
 sudo apt install -y libldap2-dev libsasl2-dev libssl-dev
@@ -218,5 +228,4 @@ pip3 install django-auth-ldap
 sudo sh -c "echo 'django-auth-ldap' >> /opt/netbox/local_requirements.txt"
 ```
 
-修改netbox配置文件`REMOTE_AUTH_BACKEND = 'netbox.authentication.LDAPBackend'`
-
+修改NetBox配置文件`REMOTE_AUTH_BACKEND = 'netbox.authentication.LDAPBackend'`

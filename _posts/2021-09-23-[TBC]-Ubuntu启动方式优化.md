@@ -15,7 +15,7 @@ Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，�
 
 这次工作是通过应答文件完成的，所以仅介绍后一种安装方式。
 
-## 概念解析
+# 概念解析
 
 - [PXE](https://en.wikipedia.org/wiki/Preboot_Execution_Environment)
 
@@ -49,7 +49,7 @@ Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，�
 
 - **UEFI** & **Legacy BIOS**
 
-## 架构设计
+# 架构设计
 
 整个preseed系统通常需要提前在网络中布置以下三类service
 
@@ -60,28 +60,28 @@ Ubuntu系统网络安装通常采用两类方法，或是使用定制镜像，�
 
 现实情况中，大部分人都是所有服务放到一个physical server上实现，其中tftp和nfs实际上又可以合并到netbootxyz服务中，本文将dhcp和netbootxyz分开两个server存放，并对dns所需的配置做简单讲解。
 
-### DHCP Server
+## DHCP Server
 
-#### Option 1: [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq)
+## Option 1: [dnsmasq](https://en.wikipedia.org/wiki/Dnsmasq)
 
 > dnsmasq is a lightweight, easy to configure DNS forwarder, designed to provide DNS (and optionally DHCP and [TFTP](https://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol)) services to a small-scale network. It can serve the names of local machines which are not in the global DNS.
 
 dnsmasq组件是由个人开发的，可同时部署dns、dhcp、tftp三种服务的方案，目前较为流行，本文不做讲解。
 
-#### Option 2: isc-dhcpd [Recommended]
+## Option 2: isc-dhcpd [Recommended]
 
 
 
-### Netboot Server (Netboot.xyz)
+## Netboot Server (Netboot.xyz)
 
 
 
 
 
-### DNS Server
+## DNS Server
 
-#### powerdns
+## powerdns
 
-## Reference
+# Reference
 
 [脚本配置GRUB2+iPXE引导netboot.xyz进行网络重装](https://www.sm.link/2020/07/08/92.html)
