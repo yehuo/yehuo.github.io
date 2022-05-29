@@ -1,12 +1,12 @@
 ---
-title: Introduction to HashiCorp Vault"
+title: Introduction to HashiCorp Vault
 date: 2022-05-18
 categories: Devops
 tags:
   - Hashicorp
   - Vault
   - Secret
-excerpt: "Why and How about Vault"
+excerpt: "Why you should use vault in your office"
 ---
 
 
