@@ -1,4 +1,14 @@
-# [Introduction to HashiCorp Vault](https://www.youtube.com/watch?v=VYfl-DpZ5wM&ab_channel=HashiCorp)
+---
+title: Introduction to HashiCorp Vault"
+date: 2022-05-18
+categories: Devops
+tags:
+  - Hashicorp
+  - Vault
+  - Secret
+excerpt: "Why and How about Vault"
+---
+
 
 ## Core principles of Vault
 
@@ -105,3 +115,7 @@ How does vault provide access to different secret. The biggest usage of this is 
 There can be several instance in vault cluster, with one leader node. In the usage, if we talked with non leader node, our requests will be transparently forwarded to active leader node.
 
  Multiple instances with a shared network service, as a API client in network. Vault cluster will just expose a JSON API.
+
+ ## Reference
+
+ - [Introduction to HashiCorp Vault](https://www.youtube.com/watch?v=VYfl-DpZ5wM&ab_channel=HashiCorp)
