@@ -183,7 +183,7 @@ curl 'http://localhost/upstream_conf?upstream=backend&id=1&drain=1'
 
 # 3.健康检测方案Application-Aware Health Checks
 
-这篇文章 「TCP Health Checks」是 NGINX 服务器官网的管理员运维教程([NGINX Docs | TCP Health Checks](https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-health-check/)) ，主要讲解开源版本
+这篇文章 「TCP Health Checks」是 NGINX 服务器官网的管理员运维教程([\[NGINX Docs\]TCP Health Checks](https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-health-check/)) ，主要讲解开源版本
 
 ## 3.1 检测目标
 
