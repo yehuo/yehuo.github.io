@@ -1,5 +1,5 @@
 ---
-title: Ansible Startup
+title: "Ansible Startup"
 date: 2021-09-01
 excerpt: "[马哥系列]中，王晓春关于Ansible的入门课程"
 categories: 

@@ -1,19 +1,25 @@
 ---
-title: Centos7下的网络管理
+title: "CentOS网络管理"
 date: 2021-09-23
+excerpt: "CentOS7中的网络配置方式"
+categories: 
+    - OS
+tags:
+    - Linux
+    - Network
 ---
 
 
 
-## Manual Configure
+# Manual Configure
 
-手工配置Centos网络
+手工配置CentOS网络时需要修改`ifcfg-eth0`文件
 
 ```shell
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
 
-Conf 文件内容
+Network Config文件修改内容参考如下配置
 
 ```shell
  DEVICE=eth0  #网卡设备名称   
@@ -27,14 +33,13 @@ Conf 文件内容
  TYPE=Ethernet  #网卡类型为以太网
 ```
 
-生效方式
+修改完成后，仍需采用重启network服务使之生效
 
 ```shell
 /etc/init.d/network reload
-# 命令有start | restart | stop | reload
 ```
 
-## NetworkManager
+# NetworkManager
 
 
 
