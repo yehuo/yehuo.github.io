@@ -8,13 +8,13 @@ tags: [Python, Generator, Iterator]
 
 
 
-## 生成器 Generator
+# 生成器 Generator
 
-### 定义
+## 定义
 
 如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断推算出后续的元素呢？这样就不必创建完整的list，从而节省大量的空间。在Python中，这种一边循环一边计算的机制，称为生成器：generator
 
-### 使用()编写
+## 使用()编写
 
 要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的`[]`改成`()`，就创建了一个generator
 
@@ -23,7 +23,7 @@ L = [x * x for x in range(10)]
 g = (x * x for x in range(10))
 ```
 
-### 使用yield编写
+## 使用yield编写
 
 函数是顺序执行，遇到`return`语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用`next()`的时候执行，遇到`yield`语句返回，再次执行时从上次返回的`yield`语句处继续执行。
 
@@ -37,7 +37,7 @@ def fib(max):
     return 'done'
 ```
 
-### 调用方法
+## 调用方法
 
 - next方法
 
@@ -59,15 +59,15 @@ def fib(max):
 	    print(n)
 	```
 
-## 迭代器 Iterator
+# 迭代器 Iterator
 
-### 定义
+## 定义
 
 - 可以直接作用于`for`循环的对象统称为可迭代对象：`Iterable`。
 
 - 可以被`next()`函数调用并不断返回下一个值的对象称为迭代器：`Iterator`。
 
-### 区分可迭代对象与迭代器
+## 区分可迭代对象与迭代器
 
 ```python
 from collections.abc import Iterator

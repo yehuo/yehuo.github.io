@@ -1,7 +1,7 @@
 ---
 title: "Nginx Cookbook【Chapter 01-03】"
 date: 2021-07-05
-excerpt: "关于HTTP\TCP两类负载均衡，会话保持，健康状态检测的Nginx Cookbook笔记"
+excerpt: "关于HTTP\\TCP两类负载均衡，会话保持，健康状态检测的Nginx Cookbook笔记"
 categories: Notes
 tags: Nginx
 ---

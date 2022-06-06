@@ -1,18 +1,22 @@
 ---
 title: Docker基础笔记-Part2
 date: 2021-07-22
-excerpt: "【狂神说JAVA系列】中，秦疆关于Docker系列的讲解P20-P40"
-categories: Notes
-tags: Docker
+excerpt: "[狂神说JAVA系列]中，秦疆关于Docker系列的讲解P20-P40"
+categories:
+    - Notes
+tags:
+    - Docker
 ---
 
-## Docker Commit
+
+
+# Docker Commit
 
 ```shell
 # docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 
-docker commit -a="xushujia" -m="add webapps app" 58e2a tomcat01:1.0	# 提交修改过后的镜像，58e2a是容器ID
-docker images	# 查看tomcat01镜像
+docker commit -a="xushujia" -m="add webapps app" 58e2a tomcat01:1.0    # 提交修改过后的镜像，58e2a是容器ID
+docker images    # 查看tomcat01镜像
 
 # 修改ENV内容
 docker commit --change "ENV DEBUG=true" c3f279d17e0a  svendowideit/testimage:version3
@@ -25,13 +29,13 @@ docker commit --change "ENV DEBUG=true" c3f279d17e0a  svendowideit/testimage:ver
 | `--message` , `-m` |        | Commit message                                             |
 | `--pause` , `-p`   | `true` | Pause container during commit                              |
 
-## Volumes
+# Volumes
 
 内容可以参考：[docker从零开始 存储（二）volumes 挂载](https://www.cnblogs.com/benjamin77/p/9512537.html)
 
 官方讲解参见：[Use volumes](https://docs.docker.com/storage/volumes/)
 
-### 使用容器数据卷
+## 使用容器数据卷
 
 容器数据的持久化和同步操作，容器间也可以数据共享。
 
@@ -40,7 +44,7 @@ docker commit --change "ENV DEBUG=true" c3f279d17e0a  svendowideit/testimage:ver
 
 # 直接使用 -v 挂载
 docker run -it -d -v /home/dockertest:/home centos
-ls /home/dockertest	# 此时文件夹为空
+ls /home/dockertest    # 此时文件夹为空
 
 # 进入容器添加文件
 docker attach f7cb
@@ -49,7 +53,7 @@ touch temp.file
 exit
 
 # 到本机查看新添的文件
-ls /home/dockertest	# 此时文件夹内由temp.file文件
+ls /home/dockertest    # 此时文件夹内由temp.file文件
 docker inspect f7cb
 ```
 
@@ -57,15 +61,15 @@ docker inspect f7cb
 
 其中Source为主机地址，Destination为Docker内地址。
 
-### MySQL映射目录实验
+## MySQL映射目录实验
 
 ![docker2-2](\images\docker2-2.png)
 
 ```shell
 docker run -d -p 3310:3306 \
-	-v /home/mysql/conf:/etc.conf.d \
-	-v /home/mysql/data:/var/lib/mysql \
-	-e  MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql5.7
+    -v /home/mysql/conf:/etc.conf.d \
+    -v /home/mysql/data:/var/lib/mysql \
+    -e  MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql5.7
 
 # 删除后，依然可以看到镜像挂载过的文件
 docker rm $mysql_ID
@@ -73,7 +77,7 @@ docker ps -a
 cd /home/mysql/data
 ```
 
-### 具名挂载与匿名挂载
+## 具名挂载与匿名挂载
 
 ```shell
 # 匿名挂载，未设定容器外目录位置
@@ -98,9 +102,9 @@ docker容器内的卷，在未指定目录情况下，都是挂载在`/var/lib/d
 
 ```shell
 # 如何确定具名挂载还是匿名挂载
--v 容器内路径			# 匿名挂载
--v 卷名:容器内路径			# 具名挂载
--v /宿主机路径:容器内路径	# 指定路径挂载
+-v 容器内路径            # 匿名挂载
+-v 卷名:容器内路径            # 具名挂载
+-v /宿主机路径:容器内路径    # 指定路径挂载
 ```
 
 此外还可以设定挂载卷的read-only属性，设定之后，挂载路径的内容只可以被宿主机修改
@@ -113,7 +117,7 @@ docker run -d -P --name nginx02 --read-only -v juming-nginx:/etc/nginx nginx
 
 > Volumes can be used in combination with `--read-only` to control where a container writes files. The `--read-only` flag mounts the container’s root filesystem as read only prohibiting writes to locations other than the specified volumes for the container.
 
-### 通过Dockerfile挂载文件
+## 通过Dockerfile挂载文件
 
 Dockerfile是用于构建docker的文件，[构建文档](https://docs.docker.com/engine/reference/builder/) & [官方最佳实践](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)。
 
@@ -134,7 +138,7 @@ docker images
 
 ![](\images\docker2-5.png)
 
-### 多个MySQL同步数据
+## 多个MySQL同步数据
 
 如果要从centos01中的MySQL将数据共享到centos02中MySQL，则centos01可被称为**父容器**。
 
@@ -146,7 +150,7 @@ docker run -it --name docker03 --volumes-from docker01 dftest/centos:1.0
 
 # 进入docker01，修改volume02中内容
 docker attach docker01
-ls /home/volume02	# 此时文件夹内无内容
+ls /home/volume02    # 此时文件夹内无内容
 vi /home/volume02/docker01File
 # 添加内容：docker01 write this line并退出
 # 退出并关闭docker01
@@ -169,61 +173,61 @@ docker run -d -p 3302:3306 --name mysql02 --volumes-from mysql01 -e MYSQL_ROOT_P
 docker run -d -p 3303:3306 --name mysql03 --volumes-from mysql01 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7
 ```
 
-## Dockerfile
+# Dockerfile
 
-### 命令
+## 命令
 
 - `FROM`FROM 指定基础镜像，目的是为了给构建镜像提供一个基础环境
 - `MINTAINER`指定维护者信息
 - `RUN`基于FROM指定的docker镜像运行一个指令，将结果反映到新生成的镜像。RUN指令后面执行的命令必须是镜像中已经存在了的命令。
 - `ADD`将本地文件添加到镜像
-	- 支持自动解压，但是仅仅支持解压tar包
-	- 支持远程下载，但是不会解压下载内容
+    - 支持自动解压，但是仅仅支持解压tar包
+    - 支持远程下载，但是不会解压下载内容
 - `WORKDIR` 设置工作目录
-	- 程序运行的开始目录
-	- 进入容器的最初目录
+    - 程序运行的开始目录
+    - 进入容器的最初目录
 
 - `VOLUME` 提示需要挂载的目录，没有实现挂载
 
-- `EXPOSE`	指定容器需要向外界暴露的端口，实际上没有暴露，只有指定了EXPOSE才能够使用-P, 可以指定多个端口
+- `EXPOSE`    指定容器需要向外界暴露的端口，实际上没有暴露，只有指定了EXPOSE才能够使用-P, 可以指定多个端口
 
 - `CMD`**The main purpose of a `CMD` is to provide defaults for an executing container.** These defaults can include an executable, or they can omit the executable, in which case you must specify an `ENTRYPOINT` instruction as well.
 
-	- exec form
+    - exec form
 
-		```dockerfile
-		CMD ["executable","param1","param2"]
-		```
+        ```dockerfile
+        CMD ["executable","param1","param2"]
+        ```
 
-	- default parameters to ENTRYPOINT
+    - default parameters to ENTRYPOINT
 
-		```dockerfile
-		CMD ["param1","param2"]
-		```
+        ```dockerfile
+        CMD ["param1","param2"]
+        ```
 
-	- shell form
+    - shell form
 
-		```dockerfile
-		CMD command param1 param2
-		```
+        ```dockerfile
+        CMD command param1 param2
+        ```
 
 - `ARG`指定运行时参数，用于构建docker镜像时传入参数
 
 - `ENTRYPOINT`An `ENTRYPOINT` allows you to configure a container that will run as an executable.
 
-	- exec form
+    - exec form
 
-		```dockerfile
-		ENTRYPOINT ["executable", "param1", "param2"]
-		```
+        ```dockerfile
+        ENTRYPOINT ["executable", "param1", "param2"]
+        ```
 
-	- shell form
+    - shell form
 
-		```dockerfile
-		ENTRYPOINT command param1 param2
-		```
+        ```dockerfile
+        ENTRYPOINT command param1 param2
+        ```
 
-		
+        
 
 - `ONBUILD`ONBUILD后面跟的是Dockerfile指令不是Linux命令。作为 **构建触发器** 当前镜像被用作基础镜像时触发
 
@@ -259,7 +263,7 @@ CMD /bin/bash
 docker build -f mydockerfile -t mycentos:0.1 .
 ```
 
-### History
+## History
 
 通过历史查看镜像生成命令
 
@@ -267,7 +271,7 @@ docker build -f mydockerfile -t mycentos:0.1 .
 docker history $Image_ID
 ```
 
-### CMD & ENTRYPOINT
+## CMD & ENTRYPOINT
 
 参考文章1：[Docker学习之Dockerfile:CMD与ENTRYPOINT](https://blog.csdn.net/wuce_bai/article/details/88997725)
 
@@ -281,7 +285,7 @@ docker run时，如果需要执行一些指令，有三种方式，CMD、ENTRYPO
 
 CMD是默认执行参数，如果docker run后面有参数，会覆盖CMD中内容。ENTRYPOINT是容器开启后的入口程序，是一定会执行的，如果docker run后面加了参数，会被当做ENTRYPOINT中程序参数添加执行。
 
-### tomcat镜像实战
+## tomcat镜像实战
 
 准备文件
 
@@ -327,9 +331,9 @@ CMD /usr/local/apache-tomcat-9.0.22/bin/startup.sh && tail -F /usr/local/apache-
 # 创建镜像并运行容器
 docker build -t diy-tomcat .
 docker run -d -p 9090:8080 --name test-tomcat \
-	-v /home/tomcat_df/test:/usr/local/apache-tomcat-9.0.22/webapps/test/ \
-	-v /home/tomcat_df/tomcatlogs/:/usr/local/apache-tomcat-9.0.22/logs diy-tomcat
-	
+    -v /home/tomcat_df/test:/usr/local/apache-tomcat-9.0.22/webapps/test/ \
+    -v /home/tomcat_df/tomcatlogs/:/usr/local/apache-tomcat-9.0.22/logs diy-tomcat
+    
 # 创建并发布一个项目
 cd test
 mkdir WEB-INF
@@ -377,13 +381,13 @@ System.out.println("----test web logs----)";
 tail /home/tomcat_df/tomcatlogs/catalina.out
 ```
 
-### 发布镜像
+## 发布镜像
 
 发布到Docker Hub上
 
 ```shell
 docker login -u username
-docker images	# 找到自己的镜像
+docker images    # 找到自己的镜像
 # push镜像需要带上版本信息，
 docker tag $image_id $new_tag:$version
 docker push $new_tag:$version
@@ -402,7 +406,7 @@ docker login -u $username registry.cn-beijing.aliyuncs.com
 docker pull $image_url
 ```
 
-### 导出Container：save & load
+## 导出Container：save & load
 
 内容介绍
 
@@ -414,44 +418,44 @@ docker pull $image_url
 
 ```shell
 # docker save [OPTIONS] IMAGE [IMAGE...]
-# --output , -o		Write to a file, instead of STDOUT
+# --output , -o        Write to a file, instead of STDOUT
 docker save busybox > busybox.tar
 
 # docker load [OPTIONS]
-# --input , -i		Read from tar archive file, instead of STDIN
-# --quiet , -q		Suppress the load output
+# --input , -i        Read from tar archive file, instead of STDIN
+# --quiet , -q        Suppress the load output
 docker load < busybox.tar.gz
 docker load --input fedora.tar
 ```
 
-### 导出Image：export & import
+## 导出Image：export & import
 
 - export：Export a container's filesystem as a tar archive
 
-	```shell
-	# docker export [OPTIONS] CONTAINER
-	# --output , -o		Write to a file, instead of STDOUT
-	docker export red_panda > latest.tar
-	```
+    ```shell
+    # docker export [OPTIONS] CONTAINER
+    # --output , -o        Write to a file, instead of STDOUT
+    docker export red_panda > latest.tar
+    ```
 
 - import：Import the contents from a tarball to create a filesystem image
 
-	```shell
-	# docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
-	# --change , -c		Apply Dockerfile instruction to the created image
-	# --message , -m		Set commit message for imported image
-	# --platform		API 1.32+ Set platform if server is multi-platform capable
-	docker import http://example.com/exampleimage.tgz
-	cat exampleimage.tgz | docker import - exampleimagelocal:new
-	```
+    ```shell
+    # docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
+    # --change , -c        Apply Dockerfile instruction to the created image
+    # --message , -m        Set commit message for imported image
+    # --platform        API 1.32+ Set platform if server is multi-platform capable
+    docker import http://example.com/exampleimage.tgz
+    cat exampleimage.tgz | docker import - exampleimagelocal:new
+    ```
 
-## Docker网络
+# Docker网络
 
-### veth-pair技术
+## veth-pair技术
 
 OpenStack,Docker,OVS
 
-### Docker0
+## Docker0
 
 Docker0 就是Docker本身的地址，可以视作众多容器之间一个公共的路由器。
 
@@ -461,7 +465,7 @@ Docker0与物理网卡之间使用NAT连接。
 
 ![](\images\docker2-6.png)
 
-### 替代动态容器IP（--link）
+## 替代动态容器IP（--link）
 
 是在容器内部使用IP映射来做，已不建议使用。
 
@@ -482,16 +486,16 @@ docker network inspect $networkID
 docker exec -it tomcat02 cat /etc/network
 ```
 
-### 自定义网络（docker network）
+## 自定义网络（docker network）
 
-#### 网络模式分析
+## 网络模式分析
 
 - bridge：桥接docker（建议使用）
 - none：不配置网络
 - host：和宿主机处于同一个网络
 - container：容器网络互联（不建议使用）
 
-#### 网络模式配置测试
+## 网络模式配置测试
 
 ```shell
 # net默认是处于bridge模式，容器之间无法连接
@@ -509,7 +513,7 @@ docker run -d -P --name tomcat-net-02 --net mynet tomcat:latest
 docker exec -it tomcat-net-01 ping tomcat-net-02 
 ```
 
-### 网络联通
+## 网络联通
 
 不同docker网络下的服务器无法互相连接的问题。
 
@@ -524,7 +528,7 @@ docker exec -it tomcat01 ping tomcat-net-01
 
 此时`tomcat01`就有了两个IP地址
 
-### 部署redis集群
+## 部署redis集群
 
 1. 集群架构并构建Redis网络
 
@@ -538,74 +542,74 @@ docker exec -it tomcat01 ping tomcat-net-01
 
 2. 自动生成
 
-	```shell
-	for port in $(seq 1 6); \
-	do \
-	mkdir -p /mydata/redis/node-${port}/conf
-	touch /mydata/redis/node-${port}/conf/redis.conf
-	cat << EOF >/mydata/redis/node-${port}/conf/redis.conf
-	port 6379 
-	bind 0.0.0.0
-	cluster-enabled yes 
-	cluster-config-file nodes.conf
-	cluster-node-timeout 5000
-	cluster-announce-ip 172.38.0.1${port}
-	cluster-announce-port 6379
-	cluster-announce-bus-port 16379
-	appendonly yes
-	EOF
-	done
-	```
+    ```shell
+    for port in $(seq 1 6); \
+    do \
+    mkdir -p /mydata/redis/node-${port}/conf
+    touch /mydata/redis/node-${port}/conf/redis.conf
+    cat << EOF >/mydata/redis/node-${port}/conf/redis.conf
+    port 6379 
+    bind 0.0.0.0
+    cluster-enabled yes 
+    cluster-config-file nodes.conf
+    cluster-node-timeout 5000
+    cluster-announce-ip 172.38.0.1${port}
+    cluster-announce-port 6379
+    cluster-announce-bus-port 16379
+    appendonly yes
+    EOF
+    done
+    ```
 
 3. 启动服务
 
-	```shell
-	for port in $(seq 1 6); \
-	do \
-	docker run -p 637${port}:6379 -p 1637${port}:16379 --name redis-${port} \
-	    -v /mydata/redis/node-${port}/data:/data \
-	    -v /mydata/redis/node-${port}/conf/redis.conf:/etc/redis/redis.conf \
-	    -d --net redis --ip 172.38.0.1${port} redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
-	done
-	```
+    ```shell
+    for port in $(seq 1 6); \
+    do \
+    docker run -p 637${port}:6379 -p 1637${port}:16379 --name redis-${port} \
+        -v /mydata/redis/node-${port}/data:/data \
+        -v /mydata/redis/node-${port}/conf/redis.conf:/etc/redis/redis.conf \
+        -d --net redis --ip 172.38.0.1${port} redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    done
+    ```
 
 4. 进入节点
 
-	```shell
-	docker exec -it redis-1 /bin/sh
-	```
+    ```shell
+    docker exec -it redis-1 /bin/sh
+    ```
 
 5. 创建集群
 
-	```shell
-	redis-cli --cluster create \
-		172.38.0.11:6379 \
-		172.38.0.12:6379 \
-		172.38.0.13:6379 \
-		172.38.0.14:6379 \
-		172.38.0.15:6379 \
-		172.38.0.16:6379 \
-		--cluster-replicas 1
-	```
+    ```shell
+    redis-cli --cluster create \
+        172.38.0.11:6379 \
+        172.38.0.12:6379 \
+        172.38.0.13:6379 \
+        172.38.0.14:6379 \
+        172.38.0.15:6379 \
+        172.38.0.16:6379 \
+        --cluster-replicas 1
+    ```
 
-	如有失败，可使用如下命令关闭，并删除所有redis容器
+    如有失败，可使用如下命令关闭，并删除所有redis容器
 
-	```shell
-	docker stop `docker ps -a | grep redis | awk '{print $NF}'`
-	docker rm `docker ps -a | grep redis | awk '{print $NF}'`
-	```
+    ```shell
+    docker stop `docker ps -a | grep redis | awk '{print $NF}'`
+    docker rm `docker ps -a | grep redis | awk '{print $NF}'`
+    ```
 
 6. 查看同步效果
 
-	- 查看Cluster配置
+    - 查看Cluster配置
 
-		![docker2-8](\images\docker2-8.png)
+        ![docker2-8](\images\docker2-8.png)
 
-		![docker2-9](\images\docker2-9.png)
+        ![docker2-9](\images\docker2-9.png)
 
-	- 存入数据并查看存放位置，之后下线存放节点，验证高可用（红色指针位置，在另一个终端下线了Redis-3节点）
+    - 存入数据并查看存放位置，之后下线存放节点，验证高可用（红色指针位置，在另一个终端下线了Redis-3节点）
 
-		![docker2-10](\images\docker2-10.png)
+        ![docker2-10](\images\docker2-10.png)
 
 > 参考资料
 

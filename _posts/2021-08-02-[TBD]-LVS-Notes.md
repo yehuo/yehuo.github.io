@@ -1,14 +1,21 @@
 ---
-title: LVS Notes
+title: "LVS Notes"
 date: 2021-08-02
-excerpt: https://www.bilibili.com/video/BV1at411f7tc
+excerpt: "[马哥Linux教程]LVS负载均衡的一些实践讲解"
+categories:
+    - Notes
+tags: 
+    - LVS
 ---
 
 
 
-## Cluster Basic
+- [马哥Linux教程-2019全新LVS负载均衡实战](https://www.bilibili.com/video/BV1at411f7tc)
 
-### Session Maintaining
+# Cluster Basic
+
+
+## Session Maintaining
 
 1. session sticky 同一用户调度到固定服务器
 
@@ -23,7 +30,7 @@ excerpt: https://www.bilibili.com/video/BV1at411f7tc
 
 	Memcached、Redis
 
-### HA Cluster Solution
+## HA Cluster Solution
 
 1. keepalived：VRRP协议
 2. AIS 应用接口规范（基本淘汰）
@@ -31,11 +38,11 @@ excerpt: https://www.bilibili.com/video/BV1at411f7tc
 	- cman+rgmanager（RHCS，红帽解决方案）
 	- coresync_pacemaker
 
-## LVS Introduction
+# LVS Introduction
 
 内核直接支持，官网较少信息，后期由Linux团队负责开发。工作原理是，VS根据请求报文的目标IP和目标协议及端口将其调度转发至RS，根据调度算法选择RS。
 
-### iptables & netfilter
+## iptables & netfilter
 
 iptables：用户空间的管理工具
 
@@ -49,7 +56,7 @@ netfilter：内核空间的管理框架
 
 DNAT：目标地址转换；PreRouting
 
-### VS & RS
+## VS & RS
 
 Visual Server[VS] = Director Server[DS] = Dispatcher = Load Balancer
 
@@ -64,7 +71,7 @@ Visual Server[VS] = Director Server[DS] = Dispatcher = Load Balancer
 
 访问流程：CIP <--> VIP == DIP <--> RIP
 
-### LVS工具集
+## LVS工具集
 
 ipvsadm：用户空间的命令行工具，规则管理器、
 
@@ -72,7 +79,7 @@ ipvs：工作于内核空间netfilter的INPUT钩子上的框架，截取内核�
 
 ![](../images/lvs1-1.png)
 
-### LVS集群类型
+## LVS集群类型
 
 | 集群类型    | 解释                                                         |
 | ----------- | ------------------------------------------------------------ |

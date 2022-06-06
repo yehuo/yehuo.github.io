@@ -1,16 +1,18 @@
 ---
 title: Docker进阶笔记
 date: 2021-07-30
-excerpt: "【狂神说JAVA系列】中，秦疆关于Docker系列的进阶课程"
-categories: Notes
-tags: Docker
+excerpt: "[狂神说JAVA系列]中，秦疆关于Docker系列的进阶课程"
+categories:
+    - Notes
+tags: 
+    - Docker
 ---
 
 
 
 # [Docker Compose](https://docs.docker.com/compose/)
 
-##  Compose介绍
+## Compose介绍
 
 Docker Compose运行步骤
 
@@ -23,21 +25,21 @@ Docker Compose运行步骤
 Compose是Docker官方的开源项目，所以需要安装。Compose要运行的不是一个Services，而是包含多个Services的一个Project。
 
 ```yaml
-version: "3.9"  # optional since v1.27.0
+version: "3.9" # optional since v1.27.0
 services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/code
-      - logvolume01:/var/log
-    links:
-      - redis
-  redis:
-    image: redis
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+            - logvolume01:/var/log
+        links:
+            - redis
+    redis:
+        image: redis
 volumes:
-  logvolume01: {}
+    logvolume01: {}
 ```
 
 ## 安装Compose

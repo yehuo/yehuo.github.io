@@ -1,4 +1,16 @@
-## Cluster
+---
+title: Kubernetes Introduction
+date: 2021-09-12
+excerpt: "Kubernetes官网中，对于Kubernetes的基础介绍及实验..."
+categories: 
+    - Notes
+tags:
+    - Kubernetes
+---
+
+
+
+# Cluster
 
 A Kubernetes cluster consists of two types of resources:
 
@@ -20,7 +32,7 @@ kubectl cluster-info dump # get details of cluster
 kubectl get nodes # get all nodes info
 ```
 
-## Deployment
+# Deployment
 
 The Deployment instructs Kubernetes how to create and update instances of your application. Once you've created a Deployment, the Kubernetes control plane schedules the application instances included in that Deployment to run on individual Nodes in the cluster.
 
@@ -61,7 +73,7 @@ echo Name of hte Pod :$POD_NAME
 curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/
 ```
 
-## Pods
+# Pods
 
 Pod 是 Kubernetes 抽象出来的，表示一组一个或多个应用程序容器（如 Docker），以及这些容器的一些共享资源。这些资源包括:
 
@@ -78,7 +90,7 @@ Pod是 Kubernetes 平台上的原子单元。 当我们在 Kubernetes 上创建 
 - Kubelet，负责 Kubernetes 主节点和工作节点之间通信的过程; 它管理 Pod 和机器上运行的容器。
 - 容器运行时（如 Docker）负责从仓库中提取容器镜像，解压缩容器以及运行应用程序
 
-### 查看pods信息
+## 查看pods信息
 
 ```shell
 # View all pods
@@ -94,7 +106,7 @@ kubectl describe pods
 - Container Info: Controlled By \\ Containers
 - Others: Conditions \\ Volumes \\ QoS Class \\ Node-Selectors \\ Tolerations \\ Events
 
-### 开启proxy并查看日志
+## 开启proxy并查看日志
 
 ```shell
 # Start a proxy of specific cluster(in another terminal tab)
@@ -113,7 +125,7 @@ echo Name of hte Pod :$POD_NAME
 kubectl logs $POD_NAME
 ```
 
-### 运行exec
+## 运行exec
 
 ```shell
 # List the environment variables
@@ -150,7 +162,7 @@ www.listen(8080,function () {
 });
 ```
 
-## Services
+# Services
 
 Kubernetes 中的服务(Service)是一种抽象概念，它定义了 Pod 的逻辑集和访问 Pod 的协议。Service 使从属 Pod 之间的松耦合成为可能。 和其他 Kubernetes 对象一样, Service 用 YAML [(更推荐)](https://kubernetes.io/zh/docs/concepts/configuration/overview/#general-configuration-tips) 或者 JSON 来定义. Service 下的一组 Pod 通常由 *LabelSelector* (请参阅下面的说明为什么您可能想要一个 spec 中不包含`selector`的服务)来标记
 
@@ -204,7 +216,7 @@ kubectl exec -ti $POD_NAME -- curl localhost:8080
 
 ```
 
-## Scaling
+# Scaling
 
 **Scaling** is accomplished by changing the number of replicas in a Deployment.
 
@@ -233,7 +245,7 @@ kubectl get deployments
 kubectl get pods -o wide
 ```
 
-## Rolling Update——pod的滚动更新
+# Rolling Update——pod的滚动更新
 
 By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one.
 

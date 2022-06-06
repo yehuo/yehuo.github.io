@@ -1,18 +1,24 @@
 ---
 title: Ansible Startup
 date: 2021-09-01
-excerpt: https://www.bilibili.com/video/BV1HZ4y1p7Bf
+excerpt: "[马哥系列]中，王晓春关于Ansible的入门课程"
+categories: 
+    - Notes
+tags:
+    - Ansible
 ---
 
 
 
-## 1 自动化运维应用场景
+- [Ansible基础及企业应用](https://www.bilibili.com/video/BV1HZ4y1p7Bf)
+
+# 1. 自动化运维应用场景
 
 - 平台架构组建
 - 日常运营保障
 - 性能、效率优化
 
-### 工具组件
+## 工具组件
 
 | 任务           | 工具                                                         |
 | -------------- | ------------------------------------------------------------ |
@@ -33,7 +39,7 @@ excerpt: https://www.bilibili.com/video/BV1HZ4y1p7Bf
 | 数据库         | ==MySQL== \| Oracle \| PostgreSQL \| mongoDB \| ==redis==    |
 | 项目管理       | Jira \| Asana \| Taiga \| Trello \| Basecamp \| Pivotal Tracker |
 
-### 任务路线
+## 任务路线
 
 > - 基础运维：IT解决
 > - 监控运维：外包到机房
@@ -42,7 +48,7 @@ excerpt: https://www.bilibili.com/video/BV1HZ4y1p7Bf
 > - 自动化运维：Infra主要职责
 > - 架构师 & CTO
 
-### 上线流程
+## 上线流程
 
 > 开发：Bug修复、更新数据
 >
@@ -54,7 +60,7 @@ excerpt: https://www.bilibili.com/video/BV1HZ4y1p7Bf
 >
 > 上线：环境准备、上线部署、配置修改、添加监控
 
-### 常用自动化运维工具
+## 常用自动化运维工具
 
 Ansible：python，Agentless，适应于几百台
 
@@ -62,9 +68,9 @@ Saltstack：python，agent，专有协议效率高。适用于上千台机器
 
 Puppt：ruby，重型、配置复杂、适合大型环境（tweet、fb使用经验）
 
-## 2 Ansible架构
+# 2. Ansible架构
 
-### Ansible特性
+## Ansible特性
 
 - 模块化
 	- Paramiko：Python对SSH的是心啊
@@ -74,7 +80,7 @@ Puppt：ruby，重型、配置复杂、适合大型环境（tweet、fb使用经�
 - 幂等性，执行一遍与多遍，结果相同
 - 支持playbook编排任务，多层解决方案Role
 
-### Ansible架构
+## Ansible架构
 
 > Users | CMDB(配置数据库| playbook =》 ansible =》 Hosts \| Networking
 

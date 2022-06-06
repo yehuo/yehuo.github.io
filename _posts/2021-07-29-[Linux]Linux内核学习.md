@@ -1,11 +1,23 @@
-LVM学习
+---
+title: LVM学习笔记
+date: 2021-07-29
+excerpt: "A quick introduction to virtualization and hypervisors..."
+categories: 
+    - OS
+tags: 
+    - Linux
+    - LVM
+---
+
+
+
+# LVM学习
 
 - [解析Linux Hypervisor](https://developer.ibm.com/tutorials/l-hypervisor/?mhsrc=ibmsearch_a&mhq=Linux%20hypervisor)
-- 
 
-内存状态：
+# Linux系统内存状态
 
-### Linux中进程的5种状态
+# Linux进程的5种状态
 
 - 运行(正在运行或在运行队列中等待)
 - 中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号)

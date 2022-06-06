@@ -1,10 +1,15 @@
 ---
-title: Ubuntu apt Usage
+title: "Ubuntu apt Usage"
 date: 2022-03-04
 excerpt: "关于Ubuntu下包管理软件apt的相关资料"
-categories: Notes
-tags: [Ubuntu, Linux]
+categories:
+    - Tools
+tags:
+    - Ubuntu
+    - Linux
 ---
+
+
 
 # [Wikipedia](https://en.wikipedia.org/wiki/APT_(software))
 

@@ -1,10 +1,11 @@
 ---
-title: knowledge to learn
+title: "基础架构体系构建分析"
 date: 2021-10-08
 excerpt: "How to build a infrastructure for ML tasks"
-categories: 
-- DevOps
-
+categories:
+    - Experience
+tags:
+    - DevOps
 ---
 
 

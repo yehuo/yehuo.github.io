@@ -2,15 +2,16 @@
 title: sed & gawk Command
 date: 2021-08-03
 excerpt: "Linux下文本处理命令大全"
-categories: "Linux"
-tages: 
-- shell
-- linux
+categories: 
+    - OS
+tags: 
+    - Shell
+    - Linux
 ---
 
 
 
-## sed [Stream Editor]
+# sed [Stream Editor]
 
 - 处理流程
 	1. 一次从输入数据中读取一行
@@ -40,11 +41,11 @@ sed -e 's/brown/green/; s/dog/cat/' data.txt
 sed -f file.txt data.txt
 ```
 
-### 替换标记
+## 替换标记
 
 默认只替换每行第一处，使用标记替换（substitution flag）可以指定替换位置`s/pattern/replacement/flags`，具体有四种替换标记：数字、g、p、w 
 
-### 行寻址
+## 行寻址
 
 `[address]command`或以如下方式使用行选址
 
@@ -58,16 +59,16 @@ address{
 
 
 
-## gawk
+# gawk
 
-### 功能
+## 功能
 
 - 使用变量
 - 使用算数和字符串操作
 - 使用结构化编程，if-then和循环，来添加逻辑
 - 提取数据元素，并重新排列，以形成格式化报告
 
-### 参数
+## 参数
 
 - `-F fs`设定分隔符
 - `-f file`从文件读取程序
@@ -76,7 +77,7 @@ address{
 - `-mr N`【max row】指定处理的最大行数
 - `-W keyword`指定gawk兼容模式、警告等级
 
-### 变量
+## 变量
 
 - `$0`整个一行
 
@@ -87,7 +88,7 @@ address{
   ```
 
 
-### Keyword: BEGIN & END
+## Keyword: BEGIN & END
 
 ```shell
 # BEGIN: 开始处理数据前要运行的脚本
@@ -98,7 +99,7 @@ gawk 'BEGIN {print "The data File COntents:"} \
 END {print "End of File"}' temp.txt
 ```
 
-### gawk命令文件
+## gawk命令文件
 
 ```shell
 BEGIN {

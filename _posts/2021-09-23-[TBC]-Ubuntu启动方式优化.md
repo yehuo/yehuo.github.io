@@ -2,11 +2,10 @@
 title: Ubuntu启动方式优化
 date: 2021-09-23
 excerpt: 工作中的start project-增进ubuntu preseed 自动化
-categories: 
-- Tech
-- OS
+categories:
+    - OS
 tags:
-- Ubuntu
+    - Ubuntu
 ---
 
 

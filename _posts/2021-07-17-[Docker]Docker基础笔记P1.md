@@ -1,12 +1,16 @@
 ---
 title: Docker基础笔记-Part1
 date: 2021-07-17
-excerpt: "【狂神说JAVA系列】中，秦疆关于Docker系列的讲解"
-categories: Notes
-tags: Docker
+excerpt: "[狂神说JAVA系列]中，秦疆关于Docker系列的讲解"
+categories:
+    - Notes
+tags:
+    - Docker
 ---
 
-## Docker基础知识-Part1
+
+
+# Docker基础知识-Part1
 
 **Docker的历史**
 
@@ -49,56 +53,56 @@ tags: Docker
 
 ![](\images\docker1-1.png)
 
-## 安装Docker
+# 安装Docker
 
 [官方安装文档](https://docs.docker.com/engine/install/centos/) To install Docker Engine, you need a maintained version of CentOS 7 or 8. Archived versions aren’t supported or tested.
 
 1. 删除已有的软件
 
-	```
-	yum remove docker \
-		docker-client \
-	    docker-client-latest \
-	    docker-common \
-	    docker-latest \
-	    docker-latest-logrotate \
-	    docker-logrotate \
-	    docker-engine
-	```
+    ```
+    yum remove docker \
+        docker-client \
+        docker-client-latest \
+        docker-common \
+        docker-latest \
+        docker-latest-logrotate \
+        docker-logrotate \
+        docker-engine
+    ```
 
 2. 需要的安装包
 
-	Install the `yum-utils` package (which provides the `yum-config-manager` utility) and set up the **stable** repository.
+    Install the `yum-utils` package (which provides the `yum-config-manager` utility) and set up the **stable** repository.
 
-	```shell
-	yum install -y yum-utils
-	```
+    ```shell
+    yum install -y yum-utils
+    ```
 
 3. 设置镜像仓库，国内镜像方法参见（https://www.cnblogs.com/hui-shao/p/docker-ali.html）
 
-	```shell
-	# 官方仓库
-	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-	# 国内（阿里云）仓库
-	yum-config-manager --add-repo \
-		http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-	# 更新软件包索引
-	yum makecache fast
-	```
-	
-	> To install a *specific version* of Docker Engine, list the available versions in the repo, then select and install
-	
-	```shell
-	yum list docker-ce --showduplicates | sort -r
-	yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io
-	systemctl start docker
-	```
-	
+    ```shell
+    # 官方仓库
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    # 国内（阿里云）仓库
+    yum-config-manager --add-repo \
+        http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    # 更新软件包索引
+    yum makecache fast
+    ```
+    
+    > To install a *specific version* of Docker Engine, list the available versions in the repo, then select and install
+    
+    ```shell
+    yum list docker-ce --showduplicates | sort -r
+    yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io
+    systemctl start docker
+    ```
+    
 4. 安装docker
 
-	```shell
-	yum install -y docker-ce docker-ce-cli containerd.io
-	```
+    ```shell
+    yum install -y docker-ce docker-ce-cli containerd.io
+    ```
 
 5. 启动docker
 
@@ -114,8 +118,8 @@ tags: Docker
 6. 测试`hello-world`
 
   ```shell
-  docker run hello-world	# 下载并启动hello-world
-  docker images	# 查看docker 镜像
+  docker run hello-world    # 下载并启动hello-world
+  docker images    # 查看docker 镜像
   ```
 
   对于没有的新镜像需要先下载，默认下载latest版本
@@ -124,14 +128,14 @@ tags: Docker
 
 7. *卸载docker
 
-	`/var/lib/docker`是docker的默认工作路径
+    `/var/lib/docker`是docker的默认工作路径
 
-	```shell
-	yum remove docker-ce docker-ce-cli containerd.io
-	rm -rf /var/lib/docker
-	```
+    ```shell
+    yum remove docker-ce docker-ce-cli containerd.io
+    rm -rf /var/lib/docker
+    ```
 
-## 配置阿里云镜像加速
+# 配置阿里云镜像加速
 
 官方文档（https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors）
 
@@ -148,15 +152,15 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-## Docker工作原理
+# Docker工作原理
 
 Docker是CS结构的系统，Docker服务以守护进程形式一直运行在主机端，DockerServer接到Docker-Client指令，就会在系统内执行。
 
-## Docker常用命令
+# Docker常用命令
 
 关于Commandline的官方文档可以查看[Docker Reference](https://docs.docker.com/engine/reference/commandline/)
 
-### 帮助命令
+## 帮助命令
 
 ```shell
 docker version
@@ -164,11 +168,11 @@ docker info
 docker [command] -help
 ```
 
-### 镜像命令
+## 镜像命令
 
 Docker Image Reference: **[[Image Command Document](https://docs.docker.com/engine/reference/commandline/images/)]**
 
-#### 查看镜像命令
+## 查看镜像命令
 
 ```shell
 docker images
@@ -176,7 +180,7 @@ docker images
 # -q\--quiet 只显示镜像id
 ```
 
-#### IMAGE命令结果内容分析
+## IMAGE命令结果内容分析
 
 ![](\images\docker1-6.png)
 
@@ -188,37 +192,37 @@ docker images
 | CREATED    | 镜像创建时间 |
 | SIZE       | 镜像大小     |
 
-#### 搜索\拉取镜像命令
+## 搜索\拉取镜像命令
 
 ```shell
 docker search [OPTIONS] TERM
-docker search --filter=STARS=3000 mysql	# 搜索大于3000 stars的镜像
+docker search --filter=STARS=3000 mysql    # 搜索大于3000 stars的镜像
 
 docker pull [OPTIONS] NAME[:TAG|@DIGEST]
 docker pull ubuntu:14.04
 docker pull ubuntu\
-	@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+    @sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 ```
 
-#### PULL命令结果内容分析
+## PULL命令结果内容分析
 
 ![](\images\docker1-5.PNG)
 
 - 默认使用latest版本
 - 后面的一系列Pull complete使用了分层下载概念，多个镜像之间的层可以共用
 
-#### 删除镜像命令
+## 删除镜像命令
 
 ```shell
 # docker rmi [OPTIONS] IMAGE [IMAGE...]
-docker rmi -f 5c62e459e087	# 删除指定镜像
-docker rmi \	# 通过限制容器版本、digest来删除容器
-	localhost:5000/test/busybox\
-	@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf
-docker rmi -f $(docker images -aq)	# 删除所有镜像
+docker rmi -f 5c62e459e087    # 删除指定镜像
+docker rmi \    # 通过限制容器版本、digest来删除容器
+    localhost:5000/test/busybox\
+    @sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf
+docker rmi -f $(docker images -aq)    # 删除所有镜像
 ```
 
-### 容器命令
+## 容器命令
 
 容器运行命令`docker run `，对应[Docker Run Reference](https://docs.docker.com/engine/reference/commandline/run/)
 
@@ -227,7 +231,7 @@ docker rmi -f $(docker images -aq)	# 删除所有镜像
 docker pull centos
 ```
 
-#### 运行容器
+## 运行容器
 
 ```shell
 # 运行容器: docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
@@ -239,21 +243,21 @@ docker pull centos
 docker run -it centos /bin/bash
 ```
 
-#### 退出容器
+## 退出容器
 
 - 使用`exit`命令退出容器，退出后容器停止
 -  `Ctrl+P+Q`容器不停止，退出
 
-#### 查看容器
+## 查看容器
 
 ```shell
 # 列出所有容器: docker ps [OPTIONS]
-# -a/--all 	Show all containers (default shows just running)
+# -a/--all     Show all containers (default shows just running)
 # -q/--quiet Only display container IDs
 docker ps
 ```
 
-#### 删除容器
+## 删除容器
 
 默认无法删除正在运行的容器
 
@@ -264,31 +268,31 @@ docker rm -f $(docker ps -aq)
 docker ps -a -q|xargs docker rm
 ```
 
-#### 启动、停止、重启容器
+## 启动、停止、重启容器
 
 ```shell
 docker start [container_id]
 docker stop [container_id]
 docker restart [container_id]
-docker kill [container_id]	# 强制停止一个容器
+docker kill [container_id]    # 强制停止一个容器
 ```
 
-### 常用其他命令
+## 常用其他命令
 
 docker使用后台运行，必须要有一个前台进程，如果docker启动后发现没有前台进程，就会默认自动停止进程。
 
 ```shell
 docker run -d centos
-docker ps	# 此时没有任何容器在运行
+docker ps    # 此时没有任何容器在运行
 ```
 
-#### 查看容器日志
+## 查看容器日志
 
 ```shell
 # 查看容器日志:docker logs [OPTIONS] CONTAINER
-	# -f Follow log output
-	# -t/--timestamps Show timestamps 
-	# --tail Number of lines to show from the end of the logs
+    # -f Follow log output
+    # -t/--timestamps Show timestamps 
+    # --tail Number of lines to show from the end of the logs
 
 # centos默认没有日志输出，使用如下脚本使容器输出日志
 # "while true; do echo Hello_World;sleep 1;done"
@@ -297,7 +301,7 @@ docer ps
 docker logs -tf --tail 10 $INSTANCE_ID
 ```
 
-#### 查看容器进程
+## 查看容器进程
 
 ```shell
 # 查看容器进程:docker top CONTAINER [ps OPTIONS]
@@ -305,14 +309,14 @@ docker top $INSTANCE_ID
 
 # 查看容器底层信息:docker inspect [OPTIONS] NAME|ID [NAME|ID...]
 docker inspect $INSTANCE_ID
-docker inspect --format=\	# 查看容器IP
-	'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' \
-	$INSTANCE_ID
+docker inspect --format=\    # 查看容器IP
+    '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' \
+    $INSTANCE_ID
 ```
 
 > By default, `docker inspect` will render results in a JSON array. For example uses of this command, refer to the [examples section](https://docs.docker.com/engine/reference/commandline/inspect/#examples) below.
 
-#### 进入容器命令
+## 进入容器命令
 
 进入容器的常用方式，可以参考[Docker容器进入的4种方式](https://www.cnblogs.com/xhyan/p/6593075.html)
 
@@ -330,7 +334,7 @@ docker attach -it $INSTANCE_ID
 docker cp $INSTANCE_ID:/test.java ./
 ```
 
-### 命令小结
+## 命令小结
 
 ![](\images\docker1-7.png)
 
@@ -353,7 +357,7 @@ kill        Kill a running container                 # kill指定docker容器
 load        Load an image from a tar archive         # 从一个tar包中加载一个镜像[对应save]
 login       Register or Login to the docker registry server  # 注册或者登陆一个docker源服务器
 logout      Log out from a Docker registry server    # 从当前Docker registry 退出
-logs        Fetch the logs of a container			 # 输出当前容器日志信息
+logs        Fetch the logs of a container             # 输出当前容器日志信息
 port        Lookup the public-facting port which is NAT-ed to PRIVATE_PORT   # 查看映射端口对应的容器内部源端口
 pause       Pause all processes within a container   # 暂停容器
 ps          List containers                          # 列出容器列表
@@ -374,7 +378,7 @@ versiohn    Show the docker version information      # 查看docker版本号
 wait        Blocke until a container stops, then print its exit code # 截取容器停止时的退出状态值
 ```
 
-## 任务1 Nginx安装
+# 任务1 Nginx安装
 
 ```shell
 # 下载镜像
@@ -395,18 +399,18 @@ cd /etc/nginx
 
 ```shell
 docker run -itd -p 8080:80 -v \
-	/etc/nginx/nginx.conf:/etc/nginx/nginx.conf \
-	--name=webtest nginx:latest
+    /etc/nginx/nginx.conf:/etc/nginx/nginx.conf \
+    --name=webtest nginx:latest
 ```
 
-## 任务2 Tomcat安装
+# 任务2 Tomcat安装
 
 [Tomcat Docker Hub](https://hub.docker.com/_/tomcat)
 
 ```shell
 # 官方的使用
-docker run -it --rm tomcat:9.0	# 用完就删
-docker ps -a	# 此时无法看到在运行的tomcat容器
+docker run -it --rm tomcat:9.0    # 用完就删
+docker ps -a    # 此时无法看到在运行的tomcat容器
 # 建议使用的办法
 docker run -d -p 3355:8080 --name tomcat01 tomcat
 ```
@@ -414,15 +418,15 @@ docker run -d -p 3355:8080 --name tomcat01 tomcat
 此时已经可以通过3355端口访问Tomcat，但是会显示404页面，因为官方只提供了最基础的版本，webapps目录为空。
 
 ```shell
-docker exec -it tomcat01 /bin/bash	# 进入容器
-cd /usr/local/tomcat/webapps	# 目录为空
-cd /usr/local/tomcat/webapps.dist	# 目录是正常的
-cp -r webapps.dist/* webapps/	# 将必要文件拷贝进入webapps
+docker exec -it tomcat01 /bin/bash    # 进入容器
+cd /usr/local/tomcat/webapps    # 目录为空
+cd /usr/local/tomcat/webapps.dist    # 目录是正常的
+cp -r webapps.dist/* webapps/    # 将必要文件拷贝进入webapps
 ```
 
 此时访问3355端口，就可以看到正常的Tomcat页面。
 
-## 任务3 ES & Kibana安装
+# 任务3 ES & Kibana安装
 
 [ES Docker Hub](https://hub.docker.com/_/elasticsearch) & [Kibana Docker Hub](https://hub.docker.com/_/kibana)
 
@@ -430,22 +434,22 @@ cp -r webapps.dist/* webapps/	# 将必要文件拷贝进入webapps
 # 官方配置
 docker network create somenetwork
 docker run -d --name elasticsearch \
-	--net somenetwork -p 9200:9200 -p 9300:9300 \
-	-e "discovery.type=single-node" elasticsearch:tag
+    --net somenetwork -p 9200:9200 -p 9300:9300 \
+    -e "discovery.type=single-node" elasticsearch:tag
 # 暂时不配置网络
 docker run -d --name elasticsearch \
-	-p 9200:9200 -p 9300:9300 \
-	-e "discovery.type=single-node" elasticsearch:7.6.2
+    -p 9200:9200 -p 9300:9300 \
+    -e "discovery.type=single-node" elasticsearch:7.6.2
 ```
 
-### 解决ES的内存问题
+## 解决ES的内存问题
 
 ```shell
 # 查看CPU状态
 docker stats
 docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 \
-	-e "discovery.type=single-node" \
-	-e ES_JAVA_OPTS="-Xms64m -Xms512m" elasticsearch:7.6.2 
+    -e "discovery.type=single-node" \
+    -e ES_JAVA_OPTS="-Xms64m -Xms512m" elasticsearch:7.6.2 
 curl localhost:9200
 ```
 
@@ -469,33 +473,33 @@ curl localhost:9200
 }
 ```
 
-### 【TBC】解决Kibana和ES联通的网络问题
+## 【TBC】解决Kibana和ES联通的网络问题
 
-## Docker可视化
+# Docker可视化
 
-### 【TBC】portainer是什么
+## 【TBC】portainer是什么
 
 **[[Offical Document](https://www.portainer.io/)]** Portainer is a universal container management tool that helps users deploy and manage container-based applications without needing to know how to write any platform-specific code.
 
 ```shell
 docker run -d -p 8088:9000 \
-	--restart=always -v /var/run/docker.sock:/var/run/docker.sock \
-	--privileged=true portainer/portainer
+    --restart=always -v /var/run/docker.sock:/var/run/docker.sock \
+    --privileged=true portainer/portainer
 ```
 
 此时，可以通过8088端口页面访问portainer后端。
 
-### 【TBC】Rancher（CI/CD使用）
+## 【TBC】Rancher（CI/CD使用）
 
-## Docker镜像原理
+# Docker镜像原理
 
-### 镜像获取来源
+## 镜像获取来源
 
 - 下载镜像
 - 直接拷贝
 - 自行制作
 
-### 【TBC】联合文件系统 UnionFS
+## 【TBC】联合文件系统 UnionFS
 
 > **Union文件系统**（UnionFS）是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下(unite several directories into a single virtual filesystem)。Union 文件系统是 Docker 镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。
 
@@ -505,7 +509,7 @@ docker run -d -p 8088:9000 \
 
 [参考文档2](https://www.cnblogs.com/ilinuxer/p/6188654.html)
 
-### 【TBC】Docker镜像加载原理
+## 【TBC】Docker镜像加载原理
 
 docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。
 
@@ -517,7 +521,7 @@ docker的镜像实际上由一层一层的文件系统组成，这种层级的�
 >
 > 对于一个精简的OS，rootfs可以很小，只需要包括最基本的命令、工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供 rootfs 就行了。由此可见对于不同的linux发行版, bootfs基本是一致的, rootfs会有差别, 因此不同的发行版可以公用bootfs。 虚拟机是分钟级，容器是秒级。
 
-### 【TBC】分层理解
+## 【TBC】分层理解
 
 ![](\images\docker1-8.png)
 
