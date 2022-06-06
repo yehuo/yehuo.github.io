@@ -83,9 +83,9 @@ sudo cp configuration.example.py configuration.py
 
 Note that NetBox requires the specification of two separate Redis databases: `tasks` and `caching`. These may both be provided by the same Redis service, however each should have a unique numeric database ID.
 
-*This parameter must be assigned a randomly-generated key employed as a salt for hashing and related cryptographic functions. (Note, however, that it is never directly used in the encryption of secret data.)*
+This parameter must be assigned a randomly-generated key employed as a salt for hashing and related cryptographic functions. (Note, however, that it is never directly used in the encryption of secret data.)
 
-*This key must be unique to this installation and is recommended to be at least 50 characters long.*
+This key must be unique to this installation and is recommended to be at least 50 characters long.
 
 ```python
 ALLOWED_HOSTS = ['netbox.example.com', '192.0.2.123']
@@ -123,7 +123,7 @@ python3 ../generate_secret_key.py
 
 ## 设定扩展模块
 
-*All Python packages required by NetBox are listed in `requirements.txt` and will be installed automatically. NetBox also supports some optional packages. If desired, these packages must be listed in `local_requirements.txt` within the NetBox root directory.*
+All Python packages required by NetBox are listed in `requirements.txt` and will be installed automatically. NetBox also supports some optional packages. If desired, these packages must be listed in `local_requirements.txt` within the NetBox root directory.
 
 - napalm: 用于通过RESTAPI借口获得设备信息
 - django-storages: 支持django使用远程存储设备
@@ -163,13 +163,13 @@ python3 manage.py runserver 0.0.0.0:8000 --insecure
 
 # Gunicorn
 
-*NetBox ships with a default configuration file for gunicorn. To use it, copy `/opt/netbox/contrib/gunicorn.py` to `/opt/netbox/gunicorn.py`.*
+NetBox ships with a default configuration file for gunicorn. To use it, copy `/opt/netbox/contrib/gunicorn.py` to `/opt/netbox/gunicorn.py`.
 
 ```shell
 sudo cp /opt/netbox/contrib/gunicorn.py /opt/netbox/gunicorn.py
 ```
 
-*We'll use systemd to control both gunicorn and NetBox's background worker process.*
+We'll use systemd to control both gunicorn and NetBox's background worker process.
 
 ```shell
 sudo cp -v /opt/netbox/contrib/*.service /etc/systemd/system/
@@ -179,7 +179,7 @@ sudo systemctl enable netbox netbox-rq
 systemctl status netbox.service
 ```
 
-*p.s. If the NetBox service fails to start, issue the command `journalctl -eu netbox` to check for log messages.*
+> p.s. If the NetBox service fails to start, issue the command `journalctl -eu netbox` to check for log messages.
 
 # HTTP Server
 
