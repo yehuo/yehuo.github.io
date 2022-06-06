@@ -117,6 +117,6 @@ There can be several instance in vault cluster, with one leader node. In the usa
 
  Multiple instances with a shared network service, as a API client in network. Vault cluster will just expose a JSON API.
 
- # Reference
+## Reference
 
  - [Introduction to HashiCorp Vault](https://www.youtube.com/watch?v=VYfl-DpZ5wM&ab_channel=HashiCorp)
