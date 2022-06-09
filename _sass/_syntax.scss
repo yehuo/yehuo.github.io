@@ -11,7 +11,7 @@ div.highlighter-rouge, figure.highlight {
   background-color: $code-background-color;
   box-shadow: $box-shadow;
 
-  &:before {
+  .fa-code&::before {
     position: absolute;
     top: 0;
     right: 0;
