@@ -3,12 +3,13 @@ title: "Ansible Startup"
 date: 2021-09-01
 excerpt: "Ansible basic architecture"
 categories: 
-
    - Notes
-	tags:
+tags:
    - Ansible
 
 ---
+
+
 
 # 1. 自动化运维应用场景
 
