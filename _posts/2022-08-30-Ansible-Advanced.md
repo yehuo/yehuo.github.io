@@ -18,7 +18,7 @@ tags:
 使用`--start-at`确定开始任务名称，或者使用`tag`来标注需要测试的任务，或者使用`step`逐步执行任务，参考[cn-doc](http://www.ansible.com.cn/docs/playbooks_startnstep.html)
 
 ```shell
-ansible-playbook -i daxing/dev/ playbooks/proxmox.yaml -l dx-proxmox-dev-005.dx.corp.pony.ai --extra-vars "bonding=1" --user shujia --ask-become-pass --ssh-extra-args "-F /home/shujia/.ssh/teleport-current" --start-at="Check bonding status"
+ansible-playbook -i <region_name> -l <node_name> <playbook_name> --user <username> --ask-become-pass --start-at=<task_name>
 ```
 
 ## 开头根据变量筛选任务是否进行
@@ -37,9 +37,9 @@ ad hoc使用方式[官方文档](https://docs.ansible.com/ansible/latest/user_gu
 
 ```shell
 # 查看ansible facts中某变量
-ansible -i daxing/dev/ dx-proxmox-dev-005.dx.corp.pony.ai -m "setup" -a "filter=ansible_interfaces"
+ansible -i <region_name> -l <node_name> -m "setup" -a "filter=ansible_interfaces"
 # 测试ping
-ansible -i daxing/dev/ dx-proxmox-dev-005.dx.corp.pony.ai -m "shell" -a "cmd='ping dx-proxmox-dev-004.dx.corp.pony.ai'"
+ansible -i <region_name> -l <node_name> -m "shell" -a "cmd='ping baidu.com'"
 ```
 
 ## set fact和var的使用问题
