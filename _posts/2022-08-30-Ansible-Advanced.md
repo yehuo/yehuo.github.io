@@ -66,6 +66,7 @@ ansible -i daxing/dev/ dx-proxmox-dev-005.dx.corp.pony.ai -m "shell" -a "cmd='pi
 - [Variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
   - [Scoping](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#scoping-variables)
   - [precedence](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#scoping-variables)
+- [when,condition](https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html#conditionals-based-on-ansible-facts)
 
 ## Reference
 
