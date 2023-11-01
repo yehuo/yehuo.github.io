@@ -6,6 +6,8 @@ tags: [Elasticsearch, PHP]
 excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
 ---
 
+
+
 ### 0x00 Background
 
 不知boss吃了谁家安利，有一天忽然心血来潮，要搞一波nosql来推进我司工作，还要求支持全文检索。

@@ -1,5 +1,5 @@
 ---
-title: 谈谈Linux状态监控命令
+title: Linux Monitoring Tools
 date: 2021-06-25
 excerpt: "从磁盘、内存、CPU角度谈谈Linux常用监控命令"
 categories: 
@@ -8,9 +8,9 @@ tags:
 - Linux
 ---
 
-# 1. 磁盘
+# 0x01 Disk
 
-## 1.1. 磁盘读写情况`iostat`/`iotop`
+## 1.1. IO status `iostat`/`iotop`
 
 用于查看CPU状态统计信息和各类设备、磁盘分区的IO信息统计
 
@@ -83,7 +83,7 @@ iostat [ -c ] [ -d ] [ -h ] [ -k | -m ] [ -N ] [ -t ] [ -V ] \
 | `-t`         | 每次输出时，显示输出时间                               |
 | `-T`         | 只显示Group统计结果，不显示独立设备显示结果            |
 
-## 1.2. 磁盘情况`df` / `du`
+## 1.2. Disk capacity `df` / `du`
 
 ### 命令格式
 
@@ -91,11 +91,11 @@ iostat [ -c ] [ -d ] [ -h ] [ -k | -m ] [ -N ] [ -t ] [ -V ] \
 
 ### 参数内容
 
-# 2. 内存
+# 0x02 Memory
 
 ## 2.1. 
 
-#### 查看内存的方法
+### 查看内存的方法
 
 - top
 - free
@@ -105,6 +105,6 @@ iostat [ -c ] [ -d ] [ -h ] [ -k | -m ] [ -N ] [ -t ] [ -V ] \
 - **vmstat -s**
 - **gnome-shell-system-monitor-applet**
 
-# 3. CPU
+# 0x03 CPU
 
-# 4. Network
+# 0x04 Network
