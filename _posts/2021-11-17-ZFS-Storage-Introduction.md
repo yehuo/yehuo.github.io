@@ -1,13 +1,15 @@
 ---
-title: "ZFS Storage基础"
+title: "ZFS Storage Introduction"
 date: 2021-11-17
-excerpt: "关于ZFS cluster作为存储解决方案的一些常识..."
+excerpt: "Some basic knowledge on ZFS as storage solution..."
 categories: 
     - OS
 tags:
     - Storage
     - ZFS
 ---
+
+
 
 # Zpools, Vdevs, and Devices
 
