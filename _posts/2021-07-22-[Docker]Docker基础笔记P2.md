@@ -15,7 +15,7 @@ tags:
 ```shell
 # docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 
-docker commit -a="xushujia" -m="add webapps app" 58e2a tomcat01:1.0    # 提交修改过后的镜像，58e2a是容器ID
+docker commit -a="sitong" -m="add webapps app" 58e2a tomcat01:1.0    # 提交修改过后的镜像，58e2a是容器ID
 docker images    # 查看tomcat01镜像
 
 # 修改ENV内容

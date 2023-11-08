@@ -13,7 +13,7 @@ redirect_from:
 </p>
 
 # About Me
-* My bachelor degree on software engineering was granted by [Beijing Institute of Technology](https://https://www.bit.edu.cn/) in 2017.
+* My bachelor degree on software engineering was granted by [Beijing Institute of Technology](https://www.bit.edu.cn/) in 2017.
 * From 2017.9 to 2021.6, I worked as department manager in IT Department of Software in the National Computer Science Center.
 * From 2021.8 to 2023.5, I worked as a devops Engineer in Infrastucture Department of Pony.ai company.
 
