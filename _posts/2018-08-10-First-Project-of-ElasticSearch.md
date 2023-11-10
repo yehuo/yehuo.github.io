@@ -8,36 +8,32 @@ excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一
 
 
 
-### 0x00 Background
+## 0x00 Background
 
-不知boss吃了谁家安利，有一天忽然心血来潮，要搞一波nosql来推进我司工作，还要求支持全文检索。
+这个项目的背景是由于公司的老板突然受到某兄弟部门的推销，决定引入NoSQL技术来推动公司的工作，并要求对所有整理进Nosql的数据实现全文检索功能。
 
-具体到技术栈，boss也做了很**具体**的要求
+具体到技术栈，老大较为朴素地提出了一个架构设计：“就是用MongoDB+Elasticsearch+PHP搭建一个检索终端……”。并以通俗易懂的方式补充道：“NoSQL就是将数据以JSON格式存储在数据库中，你懂吧(^-^)”
 
-“就是MongoDB+Elasticsearch+PHP搞一个检索终端...”
+于是……老大先把任务下达到运营部门，要求他们手动将所有的MySQL中的txt格式的content数据（对应大概几百份Doc文件）转换为JSON文件并发送给我
 
-然后 boss **通俗易懂**地补充道
+（不幸地是他们真的只会手工写JSON
 
-“Nosql就是把数据以JSON格式存入数据库...”
+（幸运的是，运营部门的负责人是个比较礼貌的人
 
-于是...boss先给运营下达任务，要求把全部mysql数据手工转换为json文件发给了我...
+再然后，几个月之后，重担到了我这里，对着运营部门发来的几百份尚未经过语法校验的JSON文件，我大概花了一天来平复心情
 
-~~还好数据量不大...运营部门lead也都很礼貌~~
+然后，我需要从一堆屎山JSON文件开始，构建一个完整支持全文检索的文件搜索系统……
 
-然后一把梭的重任就落到了我肩上，看着运营发来的n份~~完全没做过正确性检验的~~json文件，我和运营大佬内心都感想万千...
+# 0x01 将json文件批量导入MongoDB
 
-下面开始，我就需要从一份json文件开始，扩展完整支持全文检索的文件搜索系统。
+# 0x02 使用bulk API将json批量导入Elasticsearch
 
-### 0x01 将json文件批量导入MongoDB
+# 0x03 设定从MongoDB到Elasticsearch集群的定期同步
 
-### 0x02 使用bulk API将json批量导入Elasticsearch
+# 0x04 使用PHP-Elasticsearch组件调用Elasticsearch全文检索功能
 
-### 0x03 设定从MongoDB到Elasticsearch集群的定期同步
+# 0x05 设计前端页面以获取PHP发送的JSON格式数据
 
-### 0x04 使用PHP-Elasticsearch组件调用Elasticsearch全文检索功能
+# 0x06 设计前端跳转逻辑
 
-### 0x05 设计前端页面以获取PHP发送的JSON格式数据
-
-### 0x06 设计前端跳转逻辑
-
-### 0x07 在前端页面中添加CRUD操作端口以直接操作MongoDB
+# 0x07 在前端页面中添加CRUD操作端口以直接操作MongoDB

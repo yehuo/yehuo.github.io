@@ -6,6 +6,8 @@ categories: Notes
 tags: Frontend, Bootstrap
 ---
 
+
+
 内容来自Bootstrap v4中文[官方手册](https://v4.bootcss.com/docs/getting-started/introduction/)，适配于v4.6版本的Bootstrap库。
 
 ### 网格属性

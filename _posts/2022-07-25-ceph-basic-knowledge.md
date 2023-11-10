@@ -101,7 +101,7 @@ Client只需要知道obj ID和对应Pools就可以计算出location。举例来�
 
 作为维护数据一致性和清洁性的一部分。Ceph OSD会在PG中scrub数据对象。具体来说，就是Ceph会比较拿PG的metadata和其存储在其他OSD的副本PG作比较。这种流程可以帮助处理OSD bugs和文件系统错误。OSD也可以逐比特进行深层scrub。Deep scrubbing可以找到disk上的bad sectors，而这是light scrub无法完成的。
 
-# Reference
+## Reference
 
 - [Deploy Hyper-Converged Ceph Cluster](https://pve.proxmox.com/wiki/Deploy_Hyper-Converged_Ceph_Cluster)
 - [Ceph Intro](https://docs.ceph.com/en/octopus/start/intro/)
