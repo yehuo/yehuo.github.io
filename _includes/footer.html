@@ -1,12 +1,25 @@
 {% include base_path %}
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+    function getOrdinal(n) {
+        let ord = 'th';
+        if (n % 10 == 1 && n % 100 != 11){
+            ord = 'st';
+        }
+        else if (n % 10 == 2 && n % 100 != 12){
+            ord = 'nd';
+        }
+        else if (n % 10 == 3 && n % 100 != 13){
+            ord = 'rd';
+        }
+        return ord;
+        }
+</script>
 
-Hi, you are the <span id="busuanzi_value_site_uv"></span>th visitor to Sitong's blog.</br>
-
-<span id="busuanzi_container_site_pv">Total Site Views: <span id="busuanzi_value_site_pv"></span>times in all.</span>
-
-total <span id="busuanzi_value_site_pv"></span> views. </br>
-
-This article have been read for <span id="busuanzi_value_page_pv"></span> times.
-
-<div class="page__footer-copyright">&copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}. {{ site.data.ui-text[site.locale].powered_by | default: "Powered by" }} <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>.</div>
+<div class="page__footer-copyright">
+    Hey, you are the <span id="busuanzi_value_site_uv"></span>th visitor to Sitong's blog.</br>
+    <span id="busuanzi_container_site_pv">Total Site Views: <span id="busuanzi_value_site_pv"></span> times in all.</span></br>
+    &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }}. {{ site.data.ui-text[site.locale].powered_by | default: "Powered by" }} 
+    <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; 
+    <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>.
+</div>
