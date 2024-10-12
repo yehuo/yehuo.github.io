@@ -10,7 +10,7 @@ tags:
 
 
 
-![CanvasIntro](\images\AI\Canvas.png)
+![CanvasIntro](\images\AI\Canvas.jpg)
 
 
 ## 0x01 What's GPT Canvas
@@ -59,7 +59,7 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 
 但值得注意的是，此类基线的质量对所使用的特定提示高度敏感。使用不同的提示，基线可能仍然表现不佳，但表现方式不同。例如，在编码和写作任务中表现不准确，导致错误分布不同，并导致表现不佳。对于编码，OpenAI 故意让模型偏向于触发，以避免打扰使用代码功能的高级用户。他们也将根据用户反馈继续完善这一点。
 
-![TriggerCanvasBenchmark](\images\AI\Benchmark-01.png)
+![TriggerCanvasBenchmark](\images\AI\Benchmark-01.jpg)
 
 > For writing and coding tasks, we improved correctly triggering the canvas decision boundary, reaching 83% and 94% respectively compared to a baseline zero-shot GPT-4o with prompted instructions.
 
@@ -67,7 +67,7 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 
 官方在发布中提到的第二个挑战则是在触发 Canvas 后如何调整模型的编辑行为。具体来说，就是决定何时进行有针对性的编辑，而不是重写整个内容。他们有意训练模型在用户通过提示词明确给出要编辑的部分时，优先执行有针对性的编辑，否则倾向于重写。而且后续随着模型的完善，这种行为会不断进行优化。在使用过程中，这样的优化确实大大加快了生成速度和代码变更的准确度。
 
-![CanvasModelBenchmark](\images\AI\Benchmark-02.png)
+![CanvasModelBenchmark](\images\AI\Benchmark-02.jpg)
 
 > For writing and coding tasks, we prioritized improving canvas targeted edits. GPT-4o with canvas performs better than a baseline prompted GPT-4o by 18%.
 
@@ -75,7 +75,7 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 
 而官方提到的最后一个挑战，是以往模型训练过程中，生成高质量评论往往需要细致的迭代。与前两种情况不同，前两种情况很容易使用自动评估结合部分人工审核来评估效果，但以自动化方式衡量 Comment 质量则很具有挑战性。因此，他们使用了人工评估来分析 Comment 的质量和准确性。OpenAI 在集成 Canvas 模型在准确率和质量上均优于零样本 GPT-4o，前者高出 30%，后者高出 16%，这表明与带有详细说明的零样本提示相比，合成训练显著提高了响应质量和行为。
 
-![CommentBenchmark](\images\AI\Benchmark-03.png)
+![CommentBenchmark](\images\AI\Benchmark-03.jpg)
 
 > Human evaluations assessed canvas comment quality and accuracy functionality. Our canvas model outperforms the zero-shot GPT-4o with prompted instructions by 30% in accuracy and 16% in quality.
 
