@@ -1,6 +1,6 @@
 ---
 title: "How to get a CKA Certification"
-date: 2024-01-30
+date: 2024-02-16
 excerpt: "如何一周内通过CNCF的CKA认证"
 categories: 
     - Certification
@@ -11,7 +11,7 @@ tags:
 
 
 
-## 0x01 报名考试
+## 0x01 
 
 相比于AWS报名，K8S认证报名复杂很多，这里强调一点：CNCF基金会考试是没有中国区报名渠道的！国内网站是卖考试券的！
 
