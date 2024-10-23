@@ -1,7 +1,7 @@
 ---
-title: "New Trend of GPT: GPT with Canvas"
-date: 2024-10-12
-excerpt: "GPT中关于Canvas的新用法"
+title: "New Trend of GPT: GPT Memory"
+date: 2024-10-22
+excerpt: "让GPT更好用的秘诀：GPT Memory"
 categories: 
     - AI
 tags: 
@@ -13,7 +13,7 @@ tags:
 ![CanvasIntro](\images\AI\Canvas.jpg)
 
 
-## 0x01 What's GPT Canvas
+## 0x01 What's ChatGPT Memory
 
 近期GPT 推出了一个测试模型： `GPT4o-with Canvas` 。Canvas 使用了全新的界面，可用于与 ChatGPT 合作编写，甚至多文件的编码项目，而不仅仅是简单的聊天。
 
@@ -87,6 +87,4 @@ Canvas 是使用 GPT-4o 构建的，在测试版中可以在模型选择器中�
 
 而结合我之前的使用体验，现在如果拿 Canvas 和 先前的 copilot 以及 Notion AI 做个对比的话，在代码生成方面，OpenAI公司本身强悍的模型能力赋予了 Canvas 比 copilot 更强大的代码生成能力和分析能力（copilot在提示词理解方面，感觉是差点意思）。而文本生成方面，虽然 Notion AI 对提示词理解和内容生成方面基本满足我的要求，但是各式各样的功能限制，和付费限制，让 Notion AI 的使用成本（操作复杂度和价格）方面都显得有些让人不爽。
 
-但 Canvas 其实也有劣势，那就是因为没有与既有产品（例如vscode）的绑定，其中很多操作并不是那么顺畅的。举例来说，在 copilot 对代码的修改中，真的是可以通过右键做到代码块级别的重写和注释，而在 Canvas 即使不需要进行通篇重写时，也会从头逐行扫描代码（ Canvas中通常是包括很多文件的 ），直至找到需要修改的代码块。
-
-结合 GPT4o 接近瞬间的反应速度，导致 Canvas 中修改代码块的时间都花在了代码逐行扫描上。这种产品设计上的缺陷能不能成为 Canvas 在下一个阶段着重打磨和关注的事情，或许是他们能否真的抢占相关市场的关键。
+但 Canvas 其实也有劣势，那就是因为没有与既有产品（例如vscode）的绑定，其中很多操作并不是那么顺畅的。举例来说，在 copilot 对代码的修改中，真的是可以通过右键做到代码块级别的重写和注释，而在 Canvas 即使不需要进行通篇重写时，也会从头逐行扫描代码（ Canvas中通常是包括很多文件的 ），直至找到需要修改的代码块。结合 GPT4o 接近瞬间的反应速度，导致 Canvas 中修改代码块的时间都花在了代码逐行扫描上。这种产品设计上的缺陷或许应该是 Canvas 在下一个阶段着重打磨和关注的事情，或许也是他们是否真的能抢占相关市场的关键。

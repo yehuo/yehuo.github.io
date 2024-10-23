@@ -1,6 +1,6 @@
 ---
-title: "How to get a CKA Certification"
-date: 2024-02-16
+title: "How to get a CKS Certification"
+date: 2024-02-20
 excerpt: "如何一周内通过CNCF的CKA认证"
 categories: 
     - Certification

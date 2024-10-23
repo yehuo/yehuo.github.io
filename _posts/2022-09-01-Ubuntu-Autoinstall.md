@@ -11,21 +11,19 @@ tags:
 
 
 
-# Auto Install for Ubuntu 20.04
+# Autoinstall of Ubuntu in 20.04
 
 ## Introduction
 
-### New feature
+ Autoinstall 是官方新定义为无人接管的preseed installation，和传统 preseed 流程区别主要是以下两点：
 
-官方定义为无人接管的preseeded installation，和传统preseed流程区别主要是以下两点：
+- Autoinstall 的配置文件格式采用 cloud-init 配置方法，通常是yaml文件，而不是是原来的`debconf-set-selections` 格式文件
+- preseed 流程中将不会有与用户应答流程的出现，以往`d-i` 遇到 `unanswered question` 就会停止安装流程，询问用户，但是 autoinstall 将会采用默认值继续安装，如未设置默认则直接
+- 不过在 autoinstall 应答文件中，你同样可以使用`interactive`来指定需要交互的配置，这样遇到对应部分，auto install就会停下来寻求用户输入
 
-- auto install的配置文件格式采用cloud-init配置方法，通常是yaml文件，而不是是原来的`debconf-set-selections`格式
-- preseed流程中将不会有question的出现，以往`d-i`遇到`unanswered question`会停止安装流程，询问用户，但是auto install将会采用默认值，如未设置默认则失败
-  - 不过在auto install配置文件中，你同样可以使用`interactive`来指定需要交互的配置，这样遇到对应部分，auto install就会停下来寻求用户输入
+## 关于netboot的一些问题
 
-### 关于netboot的温馨提示
-
-虽然auto-install配置过程理论是无人参与的，但是在开始写入磁盘之前installer仍需用户确认，除非在内核命令行中设置了`autoinstall`参数。这主要是为了防止在系统创建过程中USB意外插入的情况，这种情况下可能导致机器被格式化。
+虽然 autoinstall 配置过程理论是无人参与的，但是在开始写入磁盘之前installer仍需用户确认，除非在内核命令行中设置了 autoinstall 参数。这主要是为了防止在系统创建过程中USB意外插入的情况，这种情况下可能导致机器被格式化。
 
 而大部分netboot流程中内核命令通常可以在netboot的配置文件中设置，记得将`autoinstall`放入其中。
 
@@ -33,9 +31,9 @@ tags:
 
 ### 应答文件的存放位置
 
-在装机完成后，会在`/var/log/installer/autoinstall-user-data`创建一个autoinstall文件便于重复安装
+在装机完成后，会在 `/var/log/installer/autoinstall-user-data` 创建一个autoinstall文件便于重复安装
 
-### 应答文件翻译问题
+### 转化已有 preseed 格式应答文件
 
 对于已有的preseed配置文件，可以使用[autoinstall-generator](https://snapcraft.io/autoinstall-generator?_ga=2.67775633.1267827802.1661936839-27790731.1649741711)来翻译生成对应的autoinstall文件。
 
@@ -194,7 +192,7 @@ kvm -no-reboot -m 1024 \
 
 ### Version
 
-这个是一个后续才拓展的选项，目前必须使用`1`
+这个是一个后续才拓展的选项，目前必须使用 `1`
 
 ### interactive-sections
 
@@ -209,7 +207,7 @@ identity:
  password: $crypted_pass
 ```
 
-关于interactive-sections有两点需要注意：
+关于 interactive-sections 有两点需要注意：
 
 - 可以使用通配符`*`来代指所有选项，这种情况下，autoinstall流程将退化为手工安装
 - 在配置为interactive section后，`reporting`设置将会被忽略掉
