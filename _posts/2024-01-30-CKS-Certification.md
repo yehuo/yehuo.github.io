@@ -4,7 +4,7 @@ date: 2024-01-30
 excerpt: "如何通过CNCF的CKS认证"
 categories: 
     - Certification
-    - CNCF
+    - Kubernetes
 tags: 
     - CKS
 ---

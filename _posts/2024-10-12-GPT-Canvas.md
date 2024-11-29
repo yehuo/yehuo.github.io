@@ -3,9 +3,9 @@ title: "New Trend of GPT: GPT with Canvas"
 date: 2024-10-12
 excerpt: "GPT中关于Canvas的新用法"
 categories: 
-    - AI
+    - ChatGPT
 tags: 
-    - GPT
+    - Canvas
 ---
 
 

@@ -3,10 +3,9 @@ title: "How To ChatGPT"
 date: 2023-11-28
 excerpt: "A tour guide for your journey for ChatGPT-4.0"
 categories: 
-    - AI
-tags: 
     - ChatGPT
-    - ChatMate
+tags: 
+    - Guide
 ---
 
 

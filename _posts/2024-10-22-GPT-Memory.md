@@ -3,7 +3,7 @@ title: "New Trend of GPT: GPT Memory"
 date: 2024-10-22
 excerpt: "让GPT更好用的秘诀：GPT Memory"
 categories: 
-    - AI
+    - ChatGPT
 tags: 
     - GPT
 ---

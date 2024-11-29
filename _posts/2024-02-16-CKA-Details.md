@@ -4,7 +4,7 @@ date: 2024-02-16
 excerpt: "如何一周内通过CNCF的CKA认证"
 categories: 
     - Certification
-    - CNCF
+    - Kubernetes
 tags: 
     - CKA
 ---

@@ -3,10 +3,9 @@ title: "Kubernetes Admission Webhooker Demo"
 date: 2024-10-21
 excerpt: "How to control the k8s access from the root"
 categories: 
-    - Cloud Automation
-tags: 
     - Kubernetes
-    - Automation
+tags: 
+    - AdmissionWebhook
 ---
 
 
