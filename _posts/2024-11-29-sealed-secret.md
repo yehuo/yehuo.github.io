@@ -9,16 +9,14 @@ tags:
     - addon
 ---
 
-
-
-## 0x01 Install
+# 0x01 Install
 
 Sealed Secrets 由两个部分组成：
 
 - Client Side cli tool: kubeseal，客户端CLI工具 kubeseal，用于加密机密和创建密封机密
 - Server Side controller：服务器端控制器，用于解密 SealedSecret CRD 和 创建 secrets
 
-### Installing sealedsecret controller (helm)
+## Installing sealedsecret controller (helm)
 
 ```shell
 #!/bin/bash
@@ -43,7 +41,7 @@ helm upgrade --install ${TARGET} ${CHART} \
 - controller 在首次部署时会生成自己的证书，它还会为用户管理续订。但用户也可以自带证书，以便控制器也可以使用它们。
 - controller 使用任何标记为 sealedsecrets.bitnami.com/sealed-secrets-key=active 的密钥中包含的证书，该密钥必须与控制器位于同一命名空间中。可以有多个这样的秘密
 
-### Installing kubeseal
+## Installing kubeseal
 
 kubeseal 使用当前 kubectl 的 context 设置。安装前，需要确保 kubectl 可以连接到应安装 Sealed Secrets 的群集。
 
@@ -57,9 +55,9 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 ```
 
 
-## 0x02 Mechanism
+# 0x02 Mechanism
 
-![architecture](\images\SealedSecret\architecture.png)
+![architecture](\images\SealedSecret\architecture.webp)
 - controller启动时，会在其命名空间中搜索带有 sealedsecrets.bitnami.com/sealed-secrets-key 标签的 Secret 读取其中存放的私钥/公钥对
 - 如果找不到，controller则会生成一个新的 4096 位 RSA 密钥对，并在命名空间中创建新的 Secret 将其保存其中。随后会将公钥部分打印到输出日志中
   - 用户可以使用以下命令以 YAML 格式查看此 Secret（包含公有/私有密钥对）的内容：
@@ -72,7 +70,7 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 
 kubeseal 通过 apiserver 与 controller进行通信，并在运行时检索加密 Secret 所需的公钥，但是用户也可以从控制器下载公钥并保存在本地以便离线使用。
 
-## 0x03 Usage
+# 0x03 Usage
 
 SealedSecret 和 Secret 必须具有相同的命名空间和名称。此功能可防止同一集群上的其他用户重复使用设置过的 sealedsecret 资源。
 
@@ -84,7 +82,7 @@ kubeseal --format yaml --scope cluster-wide < mysecret.yaml > mysealedsecret2.ya
 
 上述过程中，kubeseal 将 Kubernetes Secret 作为输入，对其进行加密并输出 CRD 清单 SealedSecret 。
 
-### Test Case
+## Test Case
 
 1. 编写一份普通的secret资源
    
@@ -138,9 +136,9 @@ kubeseal --format yaml --scope cluster-wide < mysecret.yaml > mysealedsecret2.ya
     kubectl get secret my-secret -o yaml
     ```
 
-## 0x04 Customized Resources
+# 0x04 Customized Resources
 
-### Define costomized certificate
+## Define costomized certificate
 
 refer: https://github.com/bitnami-labs/sealed-secrets/blob/main/docs/bring-your-own-certificates.md
 
@@ -174,7 +172,7 @@ refer: https://github.com/bitnami-labs/sealed-secrets/blob/main/docs/bring-your-
     kubectl -n "$NAMESPACE" logs -l name=sealed-secrets-controller
     ```
 
-### Export public key and encryption
+## Export public key and encryption
 
 对于未加密的 secret，如果需要手工加密，可以导出集群中的 public key 来加密
 
@@ -185,7 +183,7 @@ kubeseal --fetch-cert > public-key-cert.pem
 kubeseal --format=yaml --cert=public-key-cert.pem < secret.yaml > sealed-secret.yaml
 ```
 
-### Export private key and decryption
+## Export private key and decryption
 
 对于已加密的 sealed secret，如果需要手工加密，可以导出集群中的 private key 来解密
 
@@ -199,13 +197,14 @@ kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-ke
 kubeseal < sealed-secret.yaml --recovery-unseal --recovery-private-key sealed-secrets-key.yaml -o yaml
 ```
 
-## 0x05 Conclusion & Reference
+# 0x05 Conclusion & Reference
 
 Sealed Secrets 是一种在版本控制工具（例如git）里管理 Kubernetes Secret的安全方法。通过在集群中存储加密密钥并解密机密。来保证非授权客户端（无私钥客户端）无权访问加密密钥。
 
 客户端使用 kubeseal 工具生成 SealedSecret 保存加密数据的清单。应用文件后，集群中的 controller 将识别新的密封密钥资源并对其进行解密以创建 Secret 资源。
 
-### Reference
+## Reference
 
-- https://github.com/bitnami-labs/sealed-secrets/blob/main/docs/bring-your-own-certificates.md
-- https://cloudnative.love/blog/2023/06/20/%E5%8A%A0%E5%AF%86%20Secrets%20%E8%B5%84%E6%BA%90%EF%BC%9ASealed%20Secrets%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/README#controller-%E5%AE%89%E8%A3%85
+- ["Sealed Secrets" for Kubernetes](https://github.com/bitnami-labs/sealed-secrets)
+- [Bring your own certificates](https://github.com/bitnami-labs/sealed-secrets/blob/main/docs/bring-your-own-certificates.md)
+- [加密 Secrets 资源：Sealed Secrets 使用指南](https://cloudnative.love/blog/2023/06/20/%E5%8A%A0%E5%AF%86%20Secrets%20%E8%B5%84%E6%BA%90%EF%BC%9ASealed%20Secrets%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/README/)
