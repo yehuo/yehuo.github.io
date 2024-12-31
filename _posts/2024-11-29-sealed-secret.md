@@ -1,22 +1,22 @@
 ---
-title: "How to use sealed secret"
+title: "Using Sealed Secret to manage Kubernetes Secret"
 date: 2024-11-29
 excerpt: "Sealed Secrets 使用指南"
 categories: 
-    - kubernetes
+    - Kubernetes
 tags: 
-    - sealedsecret
-    - addon
+    - Application
+    - Addon
 ---
 
-# 0x01 Install
+# 0x01 安装
 
 Sealed Secrets 由两个部分组成：
 
 - Client Side cli tool: kubeseal，客户端CLI工具 kubeseal，用于加密机密和创建密封机密
 - Server Side controller：服务器端控制器，用于解密 SealedSecret CRD 和 创建 secrets
 
-## Installing sealedsecret controller (helm)
+## 使用helm安装 sealed secret controller
 
 ```shell
 #!/bin/bash
@@ -41,7 +41,7 @@ helm upgrade --install ${TARGET} ${CHART} \
 - controller 在首次部署时会生成自己的证书，它还会为用户管理续订。但用户也可以自带证书，以便控制器也可以使用它们。
 - controller 使用任何标记为 sealedsecrets.bitnami.com/sealed-secrets-key=active 的密钥中包含的证书，该密钥必须与控制器位于同一命名空间中。可以有多个这样的秘密
 
-## Installing kubeseal
+## 安装本地管理工具 kubeseal
 
 kubeseal 使用当前 kubectl 的 context 设置。安装前，需要确保 kubectl 可以连接到应安装 Sealed Secrets 的群集。
 
@@ -55,7 +55,7 @@ sudo install -m 755 kubeseal /usr/local/bin/kubeseal
 ```
 
 
-# 0x02 Mechanism
+# 0x02 使用
 
 ![architecture](\images\SealedSecret\architecture.webp)
 - controller启动时，会在其命名空间中搜索带有 sealedsecrets.bitnami.com/sealed-secrets-key 标签的 Secret 读取其中存放的私钥/公钥对
