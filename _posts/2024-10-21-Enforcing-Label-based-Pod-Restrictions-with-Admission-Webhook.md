@@ -1,7 +1,7 @@
 ---
-title: "Kubernetes Admission Webhooker Demo"
+title: "Enforcing Label-based Pod Restrictions with Admission Webhook"
 date: 2024-10-21
-excerpt: "How to control the k8s access from the root"
+excerpt: "In Kubernetes, ensuring that only pods with specific labels can be deployed is a common requirement for enforcing organization policies or resource allocation strategies. This blog demonstrates how to use an Admission Webhook to restrict pod creation based on labels. By implementing a custom webhook, you can control which pods are allowed to start, ensuring that only those with the required labels meet your deployment criteria. This solution provides an additional layer of validation, enhancing the security and consistency of your Kubernetes clusters."
 categories: 
     - Kubernetes
 tags: 

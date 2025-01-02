@@ -3,11 +3,9 @@ title: GIL Introduction
 date: 2022-06-11
 excerpt: "[Real Python Tutorials] What Is the Python Global Interpreter Lock (GIL)?"
 categories:
-   - Language
-tags:
    - Python
+tags:
    - GIL
-
 ---
 
 

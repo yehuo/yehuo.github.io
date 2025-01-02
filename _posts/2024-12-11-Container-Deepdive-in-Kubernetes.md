@@ -1,7 +1,7 @@
 ---
 title: "Container Deepdive in Kubernetes"
 date: 2024-12-11
-excerpt: "k8s常见面试问题[001]"
+excerpt: "k8s常见面试问题"
 categories: 
     - Kubernetes
 tags: 

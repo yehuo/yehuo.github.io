@@ -1,7 +1,7 @@
 ---
 title: "New Trend of GPT: GPT Memory"
 date: 2024-10-22
-excerpt: "让GPT更好用的秘诀：GPT Memory"
+excerpt: "The introduction of GPT memory marks a significant step forward in creating more personalized and context-aware AI interactions. In this article, we explore how GPT memory works, how it enhances the conversational experience, and the potential benefits it offers for various applications. With memory, GPT can remember past interactions, adjust its responses accordingly, and offer a more seamless, coherent dialogue. We'll also discuss the privacy and customization aspects of memory, as well as its implications for the future of AI-powered communication."
 categories: 
     - ChatGPT
 tags: 
