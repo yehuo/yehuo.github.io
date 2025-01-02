@@ -203,6 +203,8 @@ Sealed Secrets 是一种在版本控制工具（例如git）里管理 Kubernetes
 
 客户端使用 kubeseal 工具生成 SealedSecret 保存加密数据的清单。应用文件后，集群中的 controller 将识别新的密封密钥资源并对其进行解密以创建 Secret 资源。
 
+------
+
 ## Reference
 
 - ["Sealed Secrets" for Kubernetes](https://github.com/bitnami-labs/sealed-secrets)
