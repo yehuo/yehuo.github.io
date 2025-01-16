@@ -1,5 +1,5 @@
 ---
-title: "NetBox Installation Process"
+title: NetBox Installation Process
 date: 2021-11-01
 excerpt: "How to setup NetBox service from zero..."
 categories: 

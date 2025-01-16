@@ -1,11 +1,10 @@
 ---
-title: "Ubuntu Network Tools: Replacing ifconfig and netstat"
+title: Ubuntu Network Tools
 date: 2022-08-29
-excerpt: "随着 ifconfig 和 netstat 的逐步淘汰，ip 和 ss 已经成为 Ubuntu 系统中管理网络的现代工具。这篇专门研究了 ip 命令的基本用法，帮助系统管理员告别旧命令，并展示如何通过 netplan 检查网络配置的有效性。"
+excerpt: "随着 ifconfig 和 netstat 的淘汰，ip 和 ss 已经成为 Ubuntu 系统中管理网络的现代工具。这篇专门研究了 ip 命令的基本用法，帮助系统管理员告别旧命令，并展示如何通过 netplan 检查网络配置的有效性。"
 categories: 
-   - Ubuntu
+   - System
 tags:
-   - Network
    - Tooling
 ---
 
@@ -13,7 +12,7 @@ tags:
 
 在Ubuntu系统中，`ip`和`ss`命令已逐步取代传统的`ifconfig`和`netstat`命令。`ip`和`ss`命令是基于`iproute2`包的工具，它们更高效、功能更强大，因此推荐使用这些命令来管理和调试网络设置。
 
-# `ip` 命令介绍
+# 0x01 ip 命令介绍
 
 `ip`命令替代了旧的`ifconfig`命令，采用模块化设计，包含多个功能模块，主要用于网络设备、路由、地址等的管理。
 
@@ -59,7 +58,7 @@ ip route add 192.168.4.0/24 via 192.168.0.254 dev eno1
 
 通过这些命令，用户可以轻松地查看和修改网络配置。
 
-# `ss` 命令介绍
+# 0x02 ss 命令介绍
 
 `ss`（Socket Statistics）命令是用来查看网络套接字的状态和统计信息，已逐渐取代传统的`netstat`命令。`ss`比`netstat`更高效，能够处理大量连接并快速返回结果，同时支持更多的过滤选项，适合用于快速查询和调试。
 
@@ -115,7 +114,7 @@ ip route add 192.168.4.0/24 via 192.168.0.254 dev eno1
 3. **更简洁的输出**：``ss``默认输出简洁，但也支持详细输出，满足不同用户需求。
 4. **内核支持**：直接与内核交互，提供准确的网络连接状态。
 
-# 总结
+# 0x03 总结
 
 随着`iproute2`包的普及，`ip`和`ss`命令已成为现代Linux系统中网络管理的标准工具。通过这些命令，用户可以更高效、灵活地管理网络设备、查看网络状态以及调试网络连接。推荐用户逐步告别传统的`ifconfig`和`netstat`命令，转而使用功能更强大、性能更优的`ip`和`ss`。
 

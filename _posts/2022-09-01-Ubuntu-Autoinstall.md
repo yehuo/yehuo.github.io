@@ -1,9 +1,9 @@
 ---
-title: "Ubuntu 20.04中的Autoinstall"
+title: Ubuntu Autoinstall
 date: 2022-09-01
 excerpt: "用了好多年的preseed终于可以换一个能看懂的版本了..."
 categories: 
-   - Experience
+   - System 
 tags:
    - Ubuntu
 

@@ -1,8 +1,10 @@
 ---
-title: "Functional design of PHP website"
+title: "Pagination in PHP"
 date: 2018-09-09
-categories: Website
-tags: [Website, PHP]
+categories:
+    - Backend
+tags:
+    - PHP
 ---
 
 

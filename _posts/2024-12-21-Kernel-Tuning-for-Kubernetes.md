@@ -136,6 +136,8 @@ kernel.sched_rr_timeslice_ms: 10  # 设置实时进程的时间片长度
   when: enable_k8s_disk_optimization | default(False) | bool
 ```
 
+------
+
 ## Reference
 
 - [5.5. Tuning Virtual Memory](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-memory-tunables)

@@ -2,8 +2,10 @@
 title: 【Bootstrap笔记】栅格布局
 date: 2018-09-18
 excerpt: "Bootstrap v4.0 栅格布局相关的学习"
-categories: Notes
-tags: Frontend, Bootstrap
+categories:
+	- Frontend
+tags:
+	- Bootstrap
 ---
 
 

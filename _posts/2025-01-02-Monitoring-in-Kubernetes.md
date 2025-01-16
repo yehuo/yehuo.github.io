@@ -1,12 +1,12 @@
 ---
-title: "Kernel Tuning for Kubernetes"
-date: 2024-12-21
-excerpt: "如何优化Linux内核参数来调优Kubernetes性能"
+title: "Monitoring in Kubernetes"
+date: 2024-01-02
+excerpt: "如何使用cAdvisor来完成容器监控"
 categories: 
     - Kubernetes
 tags: 
     - Node
-    - System
+    - Observability
 ---
 
 

@@ -1,14 +1,16 @@
 ---
-title: "从零开始设计一个全文检索系统"
+title: First Project of ElastiSearch
 date: 2018-08-10
-categories: Experience
-tags: [Elasticsearch, PHP]
 excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
+categories:
+    - Backend
+tags:
+    - Elasticsearch
 ---
 
 
 
-## 0x00 Background
+## 0x00 Why Elasticsearch
 
 这个项目的背景是由于公司的老板突然受到某兄弟部门的推销，决定引入NoSQL技术来推动公司的工作，并要求对所有整理进Nosql的数据实现全文检索功能。
 

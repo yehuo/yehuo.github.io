@@ -3,10 +3,9 @@ title: "Ansible Startup"
 date: 2021-09-01
 excerpt: "Ansible basic architecture"
 categories: 
-   - Notes
+   - Continuous Deployment
 tags:
    - Ansible
-
 ---
 
 

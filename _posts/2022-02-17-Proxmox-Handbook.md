@@ -3,7 +3,7 @@ title: "Proxmox Handbook"
 date: 2022-02-17
 excerpt: "A handbook to setup your own homemade proxmox cluster..."
 categories: 
-    - OS
+    - System
 tags:
     - Storage
     - ZFS

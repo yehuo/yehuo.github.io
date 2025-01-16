@@ -3,10 +3,9 @@ title: "ZFS Storage Introduction"
 date: 2021-11-17
 excerpt: "Some basic knowledge on ZFS as storage solution..."
 categories: 
-    - OS
+    - System
 tags:
-    - Storage
-    - ZFS
+    - File System
 ---
 
 

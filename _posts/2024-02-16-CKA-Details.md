@@ -5,7 +5,7 @@ excerpt: "如何一周内通过CNCF的CKA认证"
 categories: 
     - Certification
 tags: 
-    - CKA
+    - Kubernetes
 ---
 
 

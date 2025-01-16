@@ -3,10 +3,10 @@ title: "Linux Network Tools"
 date: 2021-10-08
 excerpt: "谈谈Ubuntu中常用的几个网络诊断工具"
 categories: 
-    - Tools
+    - System
 tags: 
-    - Ubuntu
-    - Linux
+    - Tool
+    - Network
 ---
 
 

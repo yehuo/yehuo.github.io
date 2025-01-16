@@ -1,26 +1,26 @@
 ---
 title: GIL Introduction
 date: 2022-06-11
-excerpt: "[Real Python Tutorials] What Is the Python Global Interpreter Lock (GIL)?"
+excerpt: "What is GIL and Why we have to bare the GIL in Python?"
 categories:
-   - Python
+    - Language
 tags:
-   - GIL
+    - Python
 ---
 
 
 
-# Introduction
+# 0x01 什么是 GIL？
 
-​Python全局解释器锁，又叫GIL(Global Interpreter Lock)，实际就是一个互斥量，用于保证在同一个时间点，只有一个线程可以管控Python解释器。这就意味着在任何时间点，Python中只有一个线程可以处于运行状态。GIL对于开发单线程程序的开发者是不可见的，但是对于CPU相关的多线程程序，GIL就有可能成为Python的性能瓶颈。
+**​Python 全局解释器锁**，又称为 GIL (Global Interpreter Lock)，本质上是一个互斥量。用于保证在同一个时间点，只有一个线程可以调用 Python 解释器。这也意味着，Python 解释器也同一时间节点上只可以在一个线程中运行。
 
-而现鉴于如今大部分计算机都有多核CPU以支持多线程处理功能，只允许单线程运行的GIL就成为了Python最为“臭名昭著”的语言特性。而在这篇文章，你会知道GIL是如何影响着Python程序的性能，以及如何避免其导致的程序性能瓶颈。
+对于单线程程序来说，GIL 是不可见的。但是对于 CPU 依赖的多线程程序，GIL 就有可能成为 Python 的性能瓶颈。鉴于现在大部分计算机都有多核 CPU 的配置，只支持单线程运行的 GIL 就成为 Python 解释器最为“臭名昭著”的语言特性。
 
-# 0x01 GIL到底为Python解决了什么问题
+# 0x02 **Python** 为什么要用 GIL？
 
-Python在内存管理中，使用了引用计数的方式来管理变量。这种管理方式中，对于每个由Python解释器所创建的对象，都会有一个引用数来跟踪对于对象的引用次数，当这个数值变为0，对象所占用的内存空间就会被释放。
+在处理内存管理问题时，Python 解释器使用了**引用计数**的方式来管理变量，即每个由 Python 解释器创建的对象，都会构建一个**引用数**属性来跟踪代码中对于该对象的引用次数。当引用数变为 0 时，对象占用的内存空间就会被释放。
 
-下面可以通过一段简单的用例来展示这种计数方式的运作：
+下面举个例子来看这种计数方式：
 
 ```python
 import sys
@@ -29,65 +29,70 @@ b = a
 print(sys.getrefcount(a))
 ```
 
-​        上面这段用例中，对于空数组的对象的引用计数是3，这个数组对象同时在变量a,b和getrefcount的函数参数三个位置所调用。
+代码中对最开始声明的 `[]` 对象的引用计数是 3，这个对象同时在变量 a，b 和 GetRefCount 的函数参数三个位置所调用。
 
-​        说回GIL，这种引用计数的设计用途，其实是为了避免两个进程同时操作同一个变量所引发的竞态现象。如果不添加GIL，这种情况下，就有可能导致一部分Python变量所占用的内存永远不被释放，或者更糟糕，会导致在变量仍然存在情况下，提前释放了内存占用。这种情况下程序崩溃和或是一些比较诡异和不可稳定复现的bug就会出现在Python程序运行过程中。
+**但引用计数的功能只能在单线程调用时实现，当多线程出现后，引用计数变量的管理上就会出现抢占现象。**在不添加 GIL 的情况下，解释器中部分变量所占用的内存可能永远不被释放，又或者在变量仍然在用情况下，解释器就提前释放了变量所在的内存。
 
-# 0x02 GIL成为解决方案的原因
+# 0x03 GIL 成为解决方案的原因
 
-​        所以，GIL这样一个看起来有点别扭的解决方案，为什么在Python中得以运用，而Python开发者使用GIL作为解决方案，是否又是一个坏决定呢？Larry Hastings的采访中，他说实际上正是GIL这个设计的应用才保证了Python得以如此流行。Python实际早在线程这一个概念还没出现的时候就已经在酝酿之中了。Python的设计思路就是要尽可能得简单易用，从而保证越来越多的开发者能更快地进行开发。
+在 Python 社区知名贡献者Larry Hastings的[采访](https://www.youtube.com/watch?v=fgWUwQVoLHo)中，他说实际上正是GIL这个设计的应用才保证了 Python 得以如此流行。Python 实际早在线程这一个概念还没出现的时候就已经在酝酿之中了。**Python 的设计思路也是优先变得尽简单易用，保证尽可能多的开发者能获得更好的开发效率。**
 
-​        而Python的许多扩展功能都需要兼容已有的一些由C语言编写的库，而为了避免出现不稳定的不变更，这些C语言扩展需要一个线程安全的内存管理方案，而GIL正好提供了这一可能。GIL易于实现，且易于添加到添加到Python当中。同时，由于只有一个线程锁需要管理，这一方式反而为单线程的程序提供了一定的性能提升。
+鉴于 Python 的许多扩展功能都需要兼容一些 C 语言编写的库，为了避免出现不稳定的不变更，这些 C 语言扩展需要一个线程安全的内存管理方案。
 
-​        为了便于integrate，C语言库本身是不提供线程安全的，而这些C语言扩展的使用正式Python可以被诸多社区轻松接受的原因之一。正如上文所说，GIL其实就是一个朴素但是有效的解决方案，为早期CPython的开发者们提供了兼容易用和线程安全两方面因素的解法。
+而 GIL 正好提供了这一可能。GIL 易于实现，且易于添加到添加到 Python 当中。此外，由于只有一个线程锁需要管理，GIL 反而为单线程的程序提供了一定的性能提升。
 
-# 0x03 多线程对于Python程序的影响
+为了更大程度上与硬件的集成，C 语言库本身是不提供线程安全保证的，而这些 C 语言扩展的使用正式 Python 可以被诸多社区轻松接受的原因之一。正如上文所说，GIL 其实就是一个朴素但是有效的解决方案，为早期 CPython 变得易用，且能支持线程安全。
 
-​        当你去查看一些经典的Python程序，或是任何其他语言的代码，就会发现CPU需求的程序和IO需求的程序，是由一定区别的。更CPU依赖型程序往往会把CPU的占用吃到极限，其中包括一些进行数学计算的程序，例如矩阵惩罚，搜索，图像处理等。而更IO依赖型程序则是将大部分时间用于等待来自于用户、文件、数据库、网络的IO中断。这些程序将大量的时间用于等待他们的数据源，因为数据源往往也需要完成其自身的处理才能开始IO。例如，用户在输入时，对输入内容的思考，或是数据库查询时查询程序的运行。
+# 0x04 多线程对于 Python 程序的影响
 
-​        这里用一个简单的CPU依赖型的程序进行展示
+​现实中大部分程序被分为 **CPU 依赖型程序**和 **IO 依赖型程序**，二者是有一定区别的。
+
+CPU 依赖型程序往往会把CPU的占用率提升到极限，包括一些进行数学计算的程序，例如矩阵乘法，目录搜索，图像处理等。
+
+IO 依赖型程序则是将大部分 CPU 时间用于等待来自于用户、文件系统、数据库、网络的 IO 中断。IO 依赖型程序会将大量的运行时间用于等待数据源输入，例如用户打字、数据库检索程序分析索引等。
+
+​下面编写一个简单的 CPU 依赖型程序：
 
 ```python
 # single_threaded.py
 import time
-from threading import Thread
 
-COUNT = 50000000
 
 def countdown(n):
-    while n>0:
+    while n > 0:
         n -= 1
 
+
+COUNT = 50000000
 start = time.time()
 countdown(COUNT)
 end = time.time()
-
 print('Time taken in seconds -', end - start)
 ```
 
-​        在一台具有4核CPU的计算机上运行这个单线程程序，耗时6.2s
+在一台4核 CPU 的计算机上运行这个程序，耗时 **6.2s**。
 
 ```shell
 $ python single_threaded.py
 # Time taken in seconds - 6.20024037361145
 ```
 
-​        现在对程序稍作修改，使用两个并行线程进行计算
+现在使用多线程对这个程序进行优化：
 
 ```shell
 # multi_threaded.py
 import time
 from threading import Thread
 
-COUNT = 50000000
 
 def countdown(n):
-    while n>0:
+    while n > 0:
         n -= 1
 
-t1 = Thread(target=countdown, args=(COUNT//2,))
-t2 = Thread(target=countdown, args=(COUNT//2,))
 
+COUNT = 50000000
+t1 = Thread(target=countdown, args=(COUNT // 2,))
+t2 = Thread(target=countdown, args=(COUNT // 2,))
 start = time.time()
 t1.start()
 t2.start()
@@ -98,18 +103,18 @@ end = time.time()
 print('Time taken in seconds -', end - start)
 ```
 
-​        再次执行时，这个多线程程序时间不减反增，到了6.9s
+再次执行时，多线程版本程序时间不减反增，达到了 **6.9s**
 
 ```shell
 $ python multi_threaded.py
 # Time taken in seconds - 6.924342632293701
 ```
 
-​        可以看到两个程序时间十分相近，因为多线程版本的程序，实际上会被GIL锁住，并不会真正并行运行。而对于IO依赖的程序，这种锁则影响很小。因为在大部分等待IO的时间里，GIL实际上是被多个线程共享的状态（没有线程独占GIL锁）。
+两个程序的运行时间十分相近，因为多线程版本的程序中，Python 解释器的运行会被 GIL 锁住，并不会真正开启额外的线程。
 
-​        此外，就像给出的例子那样，对于一个完全CPU依赖的程序（例如处理图片），在GIL的影响下，程序不仅会变为单线程运行，甚至还比直接按单线程编写的程序效率更低，时间更久。这种低效，正是线程获取、释放GIL锁造成的开销。
+对于一个 CPU 依赖型程序（例如处理图片），在 GIL 的影响下，Python 程序不仅会变为单线程运行，甚至还比单线程运行的程序效率更低。因为在不同线程上获取、释放 GIL 往往会对解释器造成的开销。
 
-> p.s. 个人实验中，这两段程序在Python 3.6.9中执行结果还是差出了0.2s，应该是Python3对此做过一些优化
+不过上面的执行结果是基于 Python2 的，通过 Python3.6.9 执行时，多线程版本又比单线程版本快了 **0.2s**，因为 Python3 实际上对 GIL 锁做一些优化，在后文中会提到。
 
 ```shell
 $ python3 single_threaded.py 
@@ -118,83 +123,104 @@ $ python3 multi_threaded.py
 # Time taken in seconds - 2.8165364265441895
 ```
 
+# 0x05 GIL 无法移除的原因
 
+从技术角度看，GIL 绝对是可以移除的，但 Python 必须要承担额外的代价。
 
-# 0x04 GIL无法移除的原因
+事实上，Python 社区的很多开发者都尝试过移除 GIL，但他们无一例外地都破坏了已有的一些 C 语言组件，这些组件都是依赖 GIL 所提供的线程安全特性才能工作。
 
-​        尽快Python的开发者们收到了不少和GIL相关的抱怨，但是Python实在是过于流行，各种各样的开发者在此基础上开发了无数的程序，所以GIL移除也必然会带来兼容性问题（即使Python2和Python3的升级，都带来不少问题）。
+这时候开发者不得不引入其他解决方案来实现原来由 GIL 提供的线程安全特性，但这些方案都是以牺牲单线程程序和 IO 依赖型多线程程序的性能为代价的。没人会想让自己之前开发过的程序在升级 Python 版本后反而越跑越慢，所以这些方案最终都被废弃了。
 
-​        而从技术角度看，GIL自然是可以移除的，很多开发者和研究者都尝试过移除GIL，但是也无一例外地都破坏了目前已有地一些C语言组件，这些组件都是很依赖GIL所提供的线程安全特性。当然，也有很多其他解决方案来提供GIL所支持的线程安全特性，但都是以牺牲单线程程序和多线程IO程序的性能为代价的。毕竟没人会想让自己之前开发过的程序在升级Python版本后反而越跑越慢，所以这些方案就都被毙掉了。
+Python 的创始人 Guido van Rossum，也是 Python3 最主要的开发者，在 Artima 社区写了一片 [Blog](https://www.artima.com/weblogs/viewpost.jsp?thread=214235) 来回复开发者要求清除 GIL 的请求。
 
-​        Python的创始人和BDFL(Benevolent Dictator For Life)，Guido van Rossum也在2007九月社区的一篇[文章](https://www.artima.com/weblogs/viewpost.jsp?thread=214235)中给出了他对这件事的看法。
+> “I’d welcome a set of patches into Py3k only if the performance for a single-threaded program (and for a multi-threaded but I/O-bound program) does not decrease.”
 
-> “I’d welcome a set of patches into Py3k **only if** the performance for a single-threaded program (and for a multi-threaded but I/O-bound program) **does not decrease**”
+而他所提到的**不牺牲单线程性能**这一标准，到 Python3 发布时仍未有方案可以达成。
 
-​        而他定下的这个性能标准至今仍未有方案可以达成。
+# 0x06 Python3 不移除GIL的原因
 
-# 0x05 Python3不移除GIL的原因
+Python3 确实是一个重新开始的机会，但这个过程中， feature 的更新往往需要变更一些 C 扩展库，原有 Python2 的代码就需要通过额外的适配过程才能运行的Python3中，这就导致了 Python3 的一些早期版本被开发者接受得非常缓慢。
 
-​        Python 3 确实是一个从头起步来更新语言特性的机会，从而逐步破除目前C扩展程序的限制。但这样的更新，就需要在用Python 3运行程序时，更新原有Python 2程序中的一些接口。这种程序更新，也导致了Python 3的一些早期版本被社区接受的比较慢。
+但 GIL 在 Python3 中却被保留了下来，因为移除 GIL 将会导致 Python3 运行单线程程序比 Python2 更慢，这种性能降低是不能被开发者所接受的。GIL 对于单线程程序执行效率的支持毋庸置疑。
 
-​        但是GIL又为何没有被Python 3 更新呢？
+虽然没有移除 GIL，但 Python3 为 GIL 的执行效率带来了巨大的提升。上面我们讨论过 GIL 对 CPU 依赖型程序和 IO 依赖型程序的影响，但是没有谈到同时受 CPU 和 IO 影响的一类程序。
 
-​        移除GIL将会导致Python 3运行单线程程序的性能比Python 2更低，这种性能降低的结果自然是不能被大部分人接受的。同时不可否认的是，Python语言对于运行单线程程序的良好性能确实时受益于GIL的。所以，最终GIL在Python 3中依然保留了下来。
-
-​        但Python 3还是为目前的GIL带来了一个巨大的提升。我们之前讨论了GIL对完全CPU依赖型和完全IO依赖型程序影响的讨论，但是我们没有谈到同时受CPU和IO影响的一类程序。这类程序中，Python的性能降低大都是由于IO程序因无法从CPU依赖型线程那里获得GIL而导致饿死（stave）。这种现象的起源则是由于Python内部对于GIL的管理机制造成的，Python内部会强制一个线程只有经过一个固定时间间隔才会强制释放GIL，而当没有其他线程请求GIL时，原来的线程方可继续使用GIL。
+这类程序中，Python 解释器的性能降低主要来源于执行 IO 依赖型程序的线程无法从执行 CPU 依赖型的线程那里获得 GIL 锁而导致的饿死（stave）现象。再追溯期根源则在于 Python 解释器内部对 GIL 轮换管理机制，**Python 解释器内部会强制线程在获得的 CPU 时间片耗尽时强制释放 GIL，当没有其他线程请求 GIL 时，原来的线程方可继续使用 GIL。**
 
 ```python
 import sys
+
+
 # The interval is set to 100 instructions:
 sys.getcheckinterval()
 ```
 
-这种GIL释放机制的问题在于，大多数时间里CPU依赖型线程会比其他线程更快获得GIL。David Beazely的[博客](http://www.dabeaz.com/blog/2010/01/python-gil-visualized.html)中对这种现象还有一个可视化展示。在2009年，这个问题在Python 3.2中被Antoine Pitrou修复了，新的[GIL释放机制](http://www.dabeaz.com/blog/2010/01/python-gil-visualized.html)中，解释器会先查看目前系统中因未获得GIL而挂起的线程数，然后限制原有线程获得GIL，以保证其他线程有机会在原有线程之前获得GIL。
+这种 GIL 轮换机制的问题在于，大多数时间里 CPU 依赖型线程会比其他线程更快获得 GIL。在 David Beazely 的 [Blog](http://www.dabeaz.com/blog/2010/01/python-gil-visualized.html) 中对这种现象还有一个可视化展示。
 
-# 0x06 怎么解决GIL的影响
+![Starve_Demo](\images\20220611\starve_demo.png)
 
-## Multi-processing vs multi-threading
+这个问题在 Python 3.2 中被 Antoine Pitrou 修复了，在他编写的 [GIL 返工方案](https://mail.python.org/pipermail/python-dev/2009-October/093321.html)中，解释器会先查看目前系统中因未获得 GIL 而挂起的线程数，然后限制原有线程获得 GIL，以保证其他线程有更多机会优先获得 GIL。
 
-​        目前最常用的解决方案就是使用多进程来代替多线程，诶个Python 进程都会有自己的Python解释器和独立的内存空间，Python中multiprocessing模块就是为此而生的，这里用multiprocessing模块做个例子
+# 0x07 如何在编程中避免 GIL 对性能的限制
+
+## 1. 多进程代替多线程
+
+目前最常用的解决方案就是使用多进程来代替多线程，每个 Python 解释器进程都会有独立的内存空间，Python 中 **multiprocessing 模块**就是为此而生的，这里使用多进程模块来重写之前的多线程功能。
 
 ```python
 from multiprocessing import Pool
 import time
 
 COUNT = 50000000
+
+
 def countdown(n):
-    while n>0:
+    while n > 0:
         n -= 1
+
 
 if __name__ == '__main__':
     pool = Pool(processes=2)
     start = time.time()
-    r1 = pool.apply_async(countdown, [COUNT//2])
-    r2 = pool.apply_async(countdown, [COUNT//2])
+    r1 = pool.apply_async(countdown, [COUNT // 2])
+    r2 = pool.apply_async(countdown, [COUNT // 2])
     pool.close()
     pool.join()
     end = time.time()
     print('Time taken in seconds -', end - start)
 ```
 
+多进程版本的计数程序耗费时间为 **4.06s**
+
 ```shell
 $ python multiprocess.py
 # Time taken in seconds - 4.060242414474487
 ```
 
-​        可以看到性能相比于multi-threaded版本有了2秒多的提升，但是这个时间也没有完全达到减半的效果，因为进程管理也会有自己的时间损耗，多进程比多线程的管理损耗要大，所以在使用多进程开发时，一定要对此有所准备。
+相比于多线程版本，新版本获得了 2 秒多的提升。不过双进程版本也并未达到耗时减半的效果，因为进程管理也会有时间损耗，而且进程间切换的耗费比线程间切换要更大，所以某些情况下使用多进程反而会降低程序的执行效率。
 
-## Alternative Python interpreters
+## 2. 使用 CPython 以外的解释器
 
-​        Python的解释器实际上并非只有CPython一个版本，常见的还有由Java编写的Jython，C#编写的IronPython，Python编写的PyPy。GIL只存在于CPython这种原生的Python实现，如果你的程序和对应的library在其他版本的解释器中也能运行，那GIL就不再是不可避免的限制了。
+Python 解释器实际上并非只有 CPython 一个版本，常见的还有由 Java 编写的 Jython，C# 编写的 IronPython，Python 编写的 PyPy。
 
-## Just wait it out
+GIL 只存在于 CPython 这种原生的 Python 实现，如果程序和所需的 Library 能在其他版本的解释器中运行，那 GIL 就不是必须接受的限制。
 
-​        尽管许多Python用户依赖着由GIL带来的单线程程序的性能提升，多线程用户无需为此烦恼，许多聪明的开发者目前已经在致力于移除CPython中的GIL，其中一个比较有名的解决方案就是[Gilectomy](https://translate.google.com/website?sl=auto&tl=en&hl=en&u=https://github.com/larryhastings/gilectomy)。
+## 3. 等待社区的优化
 
-# 结语
+尽管许多 Python 用户依赖着由 GIL 带来的单线程程序的性能提升，多线程用户无需为此烦恼，许多聪明的开发者目前已经在致力于移除 CPython 中的 GIL，其中一个比较有名的解决方案就是 [Gilectomy](https://translate.google.com/website?sl=auto&tl=en&hl=en&u=https://github.com/larryhastings/gilectomy)。
 
-​        Python中的GIL问题一直都被当做一个比较迷惑和复杂的问题，也被诸多面试官所喜爱，但是作为一个Pythonista，你只有在开发C语言组件或者编写CPU依赖型的多线程程序才会受影响。对于个人的编程开发，这篇文章基本覆盖了你所需知道GIL的所有事情，如果你希望从更底层角度去理解GIL内部工作原理，我会推荐你去看David Beazley的[Understading the Python GIL](https://translate.google.com/website?sl=auto&tl=en&hl=en&u=https://youtu.be/Obt-vMVdM8s)。
+# Conclusion
+
+Python 解释器中 GIL 的存在一直都被当做 Python 语言的问题。但实际上只有在开发 C 语言组件或者编写 CPU 依赖型的多线程程序才会受影响。
+
+如果希望从更底层角度去理解 GIL 内部工作原理，推荐阅读 David Beazley 的 [Understading the Python GIL](https://translate.google.com/website?sl=auto&tl=en&hl=en&u=https://youtu.be/Obt-vMVdM8s)。
+
+---
 
 ## Reference
 
 - [What Is the Python Global Interpreter Lock (GIL)?](https://realpython.com/python-gil/#the-impact-on-multi-threaded-python-programs)
+- [It isn't Easy to Remove the GIL](https://www.artima.com/weblogs/viewpost.jsp?thread=214235)
+- [The Python GIL Visualized](https://www.dabeaz.com/blog/2010/01/python-gil-visualized.html)
+- [[Python-Dev] Reworking the GIL](https://mail.python.org/pipermail/python-dev/2009-October/093321.html)
+- [Understading the Python GIL](https://translate.google.com/website?sl=auto&tl=en&hl=en&u=https://youtu.be/Obt-vMVdM8s)

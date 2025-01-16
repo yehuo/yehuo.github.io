@@ -3,10 +3,9 @@ title: LVM学习笔记
 date: 2021-07-29
 excerpt: "A quick introduction to virtualization and hypervisors..."
 categories: 
-    - OS
+    - System
 tags: 
-    - Linux
-    - LVM
+    - Kernel
 ---
 
 

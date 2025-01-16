@@ -3,7 +3,7 @@ title: 'Blog Template'
 date: 2020-07-02
 permalink: /posts/2020/07/blog-template/
 tags:
-  - template
+  - Template
 published: false
 ---
 
