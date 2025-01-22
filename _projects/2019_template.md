@@ -4,6 +4,7 @@ collection: publications
 permalink: /publications/2019IJCIM
 date: 2019-07-02
 venue: "International Journal of Computer Integrated Manufacturing"
+published: false
 ---
 
 **Boqian Yu**, Nan Xie, Beirong Zheng, Deji Chen.
