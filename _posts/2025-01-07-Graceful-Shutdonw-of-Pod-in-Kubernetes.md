@@ -1,5 +1,5 @@
 ---
-title: "Kernel Tuning for Kubernetes"
+title: Graceful Shutdonw of Pod in Kubernetes
 date: 2025-01-07
 excerpt: "如何在kubernetes中完成pod的优雅关闭"
 categories: 

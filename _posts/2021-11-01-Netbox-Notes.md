@@ -11,7 +11,15 @@ tags:
 
 
 
-# PostgreSQL
+# 0x01 [Netbox 是什么](https://github.com/netbox-community/netbox)
+
+NetBox的存在是为了增强网络工程师的能力。自2016年发布以来，它已经成为全球数千个组织建模和记录网络基础设施的首选解决方案。作为遗留IPAM和DCIM应用程序的继承者，NetBox为所有联网的事物提供了一个内聚的、广泛的和可访问的数据模型。通过为从电缆映射到设备配置的一切提供单一的健壮的用户界面和可编程的api， NetBox成为现代网络的核心来源。
+
+# 0x02 构建一个 Netbox 服务的demo
+
+构建数据库PostGreSQL和缓存Redis集群
+
+## 1. 构建后端数据库 PostgreSQL
 
 目前仅支持PostgreSQL，版本要求大于9.6
 
@@ -38,7 +46,7 @@ psql --username netbox --password --host localhost netbox
 \conninfo
 ```
 
-# Redis
+## 2. 构建 KV 缓存 Redis
 
 NetBox v2.9.0 and later require Redis v4.0 or higher.
 
@@ -47,45 +55,38 @@ sudo apt install -y redis-server
 redis-cli ping
 ```
 
-# NetBox
+## 3. 部署 NetBox 服务
 
-NetBox v3.0 and later require Python 3.7, 3.8, or 3.9.
-
-## 安装依赖
+NetBox v3.0 需要 Python3 的支持
 
 ```shell
+# 安装依赖
 sudo apt install -y python3 python3-pip python3-venv python3-dev build-essential libxml2-dev libxslt1-dev libffi-dev libpq-dev libssl-dev zlib1g-dev
 sudo pip3 install --upgrade pip
-```
 
-## 下载NetBox
+# 下载NetBox
 
-```shell
 # Option A：for stable release
 sudo wget https://github.com/netbox-community/netbox/archive/vX.Y.Z.tar.gz
 sudo tar -xzf vX.Y.Z.tar.gz -C /opt
 sudo ln -s /opt/netbox-X.Y.Z/ /opt/netbox
+
 # Option B: for latest release
 sudo git clone -b master --depth 1 https://github.com/netbox-community/netbox.git
 # add user, configure the WSGI and HTTP services to run under this account
 sudo adduser --system --group netbox
 sudo chown --recursive netbox /opt/netbox/netbox/media/
-```
 
-## 配置config
-
-```shell
+# 更改本地配置
 cd /opt/netbox/netbox/netbox/
 sudo cp configuration.example.py configuration.py
 ```
 
-## 设置主要修改项
+### 设置主要修改项
 
-Note that NetBox requires the specification of two separate Redis databases: `tasks` and `caching`. These may both be provided by the same Redis service, however each should have a unique numeric database ID.
+需要注意的是，NetBox 需要两个独立的 Redis 数据库：`tasks` 和 `caching`。这些都可以由相同的Redis服务提供，但是每个都应该有一个唯一的数字数据库ID。
 
-This parameter must be assigned a randomly-generated key employed as a salt for hashing and related cryptographic functions. (Note, however, that it is never directly used in the encryption of secret data.)
-
-This key must be unique to this installation and is recommended to be at least 50 characters long.
+这个参数必须被分配一个随机生成的密钥，作为散列和相关加密函数的备用密钥。（但请注意，它从来不会直接用于加密秘密数据。） 此密钥必须是唯一的，并且建议至少50个字符长。
 
 ```python
 ALLOWED_HOSTS = ['netbox.example.com', '192.0.2.123']
@@ -115,13 +116,13 @@ REDIS = {
 }
 ```
 
-## 生成Secret
 
 ```shell
+# 生成Secret
 python3 ../generate_secret_key.py
 ```
 
-## 设定扩展模块
+### 设定扩展模块
 
 All Python packages required by NetBox are listed in `requirements.txt` and will be installed automatically. NetBox also supports some optional packages. If desired, these packages must be listed in `local_requirements.txt` within the NetBox root directory.
 
@@ -132,7 +133,7 @@ All Python packages required by NetBox are listed in `requirements.txt` and will
 sudo sh -c "echo 'napalm' >> /opt/netbox/local_requirements.txt"sudo sh -c "echo 'django-storages' >> /opt/netbox/local_requirements.txt"
 ```
 
-## 生效配置
+### 生效配置
 
 - upgrade功能
 	- Create a Python virtual environment
@@ -161,9 +162,11 @@ ln -s /opt/netbox/contrib/netbox-housekeeping.sh /etc/cron.daily/netbox-housekee
 python3 manage.py runserver 0.0.0.0:8000 --insecure
 ```
 
-# Gunicorn
+# 0x03 构建一个后端可视化
 
-NetBox ships with a default configuration file for gunicorn. To use it, copy `/opt/netbox/contrib/gunicorn.py` to `/opt/netbox/gunicorn.py`.
+## 1. 使用 Gunicorn
+
+NetBox附带了gunicorn的默认配置文件。要使用它，请将`/opt/netbox/contrib/gunicorn.py`复制到`/opt/netbox/gunicorn.py`。
 
 ```shell
 sudo cp /opt/netbox/contrib/gunicorn.py /opt/netbox/gunicorn.py
@@ -181,9 +184,9 @@ systemctl status netbox.service
 
 > p.s. If the NetBox service fails to start, issue the command `journalctl -eu netbox` to check for log messages.
 
-# HTTP Server
+## 2. HTTP Server
 
-## Obtain  SSL Certificate
+### Obtain SSL Certificate
 
 To enable HTTPS access to NetBox, you'll need a valid SSL certificate. You can purchase one from a trusted commercial provider, obtain one for free from [Let's Encrypt](https://letsencrypt.org/getting-started/), or generate your own (although self-signed certificates are generally untrusted). Both the public certificate and private key files need to be installed on your NetBox server in a location that is readable by the `netbox` user.
 
@@ -191,24 +194,18 @@ To enable HTTPS access to NetBox, you'll need a valid SSL certificate. You can p
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/ssl/private/netbox.key \
     -out /etc/ssl/certs/netbox.crt
-```
 
-## Option A Nginx
-
-```shell
+# Option A Nginx
+## 需要修改config文件中`netbox.example.com`为自己的域名，需要和netbox配置文件中ALLOWED_HOSTS相匹配
 sudo apt install -y nginx
 sudo cp /opt/netbox/contrib/nginx.conf /etc/nginx/sites-available/netbox
 sudo cp /etc/nginx/sites-enabled/default /etc/n.bkpginx/site-f s-enabled/default.bkp
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/netbox /etc/nginx/sites-enabled/netbox
 sudo systemctl restart nginx
-```
 
-需要修改config文件中`netbox.example.com`为自己的域名，需要和netbox配置文件中ALLOWED_HOSTS相匹配
-
-## Option B Apache
-
-```shell
+# Option B Apache
+## 同样需要修改配置文件中的ServerName
 sudo apt install -y apache2
 sudo cp /opt/netbox/contrib/apache.conf /etc/apache2/sites-available/netbox.conf
 sudo a2enmod ssl proxy proxy_http headers
@@ -216,9 +213,7 @@ sudo a2ensite netbox
 sudo systemctl restart apache2
 ```
 
-同样需要修改配置文件中的ServerName
-
-# LDAP(options)
+# 0x04 权限管理：引入LDAP(options)
 
 ```shell
 sudo apt install -y libldap2-dev libsasl2-dev libssl-dev

@@ -1,5 +1,5 @@
 ---
-title: Docker基础笔记 Session 02
+title: Docker基础 Session 02
 date: 2021-07-22
 excerpt: "[狂神说JAVA系列]中，秦疆关于Docker系列的讲解P20-P40"
 categories:
@@ -10,7 +10,7 @@ tags:
 
 
 
-# Docker Commit
+# 0x01 如何在Docker Hub上进行提交
 
 ```shell
 # docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
@@ -29,7 +29,7 @@ docker commit --change "ENV DEBUG=true" c3f279d17e0a  svendowideit/testimage:ver
 | `--message` , `-m` |        | Commit message                                             |
 | `--pause` , `-p`   | `true` | Pause container during commit                              |
 
-# Volumes
+# 0x02 如何在Docker中使用存储卷
 
 内容可以参考：[docker从零开始 存储（二）volumes 挂载](https://www.cnblogs.com/benjamin77/p/9512537.html)
 
@@ -611,8 +611,11 @@ docker exec -it tomcat01 ping tomcat-net-01
 
         ![docker2-10](\images\docker2-10.png)
 
-> 参考资料
+---
 
-- 一份不错的[Docker入门指南](http://www.uml.org.cn/yunjisuan/201509023.asp?artid=16908)
-- Docker配置网络出错：[IPv4 Forwarding is Disabled](https://stackoverflow.com/questions/41453263/docker-networking-disabled-warning-ipv4-forwarding-is-disabled-networking-wil)
+## Reference
+
+- [Docker入门指南](http://www.uml.org.cn/yunjisuan/201509023.asp?artid=16908)
+- [Docker Config: IPv4 Forwarding is Disabled](https://stackoverflow.com/questions/41453263/docker-networking-disabled-warning-ipv4-forwarding-is-disabled-networking-wil)
+- [云原生Docker进阶教程](https://www.kuangstudy.com/course/cplay/1713520123123777537)
 

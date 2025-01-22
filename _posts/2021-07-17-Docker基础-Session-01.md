@@ -1,7 +1,7 @@
 ---
-title: Docker基础笔记 Session 01
+title: Docker基础 Session 01
 date: 2021-07-17
-excerpt: "[狂神说JAVA系列]中，秦疆关于Docker系列的讲解"
+excerpt: ""
 categories:
     - Notes
 tags:
@@ -10,24 +10,24 @@ tags:
 
 
 
-# Docker基础知识-Part1
+# 0x01 Docker 背景知识
 
-**Docker的历史**
+## Docker的历史
 
 - 2013.05.30 Docker.io正式提交GitHub，Docker开源
 - 2014.04.09 Docker 1.0正式发布
 
-**Docker与VMware**
+## Docker和VM的异同
 
-之前的虚拟技术：虚拟机VMware，OpenStack，以linux CentOS镜像为例
+常见的虚拟机解决方案包括 VMware，OpenStack，这里以 Linux CentOS 在 VMware 中的实现作对比：
 
 |        | 占用空间 | 启动时间 |
 | ------ | -------- | -------- |
 | VMware | GB级     | 分钟级   |
 | Docker | MB级     | 秒级     |
 
-- Docker有着比虚拟机更少的抽象层，由于Docker不需要Hypervisor实现硬件资源虚拟化，运行在Docker容器上的程序直接使用的都是实际物理机的硬件资源，因此在Cpu、内存利用率上Docker将会在效率上有明显优势。
-- Docker利用的是宿主机的内核，而不需要Guest OS，因此，当新建一个容器时，Docker不需要和虚拟机一样重新加载一个操作系统，避免了引导、加载操作系统内核这个比较费时费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载Guest OS，这个新建过程是分钟级别的，而Docker由于直接利用宿主机的操作系统则省略了这个过程，因此新建一个Docker容器只需要几秒钟。
+- **Docker 有着比 VM 更少的抽象层。**Docker不需要Hypervisor实现硬件资源虚拟化，运行在Docker容器上的程序直接使用的都是实际物理机的硬件资源，因此在Cpu、内存利用率上Docker将会在效率上有明显优势。
+- **Docker 利用的是宿主机的 Kernel，而不需要 Guest OS。**当新建一个**容器**时，Docker不需要和虚拟机一样重新加载一个操作系统，避免了引导、加载操作系统内核这个比较费时费资源的过程，当新建一个**虚拟机**时，虚拟机软件需要加载Guest OS，这个新建过程是分钟级别的，而Docker由于直接利用宿主机的操作系统则省略了这个过程，因此新建一个Docker容器只需要几秒钟。
 
 |            | Docker容器              | VM虚拟机                    |
 | ---------- | ----------------------- | --------------------------- |
@@ -39,23 +39,27 @@ tags:
 
 ![](\images\docker1-4.png)
 
-**Docker基于Go语言开发**
+## Docker 参考文件
 
-- Docker官网 https://www.docker.com/
-- Docker文档 https://docs.docker.com/
+Docker 基于 Go 语言开发
+
+- Docker 官网 https://www.docker.com/
+- Docker 文档 https://docs.docker.com/
 - Docker Hub https://hub.docker.com/
 
-**系统组成**
+## Docker 核心概念
 
-- Image：模板，通过模板启动容器
+- Image：镜像，可以理解为模板，通过模板启动容器
 - Container：启动、停止、删除、基本命令
 - Repository：存放Image的仓库，阿里云、网易云、华为云都会开放服务，默认国外
 
 ![](\images\docker1-1.png)
 
-# 安装Docker
+# 0x02 Docker Installation
 
-[官方安装文档](https://docs.docker.com/engine/install/centos/) To install Docker Engine, you need a maintained version of CentOS 7 or 8. Archived versions aren’t supported or tested.
+我们这里使用 CentOS 作为宿主机系统，需要注意的是 [官方安装文档](https://docs.docker.com/engine/install/centos/) 中提到，Docker 的运行需要 CentOS 7.0 以上版本的操作系统。
+
+> To install Docker Engine, you need a maintained version of CentOS 7 or 8. Archived versions aren’t supported or tested.
 
 1. 删除已有的软件
 
@@ -135,7 +139,7 @@ tags:
     rm -rf /var/lib/docker
     ```
 
-# 配置阿里云镜像加速
+# 0x03 配置阿里云镜像加速
 
 官方文档（https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors）
 
@@ -479,7 +483,9 @@ curl localhost:9200
 
 ## 【TBC】portainer是什么
 
-**[[Offical Document](https://www.portainer.io/)]** Portainer is a universal container management tool that helps users deploy and manage container-based applications without needing to know how to write any platform-specific code.
+**[[Offical Document](https://www.portainer.io/)]** 
+
+> Portainer is a universal container management tool that helps users deploy and manage container-based applications without needing to know how to write any platform-specific code.
 
 ```shell
 docker run -d -p 8088:9000 \
@@ -530,3 +536,8 @@ docker的镜像实际上由一层一层的文件系统组成，这种层级的�
 docker image inspect $image_id:$tag
 ```
 
+---
+
+## Reference
+
+- [云原生Docker基础教程](https://www.kuangstudy.com/course/cplay/1713520104496873474)

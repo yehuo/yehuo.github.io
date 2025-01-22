@@ -1,7 +1,7 @@
 ---
 title: "Container Deepdive in Kubernetes"
 date: 2024-12-11
-excerpt: "k8s常见面试问题"
+excerpt: "This blog post explores the role of the "pause container" in Kubernetes for process isolation and resource cleanup within Pods. It also covers the evolution of kube-proxy modes, from user-space proxy to iptables and ipvs, highlighting how Kubernetes optimizes network traffic management and load balancing for improved performance at scale."
 categories: 
     - Kubernetes
 tags: 

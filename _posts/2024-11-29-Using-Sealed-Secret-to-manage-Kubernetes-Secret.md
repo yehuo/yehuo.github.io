@@ -9,6 +9,8 @@ tags:
     - Addon
 ---
 
+
+
 # 0x01 安装
 
 Sealed Secrets 由两个部分组成：
