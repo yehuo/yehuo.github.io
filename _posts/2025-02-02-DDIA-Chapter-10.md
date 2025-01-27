@@ -1,7 +1,7 @@
 ---
-title: DDIA Chapter 10 批处理系统 
-date: 2018-08-06
-excerpt: "数据密集型应用系统设计第十章笔记"
+title: DDIA Chapter 10
+date: 2025-02-02
+excerpt: "Explores Unix principles, MapReduce, and distributed file systems in handling data-intensive tasks. Highlights Unix design for simplicity and modularity, MapReduce's Mapper and Reducer components for scalable processing, and distributed file systems like HDFS. Discusses workflow dependencies, locality optimization, and balancing performance with reliability in modern data engineering."
 categories:
 	- Architect Desgin
 tags:
@@ -10,7 +10,7 @@ tags:
 
 
 
-# 根据实时性点系统分类
+# 0x01 根据实时性点系统分类
 
 - 服务：实时，响应时间通常是服务性能的主要衡量指标。
 - 批处理系统：离线，批处理作业的主要性能衡量标准通常是吞吐量（处理特定大小的输入所需的时间）。

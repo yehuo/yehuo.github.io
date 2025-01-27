@@ -1,7 +1,7 @@
 ---
-title: DDIA Chapter 01 可靠、可扩展和可维护的应用系统
-date: 2018-07-31
-excerpt: "数据密集型应用系统设计第一章笔记"
+title: DDIA Chapter 01
+date: 2025-01-24
+excerpt: Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems.
 categories:
 	- Architect Design
 tags:

@@ -249,7 +249,7 @@ gcloud compute ssh controller-0 \
   --command "kubectl get nodes --kubeconfig admin.kubeconfig"
 ```
 
-## Configuring kubectl for Remote Access
+# 0x02 Configuring kubectl for Remote Access
 
 使用`admin`用户凭证来生成一个`kubeconfig`
 

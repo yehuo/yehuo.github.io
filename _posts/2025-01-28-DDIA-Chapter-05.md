@@ -1,11 +1,11 @@
 ---
-title: DDIA Chapter 05 备份 
-date: 2021-07-17
+title: DDIA Chapter 05
+date: 2025-01-28
 excerpt: "数据密集型应用系统设计第五章笔记"
 categories:
-    - Notes
+	- Architect Desgin
 tags:
-    - DDIA
+	- DDIA
 ---
 
 

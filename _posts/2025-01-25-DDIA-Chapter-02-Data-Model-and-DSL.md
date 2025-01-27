@@ -1,0 +1,118 @@
+---
+title: DDIA Chapter 02 Data Model and DSL
+date: 2025-01-25
+excerpt: Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems.
+categories:
+	- Architect Design
+tags:
+	- DDIA
+---
+
+
+# Topic-A 数据模型：关系模型与文档模型
+
+关系模型最基础定义：数据被组织成关系（SQL的表），其中每个关系都是一些元组（SQL中的行）构成的无序集合。
+
+关系型数据库起源于商业数据处理中的**事务处理**和**批处理**两个特征。
+
+## 0x01 NoSQL的诞生 & 关系模型的局限性
+
+非关系型数据库（NoSQL 为代表）从2010年开始发力，最明确的原因来源于**面向对象的编程语言**逐渐兴起。从对象转为关系表，需要一个转换层，每次转换都会遇到模型之间的不连贯（这种不连贯通常就被称为**阻抗不匹配**）。即使Hibernate，ActiveRecord 等关系映射型框架能一定程度解决这个问题，但是模型之间差异最终还是需要开发者解决。
+
+JSON 模型更进一步解决了这种模型不一致的问题，拥有更好的局部性（Locality），所有信息都在同一个地方，一个查询就可以查到某个用户的所有信息。如下图，JSON 模型使**一对多的关系**可以更加清晰地放到一个树状结构中。
+
+但是 JSON 模式缺乏对于 schema 的定义。虽然这通常被视作一个优点，因为文档模型因此获得了更多的灵活性，但其存在亦有弊端。
+
+![image-20250125224607846](/Users/sjxu/Library/Application Support/typora-user-images/image-20250125224607846.png)
+
+
+
+## 0x02 文档模型的局限性：多对一关系 与 多对多关系
+
+一个最简单的例子来源于假设要对用户填写简历中的某一项属性（例如地区）进行规范化，那就会存在一个多对一的映射，例如多个用户来源于同一个地区。
+
+> 这种规范化（**Normalization**）的目标就是去除重复（**Duplication**），因为重复会必然导致修改同一数据时，产生大量的写开销，以及产生数据不一致的风险。
+>
+> 而当一个数据模型重复存储了可以存储在同一个地方的值，则该模型就不是规范化的（**Normalized**）。
+
+在关系模型下，这种映射关系可以通过一个很简单的 join 来索引到另一个地区表，但是文档模型中就需要设置一个枚举值，这种 join 的替代执行方式也必然把本该在数据库中完成的工作转化到了应用当中。
+
+当情况进一步复杂时，还会出现多对多的关系，例如下面两种情况：
+
+1. 当公司和学校需要作为一个实体存在时，需要在将求职者的实体和多个公司和学校进行关联
+2. 当推荐人功能出现时，需要在一个求职者下引用多个推荐人与被推荐人
+
+这时候文档模型就开始变得过于复杂
+
+![image-20250125224523866](/Users/sjxu/Library/Application Support/typora-user-images/image-20250125224523866.png)
+
+
+
+## 0x03 文档模型的核心争论：如何表示多对多关系
+
+以文档数据库为代表的 NoSQL 阵营在后续发展中一直都面临的一个问题，就是如何表征多对多关系。实际上这个问题的提出要最追溯到 **文档模型** 产生之前，甚至在 **关系模型** 产生之前的数据库系统的最早期形态之一：**层次模型**（Hierarchical Model）。
+
+20世纪70年代，IBM最受欢迎的数据库就是IMS，其采用了一个很简单的数据模型——**层次模型**，将所有数据表示为潜逃在记录中的记录树，非常类似于JSON结构。但和文档数据库一样，IMS也是非常善于处理一对多关系，但是难以处理多对多关系，而且不支持 join 操作。
+
+当处理多对多关系时，是进行数据复制（Duplication）还是进行数据引用（手动构建一个记录到另一个记录的引用）需要由开发者手工完成。
+
+对于这个问题，当时提出的两个方案来解决**层次模型**的困境：**关系模型**（Relational Model） 和 **网络模型**（Network Model）。而前者最终变成了 SQL，也成为了最广泛使用的数据模型，后者则在短暂火热后销声匿迹。
+
+### 网络模型
+
+网络模型和层次模型最大的区别就在于，层次模型的树结构中，每个记录只有一个父节点，但网络模型中，每个记录都可以有多个父节点。举例来说，在之前的招聘网站模型中，A地区可能就可以作为一条普通记录存在，每个新的求职者都作为其父节点来引用这条记录。
+
+但这时候出现一个问题就在于，在多对多关系的查询中，数个不同的查询路径可以到达相同的记录，网络模型的编程者必须跟踪不同的访问路径，这使得在早期有限功能的硬件当中执行数据查询操作变得无比缓慢且令人疑惑。
+
+### 关系模型
+
+相比于网络模型随意构造的实体链接，关系模型就很简单：一个关系（Table）只是一个实体元组（Row）的集合。数据的读操作可以通过关键字匹配选中任意的行，读取一张表中任一甚至所有行。
+
+关系数据库中的查询优化器将自动决定查询哪些部分，
+
+### 文档模型
+
+## 0x04 关系型数据库和文档型数据库今天的异同
+
+### 哪个模型更适合开发
+
+### 文档模型中的 schema 到底是优势还是劣势
+
+文档模型与关系模型查询范围的区别：数据的局部性
+
+文档模型与关系模型的融合
+
+# Topic-B 数据查询语言
+
+**关系模型**通常使用**声明式查询语言**，而 NoSQL 中（如 IMS 和 CODASYL）通常使用**命令式代码**来查询。下面用一个简单的 Python 来表示这种命令式代码。
+
+```python
+function getSharks() {
+    var sharks = [];
+    for (var i = 0; i < animals.length; i++) {
+        if (animals[i].family === "Sharks") {
+            sharks.push(animals[i]);
+        }
+    }
+    return sharks;
+}
+```
+
+## 0x05 声明式查询
+
+## 0x06 声明式查询的应用：Web 页面中 CSS 定位器
+
+## 0x07 命令式代码的应用：MapReduce
+
+# Topic-C 图数据模型：多对多关系最自然的方案
+
+## 0x08 属性图
+
+## 0x09 图查询语言：Cypher
+
+## 0x0A 图查询的衍生方案
+
+### SQL中的图查询
+
+### 三元组存储和SPARQL查询
+
