@@ -1,7 +1,6 @@
 ---
 title: "DDIA Chapter 10"
-date: "2025-02-02"
-excerpt: "Explores Unix principles, MapReduce, and distributed file systems in handling data-intensive tasks. Highlights Unix design for simplicity and modularity, MapReduce's Mapper and Reducer components for scalable processing, and distributed file systems like HDFS. Discusses workflow dependencies, locality optimization, and balancing performance with reliability in modern data engineering."
+date: 2025-02-08
 categories:
   - Architect Desgin
 tags:
