@@ -5,9 +5,9 @@ toc: true
 toc_label: "Content"
 toc_icon: "cog"
 categories:
-    - Frontend
+  - Frontend
 tags:
-    - Bootstrap
+  - Bootstrap
 ---
 
 
