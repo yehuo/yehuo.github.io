@@ -1,5 +1,5 @@
 ---
-title: Redis基础笔记
+title: Redis Introduction Session 01
 date: 2021-07-24
 excerpt: "[狂神说JAVA系列]中，秦疆关于Redis的解说P1-P27"
 categories:

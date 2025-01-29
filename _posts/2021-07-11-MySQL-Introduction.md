@@ -1,7 +1,6 @@
 ---
-title: MySQL基础笔记
+title: MySQL Introduction
 date: 2021-07-11
-excerpt: "[狂神说JAVA系列]中，秦疆关于MySQL系列的讲解"
 categories:
 	- Database
 tags:

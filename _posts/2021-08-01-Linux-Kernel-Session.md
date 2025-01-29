@@ -1,6 +1,6 @@
 ---
-title: LVM学习笔记
-date: 2021-07-29
+title: Linux Kernel Session
+date: 2021-08-01
 excerpt: "A quick introduction to virtualization and hypervisors..."
 categories: 
     - System

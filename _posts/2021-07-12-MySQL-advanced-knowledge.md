@@ -1,5 +1,5 @@
 ---
-title: MySQL进阶笔记
+title: MySQL advanced knowledge
 date: 2021-07-12
 excerpt: "关于InnoDB中事务与锁的实现方案的初步学习"
 categories:

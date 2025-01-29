@@ -7,13 +7,17 @@ tags:
 	- Bootstrap
 ---
 
-# 0x01 Intro：为什么要使用Grid Layout
+
+
+# 0x01 引言
 
 在现代 Web 开发中，响应式设计已经成为标配，而 Bootstrap 作为最流行的前端框架之一，提供了一套强大的栅格系统，让开发者可以轻松构建灵活的响应式页面。本文将详细介绍 Bootstrap 栅格系统的核心概念、使用方法及最佳实践。
 
-# 0x02 栅格布局的基础概念
+# 0x02 栅格系统的基础概念
 
-Bootstrap 的栅格系统是基于 Flexbox 实现的，它使用一个 12 列布局，并通过 行（row） 和 列（col） 来组织内容。
+Bootstrap 的栅格系统是基于 **Flexbox** 实现的，它使用一个 12 列布局，并通过 **行（row）** 和 **列（col）** 来组织内容。
+
+## 1. 栅格结构
 
 一个基本的 Bootstrap 栅格结构通常包含以下三层：
 
@@ -31,80 +35,117 @@ Bootstrap 的栅格系统是基于 Flexbox 实现的，它使用一个 12 列布
 </div>
 ```
 
-`em`和`rem`在Bootstrap里，通常来定义大部分物体的尺寸。但是对于容器宽度和网格切分位置，通常用像素来定义，这样二者就不会因字体变化而发生调整。
+# 0x03 响应式栅格
 
-- `em`：是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。`em`的值并不是固定的，`em`会继承父级元素的字体大小。
+Bootstrap 提供了 6 种不同的屏幕尺寸断点，每个断点都可以设置不同的列宽：
 
-	> 任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1em=16px。那么12px=0.75em，10px=0.625em。
-	>
-	> 为了简化font-size的换算，需要在css中的body选择器中声明`Font-size=62.5%`，这就使em值变为 16px\*62.5%=10px, 这样12px=1.2em, 10px=1em。此时，只需要将原来的px数值除以10，然后换上em作为单位就可以定义元素所占像素的大小了。
+| 断点名称 | 类名前缀 | 适用范围 |
+|----------|------------|----------------|
+| Extra small | `col-` | <576px |
+| Small | `col-sm-` | ≥576px |
+| Medium | `col-md-` | ≥768px |
+| Large | `col-lg-` | ≥992px |
+| Extra large | `col-xl-` | ≥1200px |
+| Extra extra large | `col-xxl-` | ≥1400px |
 
-- `rem`：是CSS3新增的一个相对单位，意指root em。`rem`与`em`的区别在于使用`rem`为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。这个单位可谓集相对大小`em`和绝对大小`px`的优点于一身，通过它既可以做到只修改根元素就成比例地调整所有字体大小，又可以避免字体大小逐层复合的连锁反应。
+示例代码：
 
-	> 目前，除了IE8及更早版本外，所有浏览器均已支持rem。对于不支持它的浏览器，应对方法也很简单，就是多写一个绝对单位的声明。这些浏览器会忽略用rem设定的字体大小。例如：
-	>
-	> ```css
-	> p {font-size:14px; font-size:.875rem;}
-	> ```
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3">列 1</div>
+    <div class="col-sm-6 col-md-4 col-lg-3">列 2</div>
+    <div class="col-sm-6 col-md-4 col-lg-3">列 3</div>
+    <div class="col-sm-6 col-md-4 col-lg-3">列 4</div>
+  </div>
+</div>
+```
 
-| 设备属性    | 类中缀 | 设备尺寸 | 最大容器宽度 | 类前缀     |
-| ----------- | ------ | -------- | ------------ | ---------- |
-| Extra small | None   | <576px   | None (auto)  | `.col-`    |
-| Small       | `sm`   | ≥576px   | 540px        | `.col-sm-` |
-| Medium      | `md`   | ≥768px   | 720px        | `.col-md-` |
-| Large       | `lg`   | ≥992px   | 960px        | `.col-lg-` |
-| Extra large | `xl`   | ≥1200px  | 1140px       | `.col-xl-` |
+在小屏幕（`col-sm-6`）时每行最多两列，在中等屏幕（`col-md-4`）时每行三列，在大屏幕（`col-lg-3`）时每行四列。
 
-- 以上所有类的默认分割线宽度为30px，左右各15px
+# 0x04 列宽控制
 
-- 全都使用`col`标签时会自动均分`div`块宽度，可以使用`w-100`来划分出不同的行（Safari可能会有问题）
-- `w-100`其实就是设定了一个宽度为100（高度为0）的块，来让其他块自动分配到下一行
-- 设定一个`col`的宽度（如`col-6`），其他就会自动均分剩余宽度
-- 可以使用`col-{breakpoint}-auto`来设定一个根据文本自适应宽度的`div`
+## 1. 固定列宽
 
-### 响应式类
+如果希望指定某列宽度，可以直接在 `.col-{size}-{number}` 中设置，例如：
 
-- 如果不需要根据屏幕大小设定页面配置，对于各种尺寸的屏幕都可以使用`col`和`col-n`类
-- 使用两个`row`类叠加，就可以划分出有间距的两行div
-- 如果希望在不同设备上使用不同的堆叠方式，就可以将多个`col`类写进同一个`class attr`，例如：`col-6 col-md-4`
+```html
+<div class="row">
+  <div class="col-md-8">列 1（占 8 列）</div>
+  <div class="col-md-4">列 2（占 4 列）</div>
+</div>
+```
 
-### 垂直对齐
+## 2. 自动列宽
 
-> Internet Explorer 10-11 do not support vertical alignment of flex items when the flex container has a `min-height` as shown below. [See Flexbugs #3 for more details.](https://github.com/philipwalton/flexbugs#flexbug-3)
+如果不指定列宽，Bootstrap 会自动平均分配空间：
 
-如果需要定义`row`处于`container`中的上中下位置，可以使用如下三个标签定义`row`标签：
+```html
+<div class="row">
+  <div class="col">列 1</div>
+  <div class="col">列 2</div>
+</div>
+```
 
-- `align-items-start`
-- `align-items-center`
-- `align-items-end`
+# 0x05 栅格对齐方式
 
-如果希望不同的`col`占据`row`中不同的垂直位置（此时多个`col`不会有垂直堆叠效果），可以使用如下三个标签定义`col`：
+## 1. 垂直对齐
 
-- `align-self-start`
-- `align-self-center`
-- `align-self-end`
+使用 `align-items-*` 调整 `.row` 中的列对齐方式：
 
-### 水平对齐
+```html
+<div class="row align-items-center">
+  <div class="col">列 1</div>
+  <div class="col">列 2</div>
+</div>
+```
 
-| 标签                      | 用途                                         |
-| ------------------------- | -------------------------------------------- |
-| `justify-content-start`   | 靠左                                         |
-| `justify-content-center`  | 中间                                         |
-| `justify-content-end`     | 靠右                                         |
-| `justify-content-around`  | 空白宽度分配到各个块之间（最靠两边的是空白） |
-| `justify-content-between` | 空白宽度集中到块之间（最靠两边的是块）       |
+对齐方式包括：
 
-### 去除边框
+- `align-items-start`（顶部对齐）
+- `align-items-center`（居中对齐）
+- `align-items-end`（底部对齐）
 
-`no-gutters`：去除col之间的左右边框`margin`和上下的边框`padding`，如果一行的宽度超过12个单位，超出的单位就会自动被放到新的一行。
+## 2. 水平对齐
 
-### 重排序
+使用 `justify-content-*` 来调整 `.row` 中的列的水平排列方式：
 
-同一行内所有设定了`order`标签的块会进行一次重排序，例如`order-1`的块会被放到`order-12`前面。
+```html
+<div class="row justify-content-center">
+  <div class="col-md-4">Col 1</div>
+  <div class="col-md-4">Col 2</div>
+</div>
+```
 
-### 块偏移
+可用的水平对齐方式包括：
 
-使用`offset`标签可以将块偏移一定宽度，这种方式实际上是通过增加左侧`margin`来实现的。例如`col-md-4 offset-md-4`，如果`class`里有多个对应的宽度类，如`col`，`col-md`，那你也需要就每个类来设定相对应的`offset`。
+- `justify-content-start`（左对齐，默认）
+- `justify-content-center`（居中对齐）
+- `justify-content-end`（右对齐）
+- `justify-content-around`（两侧均匀分布）
+- `justify-content-between`（两端对齐）
+
+# 0x06 元素自适应：`em` 和 `rem` 单位
+
+在 Bootstrap 中，`em` 和 `rem` 是常见的相对单位，用于定义尺寸、间距等样式。
+
+- `em`：相对于父元素的字体大小。例如，若父元素的 `font-size` 是 `16px`，则 `1.5em` 相当于 `24px`。
+- `rem`：相对于根元素（`html` 标签）的 `font-size`。通常浏览器默认 `font-size` 为 `16px`，因此 `1rem` 通常等于 `16px`。
+
+示例：
+
+```css
+.element {
+  font-size: 1.5em; /* 相对于父元素的字体大小 */
+  padding: 1rem; /* 相对于根元素字体大小 */
+}
+```
+
+使用 `rem` 可以确保不同组件在不同的上下文中保持一致的比例，而 `em` 更适用于局部调整。
+
+# 0x07 总结
+
+Bootstrap 的栅格系统提供了一种简单、高效的方式来构建响应式网页布局。掌握栅格系统的使用，能够大幅提升开发效率，使页面在不同设备上都能完美适配。如果你正在使用 Bootstrap 进行 Web 开发，不妨尝试更多高级功能，比如嵌套栅格、偏移列、顺序控制等，让你的布局更加灵活多变！
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "Linux文件系统解析"
+title: "Linux File System Deepdive Session"
 date: 2021-09-24
 excerpt: "Linux文件系统中的基础概念与常用命令"
 categories: 

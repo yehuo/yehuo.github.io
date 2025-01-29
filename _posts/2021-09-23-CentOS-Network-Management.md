@@ -1,5 +1,5 @@
 ---
-title: "CentOS网络管理"
+title: "CentOS Network Management"
 date: 2021-09-23
 excerpt: "CentOS7中的网络配置方式"
 categories: 

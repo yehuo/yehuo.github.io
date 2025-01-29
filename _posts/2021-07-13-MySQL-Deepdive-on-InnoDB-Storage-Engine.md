@@ -1,5 +1,5 @@
 ---
-title: MySQL技术内幕 InnoDB存储引擎 Session 02
+title: "MySQL Deepdive on InnoDB Storage Engine"
 date: 2021-07-13
 excerpt: "InnoDB的存储引擎系统，关于线程、内存、Checkpoint、Master Thread的实现细节，以及InnoDB五项特性"
 categories:
@@ -138,3 +138,9 @@ Checkpoint分为两种
 # 2.6 InnoDB关键特性
 
 # 2.7 启动、关闭与恢复
+
+---
+
+## Reference
+
+- [MySQL技术内幕: InnoDB存储引擎](https://github.com/wususu/effective-resourses/blob/master/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95(InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E)%E7%AC%AC2%E7%89%88.pdf)

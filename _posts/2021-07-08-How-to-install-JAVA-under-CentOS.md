@@ -1,5 +1,5 @@
 ---
-title: CentOS下安装Java
+title: How-to-install-JAVA-under-CentOS
 date: 2021-07-08
 excerpt: ""
 categories:
