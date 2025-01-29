@@ -1,18 +1,35 @@
 ---
-title: 【Bootstrap笔记】栅格布局
+title: "Deep dive of grid layout in Bootstrap"
 date: 2018-09-18
-excerpt: "Bootstrap v4.0 栅格布局相关的学习"
 categories:
 	- Frontend
 tags:
 	- Bootstrap
 ---
 
+# 0x01 Intro：为什么要使用Grid Layout
 
+在现代 Web 开发中，响应式设计已经成为标配，而 Bootstrap 作为最流行的前端框架之一，提供了一套强大的栅格系统，让开发者可以轻松构建灵活的响应式页面。本文将详细介绍 Bootstrap 栅格系统的核心概念、使用方法及最佳实践。
 
-内容来自Bootstrap v4中文[官方手册](https://v4.bootcss.com/docs/getting-started/introduction/)，适配于v4.6版本的Bootstrap库。
+# 0x02 栅格布局的基础概念
 
-### 网格属性
+Bootstrap 的栅格系统是基于 Flexbox 实现的，它使用一个 12 列布局，并通过 行（row） 和 列（col） 来组织内容。
+
+一个基本的 Bootstrap 栅格结构通常包含以下三层：
+
+- `.container`：用于包裹所有内容，有 `.container`（固定宽度） 和 `.container-fluid`（全屏宽度）两种模式。
+- `.row`：每个栅格布局必须放在 `.row` 中，保证列的正确对齐。
+- `.col`：每个 `.col` 都占据相等的宽度，默认情况下所有列平均分配空间。
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col">Col 1</div>
+    <div class="col">Col 2</div>
+    <div class="col">Col 3</div>
+  </div>
+</div>
+```
 
 `em`和`rem`在Bootstrap里，通常来定义大部分物体的尺寸。但是对于容器宽度和网格切分位置，通常用像素来定义，这样二者就不会因字体变化而发生调整。
 
@@ -89,3 +106,8 @@ tags:
 
 使用`offset`标签可以将块偏移一定宽度，这种方式实际上是通过增加左侧`margin`来实现的。例如`col-md-4 offset-md-4`，如果`class`里有多个对应的宽度类，如`col`，`col-md`，那你也需要就每个类来设定相对应的`offset`。
 
+---
+
+## Reference
+
+- [Bootstrap Doc](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
