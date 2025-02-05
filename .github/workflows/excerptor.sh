@@ -57,7 +57,6 @@ else
   title=$(echo "$file_name" | cut -c12- | rev | cut -c4- | rev | tr '-' ' ')
 fi
 echo "The blog \"$title\" is under processing."
-
 # 如果不存在excerpt，提取文章内容
 blog_content=$(sed -n "$((end_line + 1)),\$p" "$file")
 
@@ -73,27 +72,25 @@ json_payload=$(jq -n \
       ],
       model: "deepseek-chat",
       frequency_penalty: 0,
-      max_tokens: 1024,
+      max_tokens: 3000,
       presence_penalty: -1,
       response_format: {type: "text"},
       stop: null,
       stream: false,
       stream_options: null,
-      temperature: 1.5,
+      temperature: 1.0,
       top_p: 1,
       tools: null,
       tool_choice: "none",
       logprobs: false,
       top_logprobs: null
     }')
-
 # 构建deepseek请求
 response=$(curl -s -L -X POST 'https://api.deepseek.com/chat/completions' \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json' \
     -H "Authorization: Bearer $API_KEY" \
     --data-raw "$json_payload")
-echo "Authorization: Bearer $API_KEY"
 
 excerpt_content=$(echo "$response" | jq -r '.choices[0].message.content')
 yfm_content=$(echo "$yfm_content" | sed '1d;' | yq e '. + {"excerpt": "'"$excerpt_content"'"}' -)

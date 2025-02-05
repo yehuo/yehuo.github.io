@@ -1,11 +1,11 @@
 ---
-title: DDIA Chapter 02 Data Model and DSL
+title: "DDIA Chapter 02 Data Model and DS"
 date: 2025-01-25
-excerpt: Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems.
 categories:
   - Architect Design
 tags:
   - DDIA
+excerpt: The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many.
 ---
 
 
@@ -115,4 +115,3 @@ function getSharks() {
 ### SQL中的图查询
 
 ### 三元组存储和SPARQL查询
-
