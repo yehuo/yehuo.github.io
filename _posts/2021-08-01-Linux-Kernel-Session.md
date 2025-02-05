@@ -25,8 +25,8 @@ tags:
 - 停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行)
 
 - Linux中进程状态码
-	- D 不可中断 uninterruptible sleep (usually IO)
-	- R 运行 runnable (on run queue)
-	- S 中断 sleeping
-	- T 停止 traced or stopped
-	- Z 僵死 a defunct (”zombie”) process
+  - D 不可中断 uninterruptible sleep (usually IO)
+  - R 运行 runnable (on run queue)
+  - S 中断 sleeping
+  - T 停止 traced or stopped
+  - Z 僵死 a defunct (”zombie”) process

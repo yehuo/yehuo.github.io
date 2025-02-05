@@ -3,9 +3,9 @@ title: "Kubernetes Introduction"
 date: 2021-09-12
 excerpt: "Kubernetes官网中，对于Kubernetes的基础介绍及实验..."
 categories:
-	- Kubernetes
+  - Kubernetes
 tags:
-    - Tutorial
+  - Tutorial
 ---
 
 

@@ -2,9 +2,9 @@
 title: Elasticsearch Notes
 date: 2021-06-21
 categories:
-	- Backend
+  - Backend
 tags:
-	- Elasticsearch
+  - Elasticsearch
 ---
 
 
@@ -63,11 +63,11 @@ wiki百科，Guardian，StarkOverflow，Github，电商网站，商品价格监�
 
 2. Elasticsearch核心概念
 
-	- Near Realtime：写入后存在一定延迟（秒级）后，才可以访问到
+  - Near Realtime：写入后存在一定延迟（秒级）后，才可以访问到
 
-	- Cluster Node
+  - Cluster Node
 
-	- Document：一条数据，最小数据单元，里面有field，对应数据字段，常用JSON格式
+  - Document：一条数据，最小数据单元，里面有field，对应数据字段，常用JSON格式
 
 		```json
 		product document{
@@ -78,15 +78,15 @@ wiki百科，Guardian，StarkOverflow，Github，电商网站，商品价格监�
 		}
 		```
 
-	- Index：具有相似结构的文档数据，例如客户索引，订单索引，一个index对应很多document
+  - Index：具有相似结构的文档数据，例如客户索引，订单索引，一个index对应很多document
 
-	- Type： **Index逻辑上的数据分类**。一个Index中包含很多type，一个Type对应多个document实例。例如由于很多商品的field字段数目种类不同，每个type对应一种不同的document的结构。例如：
+  - Type： **Index逻辑上的数据分类**。一个Index中包含很多type，一个Type对应多个document实例。例如由于很多商品的field字段数目种类不同，每个type对应一种不同的document的结构。例如：
 
-		- **日化商品type** "product_id","product_name","category_id","category_name"
-		- **电器商品type** "product_id","product_name","category_id","category_name","service_period"
-		- **生鲜商品type**："product_id","product_name","category_id","category_name","eat_period"
+	  - **日化商品type** "product_id","product_name","category_id","category_name"
+	  - **电器商品type** "product_id","product_name","category_id","category_name","service_period"
+	  - **生鲜商品type**："product_id","product_name","category_id","category_name","eat_period"
 
-	- Shard： **Index会被拆成多个Shard**。放到多个服务器上。以便横向扩展，所有操作在服务器上多个服务器执行提升吞吐量，可以建立副本Shard提升安全性。**Replica Shard**，也被称作副本分片，与之对应的是Primary Shard。
+  - Shard： **Index会被拆成多个Shard**。放到多个服务器上。以便横向扩展，所有操作在服务器上多个服务器执行提升吞吐量，可以建立副本Shard提升安全性。**Replica Shard**，也被称作副本分片，与之对应的是Primary Shard。
 
 		> ES规定Replica Shard和Primary Shard不可以存放于同一个节点上，最简单的模式中，通常是分到两个节点，分别放一部分Primary和Replica Shard。
 
@@ -534,27 +534,27 @@ GET /ecommerce/product/_search
 
 - 复杂的分布式机制隐藏：分片，副本，负载均衡，请求路由，集群扩容，shard重分配
 - 垂直扩容与水平扩容
-	- 垂直扩容，数量不变，以新换旧——可能会导致瓶颈
-	- 水平扩容，质量不变，数量增加——业界常用
-	- rebalance：总有个别服务器负载会重一些
+  - 垂直扩容，数量不变，以新换旧——可能会导致瓶颈
+  - 水平扩容，质量不变，数量增加——业界常用
+  - rebalance：总有个别服务器负载会重一些
 - master节点
-	- 管理集群的meta数据，默认情况下，会自动选择出一条作为master节点
-	- 负载很轻，不承载所有请求
-	- 主要功能为创建删除索引，增加删除节点
-	- 节点对等的分布式架构
+  - 管理集群的meta数据，默认情况下，会自动选择出一条作为master节点
+  - 负载很轻，不承载所有请求
+  - 主要功能为创建删除索引，增加删除节点
+  - 节点对等的分布式架构
 
 # 0x0A shard&replica梳理以及单点环境中创建index图解
 
 - shard和replica
-	- index被分为多个shard
-	- 每个shard只承载部分数据
-	- 每个document只存在一个primary shard，不会在另一个primary shard做备份
-	- Primary shard在创建集群时候确定，replica shard后续可以更改
-	- Primary shard和自己的replica shard不能放在同一个节点上 
+  - index被分为多个shard
+  - 每个shard只承载部分数据
+  - 每个document只存在一个primary shard，不会在另一个primary shard做备份
+  - Primary shard在创建集群时候确定，replica shard后续可以更改
+  - Primary shard和自己的replica shard不能放在同一个节点上 
 
 - 单node的index分析
 
-	- 单node情况下，所有primary shard都被放到一个node中，无法分配replica shard
+  - 单node情况下，所有primary shard都被放到一个node中，无法分配replica shard
 
 	```json
 	PUT /test_index

@@ -2,9 +2,9 @@
 title: Captcha Function in PHP
 date: 2018-09-10
 categories:
-    - Backend
+  - Backend
 tags:
-    - PHP
+  - PHP
 ---
 
 

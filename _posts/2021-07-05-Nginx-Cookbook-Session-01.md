@@ -3,9 +3,9 @@ title: Nginx Cookbook Session 01
 date: 2021-07-05
 excerpt: "通过 Nginx 服务可以构建四层/七层负载均衡，并通过HTTP协议与TCP协议来支持Session保持，健康状态检测"
 categories:
-    - Network
+  - Network
 tags:
-    - Nginx
+  - Nginx
 ---
 
 

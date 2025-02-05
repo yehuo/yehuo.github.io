@@ -3,9 +3,9 @@ title: Git Operation
 date: 2016-03-18
 excerpt: "Just First Try on Git"
 categories:
-	- CI
+  - CI
 tags:
-	- Git
+  - Git
 ---
 
 
@@ -46,9 +46,9 @@ tags:
 	> With `--ff-only`, resolve the merge as a fast-forward when possible. When not possible, refuse to merge and exit with a non-zero status.
 
 - 常见分支命名策略
-	- master稳定分支
-	- dev不稳定分支
-	- name如Bob，Michael等
+  - master稳定分支
+  - dev不稳定分支
+  - name如Bob，Michael等
 - 恢复操作
 
 ```bash

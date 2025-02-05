@@ -3,9 +3,9 @@ title: Python Generator and Iterator
 date: 2021-07-05
 excerpt: ""
 categories:
-    - Language
+  - Language
 tags:
-    - Python
+  - Python
 ---
 
 

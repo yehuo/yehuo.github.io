@@ -3,9 +3,9 @@ title: DDIA Chapter 01
 date: 2025-01-24
 excerpt: Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems.
 categories:
-	- Architect Design
+  - Architect Design
 tags:
-	- DDIA
+  - DDIA
 ---
 
 
@@ -188,14 +188,14 @@ SLA和SLO中对于相应时间百分数的实际应用
 
 	通用属性，例如安全性，可靠性，合规性，可扩展性，兼容性和可维护性
 
-	- 可靠性 Reliability
+  - 可靠性 Reliability
 
 		抵抗来自于硬件（通常是随机的和不相关的），软件（通常是系统性的Bug，很难处理），和人类（不可避免地时不时出错）的故障的影响
 
-	- 可扩展性 Scalability
+  - 可扩展性 Scalability
 
 		定量描述负载和性能，通过添加处理容量（processing capacity） 以在高负载下保持可靠
 
-	- 可维护性 Maintainability
+  - 可维护性 Maintainability
 
 		良好的可操作性意味着对系统的健康状态具有良好的可见性，并拥有有效的管理手段

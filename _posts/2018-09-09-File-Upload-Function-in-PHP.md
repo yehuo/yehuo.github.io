@@ -2,9 +2,9 @@
 title: File Upload Function in PHP
 date: 2018-09-09
 categories:
-    - Backend
+  - Backend
 tags:
-    - PHP
+  - PHP
 ---
 
 

@@ -3,9 +3,9 @@ title: First Project of ElastiSearch
 date: 2018-08-10
 excerpt: "故事要从boss吃了安利，有一天忽然心血来潮想要搞一个内部全文检索系统开始说起..."
 categories:
-    - Backend
+  - Backend
 tags:
-    - Elasticsearch
+  - Elasticsearch
 ---
 
 

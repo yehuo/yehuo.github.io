@@ -3,9 +3,9 @@ title: Python Decorator
 date: 2021-06-22
 excerpt: "A function returning another function..."
 categories:
-    - Language
+  - Language
 tags:
-    - Python
+  - Python
 ---
 
 

@@ -4,9 +4,9 @@ date: 2018-07-31
 excerpt: "【转载】如何使用PHP调用API接口（如何POST一个JSON格式的数据给Restful服务）"
 canonical_url: "https://blog.csdn.net/DavidFFFFFF/article/details/72828204"
 categories: 
-    - Backend
+  - Backend
 tags: 
-    - PHP
+  - PHP
 ---
 
 

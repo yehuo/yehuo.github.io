@@ -3,9 +3,9 @@ title: DDIA Chapter 02 Data Model and DSL
 date: 2025-01-25
 excerpt: Notes from Designing Data-Intensive Applications Chapter 1, covering reliability, scalability, and maintainability in data systems. Key topics include handling hardware/software faults, human errors, load and performance analysis, operability, simplicity, and evolvability. Highlights include Twitter's architecture evolution and techniques like abstraction, monitoring, and testing to build robust, efficient, and adaptive systems.
 categories:
-	- Architect Design
+  - Architect Design
 tags:
-	- DDIA
+  - DDIA
 ---
 
 

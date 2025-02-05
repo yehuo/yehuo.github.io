@@ -6,7 +6,6 @@ categories:
   - Notes
 tags:
   - NetBox
-
 ---
 
 
@@ -136,14 +135,14 @@ sudo sh -c "echo 'napalm' >> /opt/netbox/local_requirements.txt"sudo sh -c "echo
 ### 生效配置
 
 - upgrade功能
-	- Create a Python virtual environment
-	- Installs all required Python packages
-	- Run database schema migrations
-	- Builds the documentation locally (for offline use)
-	- Aggregate static resource files on disk
+  - Create a Python virtual environment
+  - Installs all required Python packages
+  - Run database schema migrations
+  - Builds the documentation locally (for offline use)
+  - Aggregate static resource files on disk
 - housekeeping功能
-	- handles some recurring cleanup tasks, such as clearing out old sessions and expired change records
-	- sh shell can be copied to or linked from your system's daily cron task directory
+  - handles some recurring cleanup tasks, such as clearing out old sessions and expired change records
+  - sh shell can be copied to or linked from your system's daily cron task directory
 
 ```shell
 sudo /opt/netbox/upgrade.sh

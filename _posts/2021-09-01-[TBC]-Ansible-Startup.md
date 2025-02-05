@@ -66,9 +66,9 @@ tags:
 ## Features
 
 - 三个Python关键模块
-	- Paramiko：基于ssh的远程控制模块
-	- PyYAML
-	- Jinja2：模板生成
+  - Paramiko：基于ssh的远程控制模块
+  - PyYAML
+  - Jinja2：模板生成
 - 部署简单、基于python和SSH，agentless，无需代理，不依赖PKI
 - 幂等性，执行一遍与多遍，结果相同
 - 支持playbook编排任务，多层解决方案Role

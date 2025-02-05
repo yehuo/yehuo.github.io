@@ -3,9 +3,9 @@ title: Docker Desktop Issue on Windows
 date: 2021-06-28
 excerpt: "关于Windows下Docker Desktop后台运行出错的一点经验积累"
 categories:
-    - Virtualization
+  - Virtualization
 tags:
-    - Docker
+  - Docker
 ---
 
 

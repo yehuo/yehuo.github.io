@@ -2,9 +2,9 @@
 title: MySQL Introduction
 date: 2021-07-11
 categories:
-	- Database
+  - Database
 tags:
-	- MySQL
+  - MySQL
 ---
 
 
@@ -56,25 +56,25 @@ DESC student -- 显示表结构
 
 - MyISAM：
 
-	- `*.frm` 表结构定义文件
-	- `*.MYD` 数据文件
-	- `*.MYI` 索引文件 index
+  - `*.frm` 表结构定义文件
+  - `*.MYD` 数据文件
+  - `*.MYI` 索引文件 index
 
 - 设立数据库字符集编码(https://www.jianshu.com/p/ec0c86ee3e04)
 
-	- 建库时添加
+  - 建库时添加
 
 		```sql
 		CHARSET=utf8
 		```
 
-	- 在`my.ini`配置默认编码
+  - 在`my.ini`配置默认编码
 
 		```sql
 		character-set-server=utf-8
 		```
 
-	- 字符集比较设置`COLLATE`(https://blog.csdn.net/weixin_34832150/article/details/113338337)
+  - 字符集比较设置`COLLATE`(https://blog.csdn.net/weixin_34832150/article/details/113338337)
 
 		```sql
 		CREATE DATABASE shop CHARSET SET utf8 COLLATE utf_8_general_ci
@@ -130,8 +130,8 @@ delete和truncate区别：
 
 - truncate自增会归零
 - delete删除后
-	- InnoDB 断电后重新从0开始自增
-	- MYISAM 即使断电后也会继续从上一个自增量开始
+  - InnoDB 断电后重新从0开始自增
+  - MYISAM 即使断电后也会继续从上一个自增量开始
 
 # 4 DQL查询
 
@@ -291,7 +291,7 @@ SET AUTOCOMMIT=1;
 
 - 结果表项解释
 
-	- `type`：显示联结类型，显示查询使用了何种类型，按照从最佳到最坏类型排序，一般保证查询至少达到range级别，最好能达到ref
+  - `type`：显示联结类型，显示查询使用了何种类型，按照从最佳到最坏类型排序，一般保证查询至少达到range级别，最好能达到ref
 
 		| Output | Explanation                                                  |
 		| ------ | ------------------------------------------------------------ |
@@ -303,7 +303,7 @@ SET AUTOCOMMIT=1;
 		| index  | index 与all区别为index类型只遍历索引树。通常比all快，因为索引文件比数据文件小很多 |
 		| all    | 遍历全表以找到匹配的行                                       |
 
-	- `extra`：包含不适合在其他列中显示，但是十分重要的额外信息
+  - `extra`：包含不适合在其他列中显示，但是十分重要的额外信息
 
 		| Output                       | Explanation                                                  |
 		| ---------------------------- | ------------------------------------------------------------ |
@@ -316,15 +316,15 @@ SET AUTOCOMMIT=1;
 		| select tables optimized away | 在没有group  by子句的情况下，基于索引优化Min、max操作或者对于MyISAM存储引擎优化count（*），不必等到执行阶段再进行计算，查询执行计划生成的阶段即完成优化 |
 		| distinct                     | 优化distinct操作，在找到第一匹配的元组后即停止找同样值的动作 |
 
-	- `key`：显示MySQL实际决定使用的键(索引)。如果没有选择索引,键是NULL。查询中如果使用覆盖索引，则该索引和查询的select字段重叠。
-	- `rows`：根据表统计信息以及索引选用情况，大致估算出找到所需的记录所需要读取的行数
+  - `key`：显示MySQL实际决定使用的键(索引)。如果没有选择索引,键是NULL。查询中如果使用覆盖索引，则该索引和查询的select字段重叠。
+  - `rows`：根据表统计信息以及索引选用情况，大致估算出找到所需的记录所需要读取的行数
 
 ### 数据库运行状态监控
 
 - `PERFORMANCE_SCHEMA`表的查看方式
 	
-	- [MySQL 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/innodb-information-schema.html)
-	- [使用方法](https://www.cnblogs.com/duanxz/p/3757511.html)
+  - [MySQL 5.7 Reference Manual](https://dev.mysql.com/doc/refman/5.7/en/innodb-information-schema.html)
+  - [使用方法](https://www.cnblogs.com/duanxz/p/3757511.html)
 	
 - 使用`SHOW PROFILE`查看单条SQL语句的开销，参考[《使用show profiles分析SQL性能》](https://www.cnblogs.com/duanxz/archive/2013/01/23/2872537.html)
 
@@ -356,20 +356,20 @@ SET AUTOCOMMIT=1;
 ![B-Tree](/images/B-Tree.png)
 
 - B-树特性（d为度，h为高度）
-	- 每个非叶子节点由n-1个key和n个指针组成，其中d<=n<=2d
-	- 每个叶子节点最少包含一个key和两个指针，最多包含2d-1个key和2d个指针，叶节点的指针均为null
-	- **所有叶节点具有相同的深度，等于树高h**
-	- **key和指针互相间隔，节点两端是指针**
-	- **一个节点中的key从左到右非递减排列**
+  - 每个非叶子节点由n-1个key和n个指针组成，其中d<=n<=2d
+  - 每个叶子节点最少包含一个key和两个指针，最多包含2d-1个key和2d个指针，叶节点的指针均为null
+  - **所有叶节点具有相同的深度，等于树高h**
+  - **key和指针互相间隔，节点两端是指针**
+  - **一个节点中的key从左到右非递减排列**
 
 #### B+Tree
 
 ![B+Tree](/images/B+Tree.png)
 
 - B+树特性
-	- 每个节点的指针上限为2d而不是2d+1。
-	- 内节点不存储data，只存储key
-	- 叶子节点不存储指针
+  - 每个节点的指针上限为2d而不是2d+1。
+  - 内节点不存储data，只存储key
+  - 叶子节点不存储指针
 
 B+Tree中叶节点和内节点一般大小不同。这点与B-Tree不同，虽然B-Tree中不同节点存放的key和指针可能数量不一致，但是每个节点的域和上限是一致的。B+Tree比B-Tree更适合实现外存储索引结构。
 
@@ -381,9 +381,9 @@ B+Tree基础上，为相邻叶子节点添加指针，即可增加区间查询�
 
 - 其他数据劣势
 
-	- HashTable：hash碰撞问题，和数据无序问题导致不支持范围查找。memory引擎支持了hash索引，InnoDB支持`Adaptive Hash Index`，参见[InnoDB四大特性](https://www.cnblogs.com/zhs0/p/10528520.html)
+  - HashTable：hash碰撞问题，和数据无序问题导致不支持范围查找。memory引擎支持了hash索引，InnoDB支持`Adaptive Hash Index`，参见[InnoDB四大特性](https://www.cnblogs.com/zhs0/p/10528520.html)
 
-	- BT \| BST \| AVL \| 红黑树：都是二叉树，所以树高较高，查询复杂度较高；范围查询时，会出现自旋问题；BT \| BST 二者不平衡，性能不均衡；BT 无序，同HashTable。
+  - BT \| BST \| AVL \| 红黑树：都是二叉树，所以树高较高，查询复杂度较高；范围查询时，会出现自旋问题；BT \| BST 二者不平衡，性能不均衡；BT 无序，同HashTable。
 
 		| Name                    | CN Name    |
 		| ----------------------- | ---------- |
@@ -437,11 +437,11 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 
 - InnoDB的索引优化
 
-	- 不建议使用过长的字段作为主键
+  - 不建议使用过长的字段作为主键
 
 		因为所有辅助索引都引用主索引，过长的主索引会令辅助索引变得过大
 
-	- 用非单调的字段作为主键在InnoDB中不是个好主意
+  - 用非单调的字段作为主键在InnoDB中不是个好主意
 
 		因为InnoDB数据文件本身是一颗B+Tree，非单调的主键会造成在插入新记录时数据文件为了维持B+Tree的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择
 
@@ -455,21 +455,21 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 ### 索引使用策略及优化
 
 - 优化种类
-	- Scheme optimization 结构优化
-	- Query optimization 查询优化
+  - Scheme optimization 结构优化
+  - Query optimization 查询优化
 
 - 优化原则
 
-	- 视频内容
+  - 视频内容
 
-		- 索引不是越多越好
-		- 不要对经常变动的列加索引
-		- 小数据量的表不要对做索引
-		- 索引一般加在经常查询的字段上
+	  - 索引不是越多越好
+	  - 不要对经常变动的列加索引
+	  - 小数据量的表不要对做索引
+	  - 索引一般加在经常查询的字段上
 
-	- 最左前缀原理与相关优化
+  - 最左前缀原理与相关优化
 
-	- 索引选择性与前缀索引
+  - 索引选择性与前缀索引
 
 	  因为索引虽然加快了查询速度，但索引也是有代价的：索引文件本身要消耗存储空间，同时索引会加重插入、删除和修改记录时的负担，另外，MySQL在运行时也要消耗资源维护索引，因此索引并不是越多越好。一般两种情况下不建议建索引。
 
@@ -489,7 +489,7 @@ InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截�
 
 	  前缀索引兼顾索引大小和查询速度，但是其缺点是不能用于ORDER BY和GROUP BY操作，也不能用于Covering index（即当索引本身包含查询所需全部数据时，不再访问数据文件本身）。
 
-	- 优先使用自增主键
+  - 优先使用自增主键
 
 		如果表使用自增主键，那么每次插入新的记录，记录就会顺序添加到当前索引节点的后续位置，当一页写满，就会自动开辟一个新的页。这样就会形成一个紧凑的索引结构，近似顺序填满。由于每次插入时也不需要移动已有数据，因此效率很高，也不会增加很多开销在维护索引上。
 

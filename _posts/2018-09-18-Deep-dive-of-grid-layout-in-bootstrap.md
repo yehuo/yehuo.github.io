@@ -2,9 +2,9 @@
 title: "Deep dive of grid layout in Bootstrap"
 date: 2018-09-18
 categories:
-	- Frontend
+  - Frontend
 tags:
-	- Bootstrap
+  - Bootstrap
 ---
 
 

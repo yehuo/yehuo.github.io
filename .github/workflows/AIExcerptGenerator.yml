@@ -12,7 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 1
+        fetch-depth: 2
     
     - name: 
       id: get_changed_files
@@ -20,20 +20,24 @@ jobs:
         git show --name-status --oneline HEAD | grep "^A" | grep "_posts/" | awk '{print $2}' > changed_files.txt
         cat changed_files.txt
     
-    - name: Run excerptor.sh on new files
-      env:
-        API_KEY: ${{ secrets.DS_API_KEY }}
+    - name: print changed files
       run: |
-        export API_KEY=$API_KEY
-        while IFS= read -r file; do
-          echo "Processing $file"
-          bash ".github/workflows/excerptor.sh" "$file"
-        done < changed_files.txt
+        cat changed_files.txt
 
-    - name: Commit and push changes
-      run: |
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
-        git add _posts/
-        git commit -m "Add excerpts to new posts"
-        git push
+    # - name: Run excerptor.sh on new files
+    #   env:
+    #     API_KEY: ${{ secrets.DS_API_KEY }}
+    #   run: |
+    #     export API_KEY=$API_KEY
+    #     while IFS= read -r file; do
+    #       echo "Processing $file"
+    #       bash ".github/workflows/excerptor.sh" "$file"
+    #     done < changed_files.txt
+
+    # - name: Commit and push changes
+    #   run: |
+    #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    #     git config --global user.name "github-actions[bot]"
+    #     git add _posts/
+    #     git commit -m "Add excerpts to new posts"
+    #     git push
