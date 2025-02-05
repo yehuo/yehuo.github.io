@@ -7,6 +7,8 @@ tags:
   - DeepSeek
 ---
 
+
+
 # DeepSeek API 初体验：使用 DeepSeek 为你的Github博客编写AI摘要
 
 从2022年开始，我就一直在写[个人技术博客](https://yehuo.github.io/)，前前后后写了接近100篇左右的技术分享，然后一直稳定运行在我的 github.io 上。
@@ -15,7 +17,8 @@ tags:
 
 但如何把自己辛勤耕耘了几千字的内容缩略成包含关键字的几十字摘要，对工科生显然是个比较烦人的事情，直到我想到了使用 DeepSeek。例如在我的[博客主页](https://yehuo.github.io/year-archive/)上，下面的几篇内容里，Kernel Tuning for Kubernetes 就是使用了 DeepSeek 来编写摘要的。
 
-![image-20250203135854235](/Users/sjxu/Library/Application Support/typora-user-images/image-20250203135854235.png)
+
+![blog](\images\20250205\blog.png)
 
 此外，为了更加便于使用英语词汇查询，使用英文编写摘要逐渐也被提上了日程。所以最理想状态就是能让 DeepSeek 同时总结和翻译写好的文章来形成摘要，但这往往意味着要做很多提示词，而如果是通过手工输入的方式和 DeepSeek 交互，这个过程显然会非常消耗人力，让写博客变成一个很不爽的事情。
 
@@ -155,7 +158,7 @@ echo "$yfm_content"$'\n'"$blog_content" > "$new_file"
 ./.github/workflows/excerptor.sh _posts/2025-01-25-DDIA-Chapter-02-Data-Model-and-DSL.md
 ```
 
-![image-20250205152955182](/Users/sjxu/Library/Application Support/typora-user-images/image-20250205152955182.png)
+![offline](\images\20250205\offline.jpg)
 
 这时候目录中就出现了对应的 `2025-01-25-DDIA-Chapter-02-Data-Model-and-DSL.bkp.md` 文件，里面对应的 frontmatter 如下：
 
@@ -178,15 +181,15 @@ excerpt: The blog excerpt discusses the evolution of data models, comparing rela
 - `xxx` 和 `test post` 是编写摘要的工作流，名称来源于使用的 commit 信息
 - `pages build and deployment` 是 github.io 渲染线上页面的工作流
 
-![image-20250205154651006](/Users/sjxu/Library/Application Support/typora-user-images/image-20250205154651006.png)
+![online1](\images\20250205\online1.png)
 
 打开一个编写摘要的工作流，还能看到具体所有子任务的执行状态和输出。
 
-![image-20250205154514475](/Users/sjxu/Library/Application Support/typora-user-images/image-20250205154514475.png)
+![online2](\images\20250205\online2.png)
 
 最后打开目录，就能看到包含 excerpt 的新博客。
 
-![image-20250205155115966](/Users/sjxu/Library/Application Support/typora-user-images/image-20250205155115966.png)
+![online3](\images\20250205\online3.png)
 
 ## 0x05 预期成本
 
