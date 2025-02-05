@@ -1,6 +1,7 @@
 ---
-title: "Use DeepSeek to excerpt your Github blog"
+title: "DeepSeek API 初体验：使用 DeepSeek 为你的Github博客编写AI摘要"
 date: 2025-02-05
+excerpt: "关于如何使用 DeepSeek 来为 GitHub 博客自动生成摘要。通过集成 DeepSeek API 和 GitHub Actions，来实现了新博客提交后自动生成摘要的工作流。从本地测试到线上部署都进行了清晰的操作说明，为开发节省了时间和精力。"
 categories:
   - AI
 tags:
@@ -8,8 +9,6 @@ tags:
 ---
 
 
-
-# DeepSeek API 初体验：使用 DeepSeek 为你的Github博客编写AI摘要
 
 从2022年开始，我就一直在写[个人技术博客](https://yehuo.github.io/)，前前后后写了接近100篇左右的技术分享，然后一直稳定运行在我的 github.io 上。
 
@@ -158,7 +157,7 @@ echo "$yfm_content"$'\n'"$blog_content" > "$new_file"
 ./.github/workflows/excerptor.sh _posts/2025-01-25-DDIA-Chapter-02-Data-Model-and-DSL.md
 ```
 
-![offline](\images\20250205\offline.jpg)
+![offline](\images\20250205\offline.png)
 
 这时候目录中就出现了对应的 `2025-01-25-DDIA-Chapter-02-Data-Model-and-DSL.bkp.md` 文件，里面对应的 frontmatter 如下：
 
