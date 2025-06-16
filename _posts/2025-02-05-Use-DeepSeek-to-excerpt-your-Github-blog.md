@@ -104,6 +104,7 @@ end_line=$((second_delim - 1))
 ...
 # 检查是否存在以"title:"开头的行，如果存在则提取title，否则提取文件名作为title
 ...
+
 # 如果不存在excerpt，提取文章内容
 blog_content=$(sed -n "$((end_line + 1)),\$p" "$file")
 

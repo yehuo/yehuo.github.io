@@ -1,10 +1,11 @@
 ---
-title: DDIA Chapter 05
+title: "DDIA Chapter 05 Replication"
 date: 2025-01-28
 categories:
   - Architect Desgin
 tags:
   - DDIA
+excerpt: The blog excerpt discusses the evolution of data models, comparing relational and document models, highlighting the limitations of each, and exploring the rise of NoSQL and graph data models for handling complex relationships like many-to-many.
 ---
 
 
@@ -25,7 +26,7 @@ tags:
 
 ## Synchronous vs Asynchronous
 
-`innobackupex`MySQL设置快照工具
+`innobackupex` MySQL设置快照工具
 
 `binlog coordinates` snapshot在MySQL日志中的位置
 

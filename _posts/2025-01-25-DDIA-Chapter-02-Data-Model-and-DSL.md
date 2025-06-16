@@ -1,5 +1,5 @@
 ---
-title: "DDIA Chapter 02 Data Model and DS"
+title: "DDIA Chapter 02 Data Models and Query Languages"
 date: 2025-01-25
 categories:
   - Architect Design
