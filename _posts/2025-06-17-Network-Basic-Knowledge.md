@@ -1,12 +1,11 @@
+---
 title: "计算机网络基础"
 date: 2025-06-17
 categories:
-
   - Network
-    tags:
+tags:
   - Basic
-    excerpt: "一些常见的计算机网络面试问题"
-
+excerpt: "一些常见的计算机网络面试问题"
 ---
 
 
